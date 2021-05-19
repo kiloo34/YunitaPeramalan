@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Mantri;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        // dd('masuk controller');
+        return view('mantri.dashboard', [
+            'title' => 'dashboard',
+            'subtitle' => '',
+            'active' => 'dashboard'
+        ]);
+    }
+}

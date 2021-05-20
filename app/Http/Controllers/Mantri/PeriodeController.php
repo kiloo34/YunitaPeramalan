@@ -18,7 +18,7 @@ class PeriodeController extends Controller
         return view('mantri.periode.index', [
             'title' => 'periode',
             'subtitle' => '',
-            'active' => 'periode',
+            'active' => 'produksi',
             'periode' => $periode
         ]);
     }
@@ -33,7 +33,7 @@ class PeriodeController extends Controller
         return view('mantri.periode.create', [
             'title' => 'periode',
             'subtitle' => 'create',
-            'active' => 'periode',
+            'active' => 'produksi',
         ]);
     }
 

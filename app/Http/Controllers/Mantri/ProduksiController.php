@@ -110,7 +110,7 @@ class ProduksiController extends Controller
                 'kecamatan_id' => $kecamatan->id,
             ]);
 
-        return redirect()->route('produksi.chart', $kecamatan->id)->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil ditambah');
+        return redirect()->route('produksi.index')->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil ditambah');
     }
 
     /**
@@ -208,7 +208,7 @@ class ProduksiController extends Controller
                 'permintaan' => $request->permintaan,
             ]);
 
-        return redirect()->route('produksi.chart', $kecamatan->id)->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+        return redirect()->route('produksi.index')->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
     }
 
     /**
@@ -237,9 +237,6 @@ class ProduksiController extends Controller
             ->select('produksi.*', 'periode.periode', 'periode.tahun')
             ->get();
 
-        // $produksi = Produksi::where('kecamatan_id', $kecamatan->id)
-        //     ->get();
-
         $chart = [];
         foreach ($produksi as $p) {
             $chart['label'][] = $p->tahun . ' T.' . $p->periode;
@@ -258,67 +255,34 @@ class ProduksiController extends Controller
 
     public function chartPermintaan(Kecamatan $kecamatan)
     {
+        $permintaan = \DB::table('permintaan')
+            ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
+            ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
+            ->join('produksi', function ($join) {
+                $join->on([
+                    ['produksi.periode_id', 'permintaan.periode_id'],
+                    ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
+                ]);
+            })
+            ->where('permintaan.kecamatan_id', $kecamatan->id)
+            ->select('permintaan.*', 'periode.periode', 'periode.tahun', 'produksi.harga', 'produksi.luas_panen')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        $chart = [];
+        foreach ($permintaan as $p) {
+            $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+            $chart['data'][] = (int) $p->permintaan;
+        }
+
         return view('mantri.produksi.permintaan', [
             'title' => 'produksi',
             'subtitle' => 'chart ' . $kecamatan->nama,
             'active' => 'produksi',
-            'kecamatan' => $kecamatan
+            'kecamatan' => $kecamatan,
+            'permintaan' => $permintaan,
+            'chart' => $chart
         ]);
     }
 }
-
-
-// $periode = \DB::table('produksi')
-//     ->select('periode', 'tahun')
-// ->whereIn('periode', function ($query) {
-//     $query->select('periode')
-//         ->from('produksi')
-//         ->groupBy('periode')
-//         ->havingRaw('COUNT(periode) > 1');
-// })
-// ->when()
-// ->whereIn('tahun', function ($query) {
-//     $query->select('id')
-//         ->from('produksi')
-//         ->groupBy('tahun')
-//         ->havingRaw('COUNT(*) > 1');
-// })
-// ->orderBy('tahun', 'asc')
-// ->get();
-
-// $dataProduksiKecamatan = \DB::table('produksi')
-//     ->join('kecamatan', 'kecamatan.id', '=', 'produksi.kecamatan_id')
-//     ->orderBy('tahun', 'asc')
-//     ->orderBy('periode', 'asc')
-//     ->select('kecamatan.*', 'produksi.produksi', 'produksi.tahun', 'produksi.periode')
-//     ->get();
-
-// $dataPermintaanKecamatan = \DB::table('permintaan')
-//     ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
-//     ->orderBy('tahun', 'asc')
-//     ->orderBy('periode', 'asc')
-//     ->select('kecamatan.*', 'permintaan.permintaan', 'permintaan.tahun', 'permintaan.periode')
-//     ->get();
-
-// dd($periode, $dataProduksiKecamatan, $dataPermintaanKecamatan);
-
-// $chart = new Chart
-// $produksi = \DB::table('produksi')
-//     ->join('kecamatan', 'kecamatan.id', '=', 'produksi.kecamatan_id')
-//     ->join('periode', 'periode.id', '=', 'produksi.periode_id')
-//     ->join('permintaan', function ($join) {
-//         $join->on([
-//             ['permintaan.periode_id', 'produksi.periode_id'],
-//             ['permintaan.kecamatan_id', 'produksi.kecamatan_id']
-//         ]);
-//     })
-//     ->orderBy('kecamatan.nama', 'asc')
-//     ->orderBy('periode.periode', 'asc')
-//     ->orderBy('periode.tahun', 'asc')
-//     ->get();
-
-// $chart = [];
-// foreach ($record as $row) {
-//     $chart['label'][] = $row->day_name;
-//     $chart['data'][] = (int) $row->count;
-// }

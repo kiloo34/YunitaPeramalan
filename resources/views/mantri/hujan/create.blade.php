@@ -52,20 +52,22 @@
 </div>
 @push('scripts')
 <script>
-    $("#bulan").datepicker({
-        autoclose: true,
-        minViewMode: 1,
-        format: 'MM',
-        onSelect: function(month) {
-            $('#bulan').text(month);
-        }
-    });
-    $("#tahun").datepicker({
-        autoclose: true,
-        format: "yyyy",
-        minViewMode: "years",
-    });
-
+    $(document).ready(function(){
+        $("#bulan").datepicker({
+            autoclose: true,
+            minViewMode: 1,
+            language: 'id',
+            format: 'MM',
+            onSelect: function(month) {
+                $('#bulan').text(month);
+            }
+        });
+        $("#tahun").datepicker({
+            autoclose: true,
+            format: "yyyy",
+            minViewMode: "years",
+        });
+    })
 </script>
 @endpush
 @endsection

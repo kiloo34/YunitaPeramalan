@@ -11,7 +11,7 @@ use Mantri\PeriodeController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
-
+use App\Http\Controllers\Mantri\PeramalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('periode', PeriodeController::class);
         //Profil
         Route::get('mantri', [ProfilController::class, 'index'])->name('mantri.index');
+        // Peramalan
+        Route::get('forcast/{kecamatan}/produksi', [PeramalanController::class, 'produksi'])->name('produksi.proses');
+        Route::get('forcast/{kecamatan}/permintaan', [PeramalanController::class, 'permintaan'])->name('permintaan.proses');
     });
 
     Route::group(['middleware' => ['role:holtikultura']], function () {

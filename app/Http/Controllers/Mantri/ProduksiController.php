@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Mantri;
 
+use App\Helpers\ForecastProduksi;
+use App\Helpers\Fungsi;
 use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
 use App\Produksi;
+use App\Helpers\RegresiLinear;
 use Illuminate\Http\Request;
 
 class ProduksiController extends Controller
@@ -227,7 +230,7 @@ class ProduksiController extends Controller
         return \DB::table('periode')->where('tahun', $tahun)->get();
     }
 
-    public function chartProduksi(Kecamatan $kecamatan)
+    public function chartProduksi(Request $request, Kecamatan $kecamatan)
     {
         $produksi = \DB::table('produksi')
             ->join('periode', 'produksi.periode_id', '=', 'periode.id')
@@ -237,10 +240,23 @@ class ProduksiController extends Controller
             ->select('produksi.*', 'periode.periode', 'periode.tahun')
             ->get();
 
+        dd($request->luas, $request->curah_hujan);
+
+        $fungsi = new Fungsi;
+        $x1 = $fungsi->getX1($kecamatan->id);
+        $x2 = $fungsi->getX2($kecamatan->id);
+        $y = $fungsi->getY($kecamatan->id);
+        // dd($x1, $x2, $y);
+
+        $val = new ForecastProduksi($x1, $x2, $y);
+
+        // dd($val);
+
         $chart = [];
         foreach ($produksi as $p) {
             $chart['label'][] = $p->tahun . ' T.' . $p->periode;
             $chart['data'][] = (int) $p->produksi;
+            $chart['data2'] = $val->res;
         }
         // dd($produksi, $chart);
         return view('mantri.produksi.produksi', [
@@ -249,7 +265,7 @@ class ProduksiController extends Controller
             'active' => 'produksi',
             'kecamatan' => $kecamatan,
             'produksi' => $produksi,
-            'chart' => $chart
+            'chart' => $chart,
         ]);
     }
 

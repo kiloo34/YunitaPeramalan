@@ -6,7 +6,8 @@
             <div class="card-header">
                 <h4>Chart Produksi {{$kecamatan->nama}}</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('produksi.index') }}" class="btn btn-danger">Kembali </a>
+                    <a href="{{ route('produksi.index') }}" class="btn btn-danger">Kembali</a>
+                    <a href="{{ route('produksi.proses', $kecamatan->id) }}" class="btn btn-primary">Hitung Prediksi</a>
                 </div>
             </div>
             <div class="card-body">
@@ -20,9 +21,6 @@
         <div class="card">
             <div class="card-header">
                 <h4>Daftar Produksi Kecamatan {{$kecamatan->nama}}</h4>
-                <div class="card-header-action">
-                    <a href="{{ route('produksi.create', $kecamatan->id) }}" class="btn btn-primary">Tambah</a>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -76,23 +74,33 @@
         type: 'line',
         data: {
             labels: @json($chart['label']),
-            datasets: [{
-                label: 'Statistics',
+            datasets: [
+            {
+                label: 'Aktual',
                 data: @json($chart['data']),
                 borderColor: '#6777ef',
                 borderWidth: 2.5,
                 pointBackgroundColor: '#ffffff',
                 pointRadius: 4
-            }]
+            },
+            {
+                label: 'Prediksi',
+                data: @json($chart['data2']),
+                borderColor: '#34ebd2',
+                borderWidth: 2.5,
+                pointBackgroundColor: '#ffffff',
+                pointRadius: 4
+            }
+            ]
         },
         options: {
             legend: {
-                display: false
+                display: true
             },
             scales: {
                 yAxes: [{
                     gridLines: {
-                        drawBorder: false,
+                        drawBorder: true,
                         color: '#f2f2f2',
                     },
                     ticks: {

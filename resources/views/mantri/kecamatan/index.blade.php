@@ -58,7 +58,6 @@
         });
 
         var id = $(this).data("id");
-        // var url = $('.hapus').attr('href');
         var url = "{{ route('kecamatan.destroy', ":id") }}";
         url = url.replace(':id', id);
         $object=$(this);

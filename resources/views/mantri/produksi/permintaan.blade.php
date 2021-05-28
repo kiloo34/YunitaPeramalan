@@ -7,6 +7,7 @@
                 <h4>Chart Permintaan {{$kecamatan->nama}}</h4>
                 <div class="card-header-action">
                     <a href="{{ route('produksi.index') }}" class="btn btn-danger">Kembali </a>
+                    <a href="{{ route('permintaan.proses') }}" class="btn btn-primary">Hitung Prediksi</a>
                 </div>
             </div>
             <div class="card-body">

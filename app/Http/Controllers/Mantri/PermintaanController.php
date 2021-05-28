@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mantri;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 
 class PermintaanController extends Controller
@@ -117,7 +118,7 @@ class PermintaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Kecamatan $kecamatan)
     {
         //
     }

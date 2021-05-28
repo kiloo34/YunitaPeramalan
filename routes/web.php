@@ -38,9 +38,9 @@ Route::middleware(['auth'])->group(function () {
         //Produksi
         Route::resource('produksi', ProduksiController::class, ['except' => 'create']);
         Route::get('produksi/create/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'create'])->name('produksi.create');
-        Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
-        Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
-        Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
+        // Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
+        // Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
+        // Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
         // Permintaan
         Route::resource('permintaan', PermintaanController::class);
         //Curah Hujan

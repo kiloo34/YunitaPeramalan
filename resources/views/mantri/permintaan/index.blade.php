@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<form action="{{ route('produksi.chart', $k->id) }}" class="modal-part" id="formProduksi">
+{{-- <form action="{{ route('produksi.chart', $k->id) }}" class="modal-part" id="formProduksi">
     @csrf
     <div class="form-group">
         <label>{{__('Luas Panen')}}</label>
@@ -74,8 +74,7 @@
         </span>
         @enderror
     </div>
-    {{-- <input type="hidden" name="kecamatan" class="kecamatan" value="{{$k->id}}"> --}}
-</form>
+</form> --}}
 
 @push('scripts')
 <script>

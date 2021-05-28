@@ -7,7 +7,7 @@
                 <h4>Data Permitaan</h4>
             </div>
             <div class="card-body">
-                <canvas id="chartproduksi"></canvas>
+                <canvas id="chartPermintaan"></canvas>
             </div>
         </div>
     </div>
@@ -33,13 +33,13 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{ucfirst($k->nama)}}</td>
-                                <td>{{count($produksi->where('kecamatan_id', $k->id))}}</td>
+                                <td>{{count($permintaan->where('kecamatan_id', $k->id))}}</td>
                                 <td>
-                                    <a href="{{ route('produksi.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> Tambah Data</a>
-                                    @if (count($produksi->where('kecamatan_id', $k->id)) > 0)
-                                    {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-produksi="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a> --}}
-                                    {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> produksi</a> --}}
-                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> Detail</a>
+                                    <a href="{{ route('permintaan.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> Tambah Data</a>
+                                    @if (count($permintaan->where('kecamatan_id', $k->id)) > 0)
+                                    {{-- <a href="{{ route('permintaan.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-permintaan="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a> --}}
+                                    {{-- <a href="{{ route('permintaan.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> Permintaan</a> --}}
+                                    <a href="{{ route('permintaan.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> Detail</a>
                                     @endif
 
                                 </td>
@@ -116,7 +116,7 @@
         //     ]
         // });
 
-        var ctx = document.getElementById("chartproduksi").getContext('2d');
+        var ctx = document.getElementById("chartPermintaan").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {

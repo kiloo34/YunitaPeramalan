@@ -8,6 +8,7 @@ use Mantri\ProduksiController;
 use Mantri\CurahHujanController;
 use Mantri\KecamatanController;
 use Mantri\PeriodeController;
+use Mantri\PermintaanController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
@@ -40,6 +41,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
         Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
         Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
+        // Permintaan
+        Route::resource('permintaan', PermintaanController::class);
         //Curah Hujan
         Route::resource('hujan', CurahHujanController::class);
         //Kecamatan

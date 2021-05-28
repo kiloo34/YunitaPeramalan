@@ -9,11 +9,17 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $periode = \DB::table('periode')->get();
+        $kecamatan = \DB::table('kecamatan')
+            ->orderBy('nama', 'asc')
+            ->get();
         // dd('masuk controller');
         return view('mantri.dashboard', [
             'title' => 'dashboard',
             'subtitle' => '',
-            'active' => 'dashboard'
+            'active' => 'dashboard',
+            'kecamatan' => $kecamatan,
+            'periode' => $periode
         ]);
     }
 }

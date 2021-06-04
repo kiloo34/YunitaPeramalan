@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 26, 2021 at 03:17 AM
+-- Generation Time: Jun 04, 2021 at 07:19 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -238,7 +238,12 @@ INSERT INTO `permintaan` (`id`, `permintaan`, `periode_id`, `kecamatan_id`, `cre
 (18, '41307', 12, 1, NULL, NULL),
 (19, '5308', 14, 1, NULL, NULL),
 (20, '15810', 15, 1, NULL, NULL),
-(21, '23157', 16, 1, NULL, NULL);
+(21, '23157', 16, 1, NULL, NULL),
+(22, '364', 1, 4, NULL, NULL),
+(23, '1749', 2, 4, NULL, NULL),
+(24, '49804', 1, 5, NULL, NULL),
+(25, '2956', 1, 3, NULL, NULL),
+(26, '76326', 2, 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,7 +287,12 @@ INSERT INTO `produksi` (`id`, `luas_panen`, `produksi`, `harga`, `periode_id`, `
 (18, '583', '40071', '13000', 12, 1, NULL, NULL),
 (19, '583', '4167', '12000', 14, 1, NULL, NULL),
 (20, '583', '14669', '12000', 15, 1, NULL, NULL),
-(21, '1025', '25153', '5000', 16, 1, NULL, NULL);
+(21, '1025', '25153', '5000', 16, 1, NULL, NULL),
+(22, '17', '79', '10000', 1, 4, NULL, NULL),
+(23, '17', '85', '23000', 2, 4, NULL, NULL),
+(24, '448', '51610', '7000', 1, 5, NULL, NULL),
+(25, '129', '1245', '18000', 1, 3, NULL, NULL),
+(26, '448', '74662', '17500', 2, 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -441,13 +451,13 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT for table `permintaan`
 --
 ALTER TABLE `permintaan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `roles`

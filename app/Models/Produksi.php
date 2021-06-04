@@ -10,8 +10,10 @@ class Produksi extends Model
 
     protected $fillable = [
         'produksi',
-        'luas_panen',
+        // 'luas_panen',
         'harga',
+        // 'kecamatan_id',
+        'periode_id'
     ];
 
     /**
@@ -21,7 +23,7 @@ class Produksi extends Model
      */
     public function kecamatan()
     {
-        return $this->belongsTo('App\Models\Kecamatan');
+        return $this->hasOne('App\Models\Kecamatan');
     }
 
     /**
@@ -31,6 +33,6 @@ class Produksi extends Model
      */
     public function periode()
     {
-        return $this->belongsTo('App\Models\Periode');
+        return $this->hasOne('App\Models\Periode');
     }
 }

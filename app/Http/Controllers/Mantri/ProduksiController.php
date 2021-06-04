@@ -186,7 +186,50 @@ class ProduksiController extends Controller
      */
     public function show($id)
     {
-        //
+        $periode = \DB::table('periode')
+            ->orderBy('tahun', 'desc')
+            ->orderBy('periode', 'desc')
+            ->limit(20)
+            ->get();
+        $kecamatan = \DB::table('kecamatan')
+            ->where('id', $id)
+            ->first();
+        $produksi = \DB::table('produksi')
+            ->where('kecamatan_id', $kecamatan->id)
+            ->join('periode', 'periode.id', '=', 'produksi.periode_id')
+            ->select('produksi.produksi', 'produksi.harga', 'produksi.luas_panen', 'periode.periode', 'periode.tahun')
+            ->orderBy('tahun', 'desc')
+            ->orderBy('periode', 'desc')
+            ->limit(20)
+            ->get();
+
+        foreach ($periode as $p) {
+            $data = \DB::table('produksi')
+                ->join('periode', 'periode.id', '=', 'produksi.periode_id')
+                ->where('kecamatan_id', $id)
+                ->where([
+                    ['periode.periode', $p->periode],
+                    ['periode.tahun', $p->tahun]
+                ])
+                ->select('produksi.*', 'periode.periode', 'periode.tahun')
+                ->orderBy('tahun', 'desc')
+                ->orderBy('periode', 'desc')
+                ->first();
+
+            // $chart['labels'][] = P;
+            $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+            $chart['data'][] = (int) $data->produksi;
+        }
+
+        // dd($kecamatan, $produksi, $chart);
+        return view('mantri.produksi.detail', [
+            'title' => 'produksi',
+            'subtitle' => 'detail',
+            'active' => 'produksi',
+            'produksi' => $produksi,
+            'kecamatan' => $kecamatan,
+            'chart' => $chart,
+        ]);
     }
 
     /**
@@ -291,51 +334,4 @@ class ProduksiController extends Controller
     {
         return \DB::table('periode')->where('tahun', $tahun)->get();
     }
-
-    // public function chartProduksi(Request $request, Kecamatan $kecamatan)
-    // {
-    //     $periode = \DB::table('periode')
-    //         ->orderBy('tahun', 'desc')
-    //         ->orderBy('periode', 'desc')
-    //         ->limit(20)
-    //         ->get();
-
-    //     $produksi = \DB::table('produksi')
-    //         ->join('periode', 'produksi.periode_id', '=', 'periode.id')
-    //         ->where('kecamatan_id', $kecamatan->id)
-    //         ->orderBy('tahun', 'asc')
-    //         ->orderBy('periode.periode', 'asc')
-    //         ->select('produksi.*', 'periode.periode', 'periode.tahun')
-    //         ->limit(20)
-    //         ->get();
-
-    //     dd($request->luas, $request->curah_hujan);
-
-    //     $fungsi = new Fungsi;
-    //     $x1 = $fungsi->getX1($kecamatan->id);
-    //     $x2 = $fungsi->getX2($kecamatan->id);
-    //     $y = $fungsi->getY($kecamatan->id);
-    //     // dd($x1, $x2, $y);
-
-    //     $val = new ForecastProduksi($x1, $x2, $y);
-
-    //     // dd($val);
-
-    //     $chart = [];
-    //     foreach ($produksi as $p) {
-    //         $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-    //         $chart['data'][] = (int) $p->produksi;
-    //         $chart['data2'] = $val->res;
-    //     }
-    //     // dd($produksi, $chart);
-    //     return view('mantri.produksi.produksi', [
-    //         'title' => 'produksi',
-    //         'subtitle' => 'chart ' . $kecamatan->nama,
-    //         'active' => 'produksi',
-    //         'kecamatan' => $kecamatan,
-    //         'produksi' => $produksi,
-    //         'chart' => $chart,
-
-    //     ]);
-    // }
 }

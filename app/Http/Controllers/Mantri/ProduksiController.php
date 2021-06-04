@@ -287,10 +287,10 @@ class ProduksiController extends Controller
         //
     }
 
-    // public function getPeriode($tahun)
-    // {
-    //     return \DB::table('periode')->where('tahun', $tahun)->get();
-    // }
+    public function getPeriode($tahun)
+    {
+        return \DB::table('periode')->where('tahun', $tahun)->get();
+    }
 
     // public function chartProduksi(Request $request, Kecamatan $kecamatan)
     // {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mantri;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
+use App\Models\Permintaan;
 use Illuminate\Http\Request;
 
 class PermintaanController extends Controller
@@ -120,7 +121,14 @@ class PermintaanController extends Controller
      */
     public function create(Kecamatan $kecamatan)
     {
-        //
+        $periode = \DB::table('periode')->get();
+        return view('mantri.permintaan.create', [
+            'title' => 'produksi',
+            'subtitle' => 'create',
+            'active' => 'produksi',
+            'kecamatan' => $kecamatan,
+            'periode' => $periode
+        ]);
     }
 
     /**
@@ -151,9 +159,23 @@ class PermintaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permintaan $permintaan)
     {
-        //
+        $permintaan = \DB::table('permintaan')
+            ->where([
+                ['periode_id', $permintaan->periode_id],
+                ['kecamatan_id', $permintaan->kecamatan_id],
+            ])->first();
+        $kecamatan = \DB::table('kecamatan')->get();
+        // dd($permintaan, $permintaan->permintaan);
+        return view('mantri.permintaan.edit', [
+            'title' => 'permintaan',
+            'subtitle' => 'edit',
+            'active' => 'permintaan',
+            'permintaan' => $permintaan,
+            'permintaan' => $permintaan,
+            'kecamatan' => $kecamatan
+        ]);
     }
 
     /**
@@ -179,36 +201,36 @@ class PermintaanController extends Controller
         //
     }
 
-    public function chartPermintaan(Kecamatan $kecamatan)
-    {
-        $permintaan = \DB::table('permintaan')
-            ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
-            ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-            ->join('produksi', function ($join) {
-                $join->on([
-                    ['produksi.periode_id', 'permintaan.periode_id'],
-                    ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
-                ]);
-            })
-            ->where('permintaan.kecamatan_id', $kecamatan->id)
-            ->select('permintaan.*', 'periode.periode', 'periode.tahun', 'produksi.harga', 'produksi.luas_panen')
-            ->orderBy('tahun', 'asc')
-            ->orderBy('periode', 'asc')
-            ->get();
+    // public function chartPermintaan(Kecamatan $kecamatan)
+    // {
+    //     $permintaan = \DB::table('permintaan')
+    //         ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
+    //         ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
+    //         ->join('produksi', function ($join) {
+    //             $join->on([
+    //                 ['produksi.periode_id', 'permintaan.periode_id'],
+    //                 ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
+    //             ]);
+    //         })
+    //         ->where('permintaan.kecamatan_id', $kecamatan->id)
+    //         ->select('permintaan.*', 'periode.periode', 'periode.tahun', 'produksi.harga', 'produksi.luas_panen')
+    //         ->orderBy('tahun', 'asc')
+    //         ->orderBy('periode', 'asc')
+    //         ->get();
 
-        $chart = [];
-        foreach ($permintaan as $p) {
-            $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-            $chart['data'][] = (int) $p->permintaan;
-        }
+    //     $chart = [];
+    //     foreach ($permintaan as $p) {
+    //         $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+    //         $chart['data'][] = (int) $p->permintaan;
+    //     }
 
-        return view('mantri.produksi.permintaan', [
-            'title' => 'produksi',
-            'subtitle' => 'chart ' . $kecamatan->nama,
-            'active' => 'produksi',
-            'kecamatan' => $kecamatan,
-            'permintaan' => $permintaan,
-            'chart' => $chart
-        ]);
-    }
+    //     return view('mantri.produksi.permintaan', [
+    //         'title' => 'produksi',
+    //         'subtitle' => 'chart ' . $kecamatan->nama,
+    //         'active' => 'produksi',
+    //         'kecamatan' => $kecamatan,
+    //         'permintaan' => $permintaan,
+    //         'chart' => $chart
+    //     ]);
+    // }
 }

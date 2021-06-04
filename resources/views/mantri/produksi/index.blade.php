@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Data Permitaan</h4>
+                <h4>Data {{ucfirst($title)}}</h4>
             </div>
             <div class="card-body">
                 <canvas id="chartproduksi"></canvas>
@@ -16,7 +16,7 @@
     <div class="col-md-12 ">
         <div class="card">
             <div class="card-header">
-                <h4>Daftar Kecamatan</h4>
+                <h4>{{__("Daftar Kecamatan")}}</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -35,11 +35,11 @@
                                 <td>{{ucfirst($k->nama)}}</td>
                                 <td>{{count($produksi->where('kecamatan_id', $k->id))}}</td>
                                 <td>
-                                    <a href="{{ route('produksi.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> Tambah Data</a>
+                                    <a href="{{ route('produksi.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> {{__("Tambah Data")}}</a>
                                     @if (count($produksi->where('kecamatan_id', $k->id)) > 0)
                                     {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-produksi="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a> --}}
                                     {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> produksi</a> --}}
-                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> Detail</a>
+                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
                                     @endif
 
                                 </td>
@@ -81,40 +81,6 @@
     $(document).ready(function() {
         $('#produksi').DataTable();
 
-        // $("#produksiModal").fireModal({
-        //     title: 'Data Produksi',
-        //     body: $("#formProduksi"),
-        //     footerClass: 'bg-whitesmoke',
-        //     autoFocus: false,
-        //     onFormSubmit: function(modal, e, form) {
-        //         // Form Data
-        //         let form_data = $(e.target).serialize();
-        //         console.log(form_data)
-
-        //         // DO AJAX HERE
-        //         let submit = setTimeout(function() {
-        //             form.stopProgress();
-        //             modal.find('.modal-body').prepend('<div class="alert alert-info">Please check your browser console</div>')
-        //             clearInterval(submit);
-        //         }, 5000);
-
-        //         e.preventDefault();
-        //     },
-        //     shown: function(modal, form) {
-        //         console.log(form)
-        //     },
-        //     buttons: [
-        //         {
-        //             text: 'Hitung',
-        //             submit: true,
-        //             class: 'btn btn-primary btn-shadow',
-        //             handler: function(modal) {
-
-        //             }
-        //         }
-        //     ]
-        // });
-
         var ctx = document.getElementById("chartproduksi").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -123,7 +89,7 @@
                 datasets: [
                     @foreach ($chart as $c)
                     {
-                        label: @json($c['kecamatan']) ,
+                        label: @json(ucfirst($c['kecamatan'])) ,
                         data: @json($c['data']),
                         borderColor: '#'+Math.floor(Math.random()*16777215).toString(16),
                         backgroundColor: '#'+Math.floor(Math.random()*16777215).toString(16),
@@ -133,29 +99,32 @@
                 ]
             },
             options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: @json(ucfirst($title)),
+                    }
+                },
                 legend: {
                     display: true
                 },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                            color: '#f2f2f2',
-                        },
-                        ticks: {
-                            beginAtZero: true,
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            display: true
-                        },
-                        gridLines: {
-                            display: false
-                        }
-                    }]
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
                 },
-            }
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
+                    }
+                },
+            },
         });
     });
 </script>

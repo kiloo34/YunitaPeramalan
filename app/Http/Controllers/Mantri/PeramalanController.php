@@ -11,43 +11,37 @@ use Illuminate\Http\Request;
 
 class PeramalanController extends Controller
 {
-    // public function __construct($x = null, $y = null)
-    // {
-    //     if (!is_null($x) && !is_null($y)) {
-    //         $this->x = $x;
-    //         $this->y = $y;
-    //         $this->compute();
-    //     }
-    // }
 
-    public function produksi(Kecamatan $kecamatan)
+    public function produksi()
     {
-        $fungsi = new Fungsi;
-        $x1 = $fungsi->getX1($kecamatan->id);
-        $x2 = $fungsi->getX2($kecamatan->id);
-        $y = $fungsi->getY($kecamatan->id);
-        // dd($x1, $x2, $y);
+        $kecamatan = \DB::table('kecamatan')->get();
+        // $fungsi = new Fungsi;
+        // $x1 = $fungsi->getX1($kecamatan->id);
+        // $x2 = $fungsi->getX2($kecamatan->id);
+        // $y = $fungsi->getY($kecamatan->id);
 
-        $val = new ForecastProduksi($x1, $x2, $y);
+        // $kecamatan = null;
+        // $val = new ForecastProduksi($x1, $x2, $y);
         // dd($val->res);
+        // dd($kecamatan);
         return view('mantri.peramalan.produksi', [
-            'title' => 'produksi',
-            'subtitle' => 'peramalan',
-            'active' => 'produksi',
-            'data' => $val
+            'title' => 'Peramalan Produksi',
+            'subtitle' => '',
+            'active' => 'forePro',
+            'kecamatan' => $kecamatan
         ]);
     }
 
     public function permintaan()
     {
-        $x = \DB::table('users');
-        $y = \DB::table('users');
-        // $res = new RegresiLinear();
+
+        $kecamatan = null;
+
         return view('mantri.peramalan.permintaan', [
-            'title' => 'produksi',
-            'subtitle' => 'peramalan',
-            'active' => 'produksi',
-            'data' => $res
+            'title' => 'Peramalan Permintaan',
+            'subtitle' => '',
+            'active' => 'forePer',
+            // 'data' => $res
         ]);
     }
 }

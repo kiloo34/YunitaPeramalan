@@ -9,10 +9,10 @@ use Mantri\CurahHujanController;
 use Mantri\KecamatanController;
 use Mantri\PeriodeController;
 use Mantri\PermintaanController;
+use App\Http\Controllers\Mantri\PeramalanController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
-use App\Http\Controllers\Mantri\PeramalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
         //Produksi
         Route::resource('produksi', ProduksiController::class, ['except' => 'create']);
         Route::get('produksi/create/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'create'])->name('produksi.create');
-        // Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
+        Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
         // Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
         // Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
         // Permintaan
@@ -52,8 +52,8 @@ Route::middleware(['auth'])->group(function () {
         //Profil
         Route::get('mantri', [ProfilController::class, 'index'])->name('mantri.index');
         // Peramalan
-        Route::get('forcast/{kecamatan}/produksi', [PeramalanController::class, 'produksi'])->name('produksi.proses');
-        Route::get('forcast/{kecamatan}/permintaan', [PeramalanController::class, 'permintaan'])->name('permintaan.proses');
+        Route::get('forecast/produksi', [PeramalanController::class, 'produksi'])->name('produksi.proses');
+        Route::get('forecast/permintaan', [PeramalanController::class, 'permintaan'])->name('permintaan.proses');
     });
 
     Route::group(['middleware' => ['role:holtikultura']], function () {

@@ -20,7 +20,7 @@ class Periode extends Model
      */
     public function produksi()
     {
-        return $this->hasOne('App\Models\Produksi');
+        return $this->hasMany('App\Models\Produksi');
     }
 
     /**
@@ -30,6 +30,6 @@ class Periode extends Model
      */
     public function permintaan()
     {
-        return $this->hasOne('App\Models\Permintaan');
+        return $this->hasMany('App\Models\Permintaan');
     }
 }

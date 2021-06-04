@@ -6,8 +6,8 @@ use App\Helpers\ForecastProduksi;
 use App\Helpers\Fungsi;
 use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
-use App\Produksi;
 use App\Helpers\RegresiLinear;
+use App\Models\Produksi;
 use Illuminate\Http\Request;
 
 class ProduksiController extends Controller
@@ -240,11 +240,13 @@ class ProduksiController extends Controller
      */
     public function edit(Produksi $produksi)
     {
+        // dd($produksi->kecamatan->nama);
         $permintaan = \DB::table('permintaan')
             ->where([
-                ['periode_id', $produksi->periode_id],
-                ['kecamatan_id', $produksi->kecamatan_id],
+                ['periode_id', $produksi->periode->id],
+                ['kecamatan_id', $produksi->kecamatan->id],
             ])->first();
+        // dd($permintaan);
         $kecamatan = \DB::table('kecamatan')->get();
         // dd($produksi, $permintaan->permintaan);
         return view('mantri.produksi.edit', [

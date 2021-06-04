@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class Produksi extends Model
      */
     public function kecamatan()
     {
-        return $this->hasOne('App\Models\Kecamatan');
+        return $this->belongsTo('App\Models\Kecamatan');
     }
 
     /**
@@ -33,6 +33,6 @@ class Produksi extends Model
      */
     public function periode()
     {
-        return $this->hasOne('App\Models\Periode');
+        return $this->belongsTo('App\Models\Periode');
     }
 }

@@ -62,7 +62,7 @@
         // var url = $('.hapus').attr('href');
         var url = "{{ route('hujan.destroy', ":id") }}";
         url = url.replace(':id', id);
-        // $object=$(this);
+        $object=$(this);
 
         Swal.fire({
             title: 'Are you sure?',

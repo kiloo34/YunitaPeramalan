@@ -38,7 +38,11 @@
                                 <td>{{number_format($p->permintaan)}}</td>
                                 <td>
                                     <a href="{{ route('permintaan.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>
-                                    <a href="{{ route('permintaan.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-danger"><i class="far fa-trash"></i> {{__("Hapus")}}</a>
+                                    <a href="{{ route('permintaan.destroy', $p->id) }}"
+                                        class="btn btn-sm btn-danger hapus" data-toggle="tooltip" data-placement="top"
+                                        title="Hapus Data" data-id="{{ $p->id }}">
+                                        <i class="fa fa-trash"></i> Hapus
+                                    </a>
                                 </td>
                                 <?php $no++; ?>
                             </tr>
@@ -98,6 +102,55 @@
             },
         });
     });
+    $('.hapus').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var id = $(this).data("id");
+        // var url = $('.hapus').attr('href');
+        var url = "{{ route('permintaan.destroy', ":id") }}";
+        url = url.replace(':id', id);
+        $object=$(this);
+        console.log(url, id);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Yakin ingin menghapus data ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {id: id},
+                    success: function (response) {
+                        $($object).parents('tr').remove();
+                        Swal.fire({
+                            title: "Data Dihapus!",
+                            text: response.message,
+                            icon: 'success',
+                        });
+                        location.reload();
+                    },
+                    error: function (data) {
+                        Swal.fire({
+                            title: "Data Gagal Dihapus!",
+                            icon: 'error',
+                        })
+                    }
+                });
+            }
+        });
+    })
 </script>
 @endpush
 @endsection

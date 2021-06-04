@@ -45,60 +45,16 @@
                         @enderror
                     </div>
                     <div class="section-title">permintaan</div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label>Jumlah permintaan (KW)</label>
-                                <input name="permintaan" type="text" class="form-control @error('permintaan') is-invalid @enderror"
-                                    value="{{ $permintaan->permintaan }}" autocomplete="permintaan" autofocus>
-                                @error('permintaan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label>Luas Lahan (HA)</label>
-                                <input name="luas" type="text" class="form-control @error('luas') is-invalid @enderror"
-                                    value="{{$permintaan->luas_panen}}" autocomplete="luas" autofocus>
-                                @error('luas')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label>Jumlah Permintaan (KW)</label>
-                                <input name="permintaan" type="text" class="form-control @error('permintaan') is-invalid @enderror"
-                                    value="{{$permintaan->permintaan}}" autocomplete="permintaan" autofocus>
-                                @error('permintaan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-group">
-                        <label>Harga</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    Rp.
-                                </div>
-                            </div>
-                            <input name="harga" id="harga" type="text" class="form-control @error('harga') is-invalid @enderror"
-                            value="{{$permintaan->harga}}" autocomplete="harga" autofocus>
-                            @error('harga')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+                        <label>Jumlah Permintaan (KW)</label>
+                        <input name="permintaan" type="text" class="form-control @error('permintaan') is-invalid @enderror"
+                            value="{{$permintaan->permintaan}}" autocomplete="permintaan" autofocus>
+                        @error('permintaan')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <input type="submit" class="btn btn-primary float-right" value="Ubah">
                 </form>
@@ -109,15 +65,7 @@
 </div>
 @push('scripts')
 <script>
-    $(document).ready(function(){
-        new Cleave('#harga', {
-            numeral: true,
-            numeralThousandsGroupStyle: 'thousand',
-            numeralPositiveOnly: true,
-
-        });
-    });
 </script>
 @endpush
 @endsection
-@include('import.cleave')
+

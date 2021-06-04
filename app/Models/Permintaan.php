@@ -12,7 +12,7 @@ class Permintaan extends Model
         'permintaan',
         // 'kecamatan_id',
         // 'periode_id',
-        'harga',
+        // 'harga',
     ];
 
     /**

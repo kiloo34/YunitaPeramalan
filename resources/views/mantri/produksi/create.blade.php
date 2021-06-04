@@ -44,7 +44,7 @@
                     </div>
                     <div class="section-title">Produksi</div>
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Jumlah Produksi (KW)</label>
                                 <input name="produksi" type="text" class="form-control @error('produksi') is-invalid @enderror"
@@ -56,24 +56,12 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Luas Lahan (HA)</label>
                                 <input name="luas" type="text" class="form-control @error('luas') is-invalid @enderror"
                                     value="{{ old('luas') }}" autocomplete="luas" autofocus>
                                 @error('luas')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label>Jumlah Permintaan (KW)</label>
-                                <input name="permintaan" type="text" class="form-control @error('permintaan') is-invalid @enderror"
-                                    value="{{ old('permintaan') }}" autocomplete="permintaan" autofocus>
-                                @error('permintaan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

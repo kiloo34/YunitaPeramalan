@@ -42,7 +42,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
         // Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
         // Permintaan
-        Route::resource('permintaan', PermintaanController::class);
+        Route::resource('permintaan', PermintaanController::class, ['except' => 'create']);
+        Route::get('permintaan/create/{kecamatan}', [App\Http\Controllers\Mantri\PermintaanController::class, 'create'])->name('permintaan.create');
         //Curah Hujan
         Route::resource('hujan', CurahHujanController::class);
         //Kecamatan

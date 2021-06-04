@@ -9,7 +9,6 @@ class Kecamatan extends Model
     protected $table = 'kecamatan';
 
     protected $fillable = [
-        // 'id',
         'nama',
     ];
 
@@ -20,7 +19,7 @@ class Kecamatan extends Model
      */
     public function produksi()
     {
-        return $this->belongsTo('App\Models\Produksi');
+        return $this->hasMany('App\Models\Produksi');
     }
 
     /**
@@ -30,6 +29,6 @@ class Kecamatan extends Model
      */
     public function permintaan()
     {
-        return $this->belongsTo('App\Models\Permintaan');
+        return $this->hasMany('App\Models\Permintaan');
     }
 }

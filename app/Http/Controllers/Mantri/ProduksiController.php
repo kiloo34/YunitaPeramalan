@@ -78,7 +78,7 @@ class ProduksiController extends Controller
             }
         }
 
-        // dd($chart);
+        // dd(count($produksi));
         return view('mantri.produksi.index', [
             'title' => 'produksi',
             'subtitle' => '',
@@ -159,22 +159,6 @@ class ProduksiController extends Controller
                 'harga' => $request->harga,
             ]);
 
-        if ($request->permintaan == null) {
-            \DB::table('permintaan')
-                ->insert([
-                    'periode_id' => $request->periode,
-                    'permintaan' => 0,
-                    'kecamatan_id' => $kecamatan->id,
-                ]);
-        } else {
-            \DB::table('permintaan')
-                ->insert([
-                    'periode_id' => $request->periode,
-                    'permintaan' => $request->permintaan,
-                    'kecamatan_id' => $kecamatan->id,
-                ]);
-        }
-
         return redirect()->route('produksi.index')->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil ditambah');
     }
 
@@ -202,7 +186,9 @@ class ProduksiController extends Controller
             ->orderBy('periode', 'desc')
             ->limit(20)
             ->get();
-
+        if (count($produksi) == 0) {
+            return redirect()->route('produksi.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak ditemukan');
+        }
         foreach ($periode as $p) {
             $data = \DB::table('produksi')
                 ->join('periode', 'periode.id', '=', 'produksi.periode_id')
@@ -221,7 +207,7 @@ class ProduksiController extends Controller
             }
         }
 
-        // dd($kecamatan, $produksi, $chart);
+
         return view('mantri.produksi.detail', [
             'title' => 'produksi',
             'subtitle' => 'detail',
@@ -329,7 +315,11 @@ class ProduksiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $target = \DB::table('produksi')->where('id', $id);
+        $target->delete();
+        return response()->json([
+            'message' => 'Data Produksi berhasil dihapus!'
+        ]);
     }
 
     public function getPeriode($tahun)

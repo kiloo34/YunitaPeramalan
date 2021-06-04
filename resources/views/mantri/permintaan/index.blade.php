@@ -37,8 +37,6 @@
                                 <td>
                                     <a href="{{ route('permintaan.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> {{__("Tambah Data")}}</a>
                                     @if (count($permintaan->where('kecamatan_id', $k->id)) > 0)
-                                    {{-- <a href="{{ route('permintaan.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-permintaan="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a> --}}
-                                    {{-- <a href="{{ route('permintaan.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> Permintaan</a> --}}
                                     <a href="{{ route('permintaan.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
                                     @endif
 

@@ -28,13 +28,13 @@ class PermintaanController extends Controller
         $permintaan = \DB::table('permintaan')
             ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
             ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-            ->join('produksi', function ($join) {
-                $join->on([
-                    ['produksi.periode_id', 'permintaan.periode_id'],
-                    ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
-                ]);
-            })
-            ->select('permintaan.*', 'periode.periode', 'periode.tahun', 'produksi.harga', 'produksi.luas_panen')
+            // ->join('produksi', function ($join) {
+            //     $join->on([
+            //         ['produksi.periode_id', 'permintaan.periode_id'],
+            //         ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
+            //     ]);
+            // })
+            ->select('permintaan.*', 'periode.periode', 'periode.tahun')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
             ->get();
@@ -65,20 +65,16 @@ class PermintaanController extends Controller
 
             $chart[$i]['kecamatan'] = $kecamatan[$i]->nama;
 
-            // foreach ($label as $l) {
-            //     $chart[$i]['label'][] = $l;
-            // }
-
             foreach ($periode as $p) {
                 $data = \DB::table('permintaan')
                     ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
                     ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-                    ->join('produksi', function ($join) {
-                        $join->on([
-                            ['produksi.periode_id', 'permintaan.periode_id'],
-                            ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
-                        ]);
-                    })
+                    // ->join('produksi', function ($join) {
+                    //     $join->on([
+                    //         ['produksi.periode_id', 'permintaan.periode_id'],
+                    //         ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
+                    //     ]);
+                    // })
                     ->where('permintaan.kecamatan_id', $kecamatan[$i]->id)
                     ->where([
                         ['periode.periode', $p->periode],
@@ -102,6 +98,8 @@ class PermintaanController extends Controller
             }
         }
 
+        // dd(count($permintaan));
+
         return view('mantri.permintaan.index', [
             'title' => 'permintaan',
             'subtitle' => '',
@@ -121,11 +119,12 @@ class PermintaanController extends Controller
      */
     public function create(Kecamatan $kecamatan)
     {
+        // dd($kecamatan);
         $periode = \DB::table('periode')->get();
         return view('mantri.permintaan.create', [
-            'title' => 'produksi',
+            'title' => 'permintaan',
             'subtitle' => 'create',
-            'active' => 'produksi',
+            'active' => 'permintaan',
             'kecamatan' => $kecamatan,
             'periode' => $periode
         ]);
@@ -139,7 +138,44 @@ class PermintaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kecamatan = \DB::table('kecamatan')
+            ->where('nama', $request->kecamatan)
+            ->select('id')
+            ->first();
+
+        $target = Permintaan::where([
+            ['periode_id', $request->periode],
+            ['kecamatan_id', $kecamatan->id]
+        ])->first();
+
+        if ($target) {
+            return redirect()->back()->with('error_msg', 'Data Permintaan Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' Sudah tersedia');
+        }
+
+        $request->validate([
+            'periode' => 'required|numeric',
+            'tahun' => 'required',
+            'kecamatan' => 'required',
+            'permintaan' => 'required|numeric',
+
+        ], [
+            'periode.required' => 'Bulan harap diisi',
+            'periode.numeric' => 'Periode harus angka',
+            'tahun.required' => 'Tahun harap diisi',
+            'kecamatan.required' => 'kecamatan harap diisi',
+            'permintaan.required' => 'Permintaan harap diisi',
+            'permintaan.numeric' => 'Permintaan harus angka',
+        ]);
+
+        // dd($kecamatan, $request->periode, $request->permintaan);
+        \DB::table('permintaan')
+            ->insert([
+                'periode_id' => $request->periode,
+                'permintaan' => $request->permintaan,
+                'kecamatan_id' => $kecamatan->id,
+            ]);
+
+        return redirect()->route('permintaan.index')->with('success_msg', 'Data Permintaan Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil ditambah');
     }
 
     /**
@@ -161,17 +197,15 @@ class PermintaanController extends Controller
 
         $permintaan = \DB::table('permintaan')
             ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-            // ->join('produksi', function ($join) {
-            //     $join->on([
-            //         ['produksi.periode_id', 'permintaan.periode_id'],
-            //         ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
-            //     ]);
-            // })
             ->where('kecamatan_id', $id)
             ->select('permintaan.*', 'periode.periode', 'periode.tahun')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
             ->get();
+
+        if (count($permintaan) == 0) {
+            return redirect()->route('permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak ditemukan');
+        }
 
         foreach ($periode as $p) {
             $data = \DB::table('permintaan')
@@ -211,18 +245,12 @@ class PermintaanController extends Controller
      */
     public function edit(Permintaan $permintaan)
     {
-        $permintaan = \DB::table('permintaan')
-            ->where([
-                ['periode_id', $permintaan->periode_id],
-                ['kecamatan_id', $permintaan->kecamatan_id],
-            ])->first();
         $kecamatan = \DB::table('kecamatan')->get();
-        // dd($permintaan, $permintaan->permintaan);
+
         return view('mantri.permintaan.edit', [
             'title' => 'permintaan',
             'subtitle' => 'edit',
             'active' => 'permintaan',
-            'permintaan' => $permintaan,
             'permintaan' => $permintaan,
             'kecamatan' => $kecamatan
         ]);
@@ -235,9 +263,40 @@ class PermintaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Permintaan $permintaan)
     {
-        //
+        $kecamatan = \DB::table('kecamatan')
+            ->where('nama', $request->kecamatan)
+            ->select('id')
+            ->first();
+        // dd($permintaan, $kecamatan);
+        $request->validate([
+            'periode' => 'required|numeric',
+            'tahun' => 'required',
+            'kecamatan' => 'required',
+            'permintaan' => 'required|numeric',
+            'permintaan' => 'required|numeric',
+        ], [
+            'periode.required' => 'Bulan harap diisi',
+            'periode.numeric' => 'Periode harus angka',
+            'tahun.required' => 'Tahun harap diisi',
+            'kecamatan.required' => 'kecamatan harap diisi',
+            'produksi.required' => 'Produksi harap diisi',
+            'produksi.numeric' => 'Produksi harus angka',
+            'permintaan.required' => 'Permintaan harap diisi',
+            'permintaan.numeric' => 'Permintaan harus angka',
+        ]);
+
+        \DB::table('permintaan')
+            ->where([
+                ['periode_id', $permintaan->periode_id],
+                ['kecamatan_id', $kecamatan->id]
+            ])
+            ->update([
+                'permintaan' => $request->permintaan,
+            ]);
+
+        return redirect()->route('permintaan.index')->with('success_msg', 'Data Permintaan Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
     }
 
     /**
@@ -248,6 +307,10 @@ class PermintaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $target = \DB::table('permintaan')->where('id', $id);
+        $target->delete();
+        return response()->json([
+            'message' => 'Data Permintaan berhasil dihapus!'
+        ]);
     }
 }

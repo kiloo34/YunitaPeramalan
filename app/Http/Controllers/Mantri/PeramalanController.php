@@ -64,7 +64,7 @@ class PeramalanController extends Controller
         for ($i = 0; $i < count($val->res); $i++) {
             $chart['ramal'][] = (int) $val->res[$i];
         }
-        dd($chart, $val->res);
+        // dd($chart, $val->res);
 
         return view('mantri.peramalan.hasilProduksi', [
             'title' => 'produksi',

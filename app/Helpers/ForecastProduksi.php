@@ -60,7 +60,7 @@ class ForecastProduksi
             if (count($this->x1) == count($this->y)) {
                 $this->n  = count($this->x1);
 
-                $this->prepare_calculation();
+                $this->prepare_calculation(); // Step tabel awal
                 // dd('x1 exponent', $this->x1ex, 'x2 exponent', $this->x2ex, 'y exponent', $this->yex, 'x1y exponent', $this->x1y, 'x2y exponent', $this->x2y, 'x1x2 exponent', $this->x1x2);
                 $this->aritmetika();
                 $this->ab1b2();

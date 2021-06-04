@@ -160,15 +160,15 @@ class PermintaanController extends Controller
             ->first();
 
         $permintaan = \DB::table('permintaan')
-            ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
             ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-            ->join('produksi', function ($join) {
-                $join->on([
-                    ['produksi.periode_id', 'permintaan.periode_id'],
-                    ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
-                ]);
-            })
-            ->select('permintaan.permintaan', 'periode.periode', 'periode.tahun', 'produksi.harga')
+            // ->join('produksi', function ($join) {
+            //     $join->on([
+            //         ['produksi.periode_id', 'permintaan.periode_id'],
+            //         ['produksi.kecamatan_id', 'permintaan.kecamatan_id']
+            //     ]);
+            // })
+            ->where('kecamatan_id', $id)
+            ->select('permintaan.*', 'periode.periode', 'periode.tahun')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
             ->get();
@@ -186,8 +186,10 @@ class PermintaanController extends Controller
                 ->orderBy('periode.periode', 'desc')
                 ->first();
 
-            $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-            $chart['data'][] = (int) $data->permintaan;
+            if ($data) {
+                $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+                $chart['data'][] = (int) $data->permintaan;
+            }
         }
 
         // dd($kecamatan, $permintaan, $chart);

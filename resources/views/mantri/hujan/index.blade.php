@@ -62,7 +62,7 @@
         // var url = $('.hapus').attr('href');
         var url = "{{ route('hujan.destroy', ":id") }}";
         url = url.replace(':id', id);
-        $object=$(this);
+        // $object=$(this);
 
         Swal.fire({
             title: 'Are you sure?',
@@ -72,7 +72,7 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Ya!'
-            }).then((result) => {
+        }).then((result) => {
             if (result.value) {
                 $.ajax({
                     url: url,

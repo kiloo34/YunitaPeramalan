@@ -36,10 +36,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Peramalan</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $active == 'forePro' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('produksi.proses') }}">Produksi</a>
+                        <a class="nav-link" href="{{ route('forecast.produksi.index') }}">Produksi</a>
                     </li>
                     <li class="{{ $active == 'forePer' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('permintaan.proses') }}">Permintaan</a>
+                        <a class="nav-link" href="{{ route('forecast.permintaan.index') }}">Permintaan</a>
                     </li>
                 </ul>
             </li>

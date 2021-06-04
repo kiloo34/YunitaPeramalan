@@ -197,7 +197,7 @@ class ProduksiController extends Controller
         $produksi = \DB::table('produksi')
             ->where('kecamatan_id', $kecamatan->id)
             ->join('periode', 'periode.id', '=', 'produksi.periode_id')
-            ->select('produksi.produksi', 'produksi.harga', 'produksi.luas_panen', 'periode.periode', 'periode.tahun')
+            ->select('produksi.id', 'produksi.produksi', 'produksi.harga', 'produksi.luas_panen', 'periode.periode', 'periode.tahun')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
             ->limit(20)
@@ -215,10 +215,10 @@ class ProduksiController extends Controller
                 ->orderBy('tahun', 'desc')
                 ->orderBy('periode', 'desc')
                 ->first();
-
-            // $chart['labels'][] = P;
-            $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-            $chart['data'][] = (int) $data->produksi;
+            if ($data) {
+                $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+                $chart['data'][] = (int) $data->produksi;
+            }
         }
 
         // dd($kecamatan, $produksi, $chart);

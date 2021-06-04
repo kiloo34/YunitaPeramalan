@@ -52,8 +52,10 @@ Route::middleware(['auth'])->group(function () {
         //Profil
         Route::get('mantri', [ProfilController::class, 'index'])->name('mantri.index');
         // Peramalan
-        Route::get('forecast/produksi', [PeramalanController::class, 'produksi'])->name('produksi.proses');
-        Route::get('forecast/permintaan', [PeramalanController::class, 'permintaan'])->name('permintaan.proses');
+        Route::get('forecast/produksi', [PeramalanController::class, 'produksi'])->name('forecast.produksi.index');
+        Route::post('forecast/produksi/{kecamatan}', [PeramalanController::class, 'prosesProduksi'])->name('forecast.produksi.proses');
+        Route::get('forecast/permintaan', [PeramalanController::class, 'permintaan'])->name('forecast.permintaan.index');
+        Route::post('forecast/permintaan/{kecamatan}', [PeramalanController::class, 'prosesPermintaan'])->name('forecast.permintaan.proses');
     });
 
     Route::group(['middleware' => ['role:holtikultura']], function () {

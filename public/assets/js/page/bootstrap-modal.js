@@ -96,3 +96,50 @@ $('.oh-my-modal').fireModal({
   title: 'My Modal',
   body: 'This is cool plugin!'
 });
+
+// $(this).attr('data-id')
+
+$('.produksiKecamatan').click(function () {
+    var deleteVal = $(this).attr('data-val');
+    console.log(deleteVal)
+
+    $('#myDeleteModal').modal({
+        show: true
+    });
+
+    $("input[name=delete_id]").val(deleteVal);
+
+});
+$(".produksiKecamatan").fireModal({
+  title: 'Form Produksi Kecamatan',
+  body: $(".formProduksiKecamatan-".$(this).attr('data-id')),
+  footerClass: 'bg-whitesmoke',
+  autoFocus: false,
+  onFormSubmit: function(modal, e, form) {
+    // Form Data
+    let form_data = $(e.target).serialize();
+    console.log(form_data)
+
+    // DO AJAX HERE
+    let fake_ajax = setTimeout(function() {
+      form.stopProgress();
+      modal.find('.modal-body').prepend('<div class="alert alert-info">Please check your browser console</div>')
+
+      clearInterval(fake_ajax);
+    }, 1500);
+
+    e.preventDefault();
+  },
+  shown: function(modal, form) {
+    console.log(form)
+  },
+  buttons: [
+    {
+      text: 'Login',
+      submit: true,
+      class: 'btn btn-primary btn-shadow',
+      handler: function(modal) {
+      }
+    }
+  ]
+})

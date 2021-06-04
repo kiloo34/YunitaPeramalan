@@ -30,22 +30,15 @@
                         </thead>
                         <tbody>
                             <?php $no=1 ?>
-                            @foreach ($produksi as $k)
+                            @foreach ($produksi as $p)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{$k->tahun}}</td>
-                                <td>{{$k->periode}}</td>
-                                <td>{{number_format($k->produksi)}}</td>
-                                {{-- <td>{{ucfirst($k->nama)}}</td> --}}
-                                {{-- <td>{{count($produksi->where('kecamatan_id', $k->id))}}</td> --}}
+                                <td>{{$p->tahun}}</td>
+                                <td>{{$p->periode}}</td>
+                                <td>{{number_format($p->produksi)}}</td>
                                 <td>
-                                    {{-- <a href="{{ route('produksi.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> {{__("Tambah Data")}}</a>
-                                    @if (count($produksi->where('kecamatan_id', $k->id)) > 0)
-                                    <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-produksi="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a>
-                                    <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> produksi</a>
-                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a> --}}
-                                    {{-- @endif --}}
-
+                                    <a href="{{ route('produksi.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>
+                                    <a href="{{ route('permintaan.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-danger"><i class="far fa-trash"></i> {{__("Hapus")}}</a>
                                 </td>
                                 <?php $no++; ?>
                             </tr>

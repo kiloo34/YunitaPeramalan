@@ -37,6 +37,7 @@
                         @include('layouts.success_msg')
                         @yield('content')
                     </section>
+                    @yield('modal')
                 </div>
                 @include('layouts.footer')
             </div>

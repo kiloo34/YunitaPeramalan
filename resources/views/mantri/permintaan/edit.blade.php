@@ -58,7 +58,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary float-right" value="Ubah">
                 </form>
-                <a href="{{ route('permintaan.index') }}" class="btn icon-left btn-danger "> Kembali</a>
+                <a href="{{ route('permintaan.show', $kecamatan->id) }}" class="btn icon-left btn-danger "> Kembali</a>
             </div>
         </div>
     </div>

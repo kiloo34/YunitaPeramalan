@@ -102,7 +102,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary float-right" value="Ubah">
                 </form>
-                <a href="{{ route('produksi.index') }}" class="btn icon-left btn-danger "> Kembali</a>
+                <a href="{{ route('produksi.show', $kecamatan->id) }}" class="btn icon-left btn-danger "> Kembali</a>
             </div>
         </div>
     </div>

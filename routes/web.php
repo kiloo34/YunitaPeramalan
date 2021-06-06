@@ -36,14 +36,14 @@ Route::middleware(['auth'])->group(function () {
         //Dashboard
         Route::get('/dash', [MantriDashboard::class, 'index'])->name('mantri.dashboard');
         //Produksi
-        Route::resource('produksi', ProduksiController::class, ['except' => 'create']);
+        Route::resource('produksi', ProduksiController::class, ['except' => ['create', 'edit']]);
         Route::get('produksi/create/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'create'])->name('produksi.create');
+        Route::get('produksi/{kecamatan}/edit/{produksi}', [App\Http\Controllers\Mantri\ProduksiController::class, 'edit'])->name('produksi.edit');
         Route::get('produksi/{tahun}/periode', [App\Http\Controllers\Mantri\ProduksiController::class, 'getPeriode'])->name('produksi.getPeriode');
-        // Route::get('produksi/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartProduksi'])->name('produksi.chart');
-        // Route::get('permintaan/chart/{kecamatan}', [App\Http\Controllers\Mantri\ProduksiController::class, 'chartPermintaan'])->name('permintaan.chart');
         // Permintaan
-        Route::resource('permintaan', PermintaanController::class, ['except' => 'create']);
+        Route::resource('permintaan', PermintaanController::class, ['except' => ['create', 'edit']]);
         Route::get('permintaan/create/{kecamatan}', [App\Http\Controllers\Mantri\PermintaanController::class, 'create'])->name('permintaan.create');
+        Route::get('permintaan/{kecamatan}/edit/{permintaan}', [App\Http\Controllers\Mantri\PermintaanController::class, 'edit'])->name('permintaan.edit');
         //Curah Hujan
         Route::resource('hujan', CurahHujanController::class);
         //Kecamatan

@@ -37,7 +37,7 @@
                                 <td>{{$p->periode}}</td>
                                 <td>{{number_format($p->permintaan)}}</td>
                                 <td>
-                                    <a href="{{ route('permintaan.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>
+                                    <a href="{{ route('permintaan.edit', [$kecamatan->id, $p->id]) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>
                                     <a href="{{ route('permintaan.destroy', $p->id) }}"
                                         class="btn btn-sm btn-danger hapus" data-toggle="tooltip" data-placement="top"
                                         title="Hapus Data" data-id="{{ $p->id }}">

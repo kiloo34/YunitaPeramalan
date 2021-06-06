@@ -224,23 +224,23 @@ class ProduksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produksi $produksi)
+    public function edit(Kecamatan $kecamatan, Produksi $produksi)
     {
         // dd($produksi->kecamatan->nama);
-        $permintaan = \DB::table('permintaan')
-            ->where([
-                ['periode_id', $produksi->periode->id],
-                ['kecamatan_id', $produksi->kecamatan->id],
-            ])->first();
+        // $permintaan = \DB::table('permintaan')
+        //     ->where([
+        //         ['periode_id', $produksi->periode->id],
+        //         ['kecamatan_id', $produksi->kecamatan->id],
+        //     ])->first();
         // dd($permintaan);
-        $kecamatan = \DB::table('kecamatan')->get();
+        // $kecamatan = \DB::table('kecamatan')->get();
         // dd($produksi, $permintaan->permintaan);
         return view('mantri.produksi.edit', [
             'title' => 'produksi',
             'subtitle' => 'edit',
             'active' => 'produksi',
             'produksi' => $produksi,
-            'permintaan' => $permintaan,
+            // 'permintaan' => $permintaan,
             'kecamatan' => $kecamatan
         ]);
     }

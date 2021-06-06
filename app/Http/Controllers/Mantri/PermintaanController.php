@@ -243,10 +243,8 @@ class PermintaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permintaan $permintaan)
+    public function edit(Kecamatan $kecamatan, Permintaan $permintaan)
     {
-        $kecamatan = \DB::table('kecamatan')->get();
-
         return view('mantri.permintaan.edit', [
             'title' => 'permintaan',
             'subtitle' => 'edit',

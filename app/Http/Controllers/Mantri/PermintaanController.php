@@ -265,7 +265,7 @@ class PermintaanController extends Controller
     {
         $kecamatan = \DB::table('kecamatan')
             ->where('nama', $request->kecamatan)
-            ->select('id')
+            ->select('id', 'nama')
             ->first();
         // dd($permintaan, $kecamatan);
         $request->validate([
@@ -294,7 +294,7 @@ class PermintaanController extends Controller
                 'permintaan' => $request->permintaan,
             ]);
 
-        return redirect()->route('permintaan.index')->with('success_msg', 'Data Permintaan Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+        return redirect()->route('permintaan.show', $kecamatan->id)->with('success_msg', 'Data Permintaan Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' Kecamatan ' . $kecamatan->nama . ' berhasil diubah');
     }
 
     /**

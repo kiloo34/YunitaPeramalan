@@ -78,7 +78,6 @@ class ProduksiController extends Controller
             }
         }
 
-        // dd(count($produksi));
         return view('mantri.produksi.index', [
             'title' => 'produksi',
             'subtitle' => '',
@@ -207,7 +206,6 @@ class ProduksiController extends Controller
             }
         }
 
-
         return view('mantri.produksi.detail', [
             'title' => 'produksi',
             'subtitle' => 'detail',
@@ -226,21 +224,11 @@ class ProduksiController extends Controller
      */
     public function edit(Kecamatan $kecamatan, Produksi $produksi)
     {
-        // dd($produksi->kecamatan->nama);
-        // $permintaan = \DB::table('permintaan')
-        //     ->where([
-        //         ['periode_id', $produksi->periode->id],
-        //         ['kecamatan_id', $produksi->kecamatan->id],
-        //     ])->first();
-        // dd($permintaan);
-        // $kecamatan = \DB::table('kecamatan')->get();
-        // dd($produksi, $permintaan->permintaan);
         return view('mantri.produksi.edit', [
             'title' => 'produksi',
             'subtitle' => 'edit',
             'active' => 'produksi',
             'produksi' => $produksi,
-            // 'permintaan' => $permintaan,
             'kecamatan' => $kecamatan
         ]);
     }
@@ -258,7 +246,7 @@ class ProduksiController extends Controller
 
         $kecamatan = \DB::table('kecamatan')
             ->where('nama', $request->kecamatan)
-            ->select('id')
+            ->select('id', 'nama')
             ->first();
         // dd($produksi, $kecamatan);
         $request->validate([
@@ -266,7 +254,6 @@ class ProduksiController extends Controller
             'tahun' => 'required',
             'kecamatan' => 'required',
             'produksi' => 'required|numeric',
-            'permintaan' => 'required|numeric',
             'luas' => 'required|numeric',
             'harga' => 'required'
         ], [
@@ -276,8 +263,6 @@ class ProduksiController extends Controller
             'kecamatan.required' => 'kecamatan harap diisi',
             'produksi.required' => 'Produksi harap diisi',
             'produksi.numeric' => 'Produksi harus angka',
-            'permintaan.required' => 'Permintaan harap diisi',
-            'permintaan.numeric' => 'Permintaan harus angka',
             'luas.required' => 'Luas harap diisi',
             'luas.numeric' => 'Luas harus angka',
             'harga.required' => 'Harga harap diisi',
@@ -295,16 +280,7 @@ class ProduksiController extends Controller
                 'harga' => $request->harga,
             ]);
 
-        \DB::table('permintaan')
-            ->where([
-                ['periode_id', $produksi->periode_id],
-                ['kecamatan_id', $kecamatan->id]
-            ])
-            ->update([
-                'permintaan' => $request->permintaan,
-            ]);
-
-        return redirect()->route('produksi.index')->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+        return redirect()->route('produksi.show', $kecamatan->id)->with('success_msg', 'Data Produksi Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' Kecamatan ' . $kecamatan->nama . ' berhasil diubah');
     }
 
     /**

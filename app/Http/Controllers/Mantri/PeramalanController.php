@@ -33,6 +33,7 @@ class PeramalanController extends Controller
         $x1 = $fungsi->getX1($kecamatan->id); // Luas Panen
         $x2 = $fungsi->getX2($kecamatan->id); // Curah hujan
         $y = $fungsi->getY($kecamatan->id); // Produksi
+
         $maxTahunPeriode = $fungsi->getMaxPeriodeTahun();
         $maxPeriode = $fungsi->getMaxPeriode();
 

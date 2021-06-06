@@ -223,6 +223,27 @@ class Fungsi
         return $bulan;
     }
 
+    public function getMaxPeriodeTahun()
+    {
+        $max = (int) \DB::table('periode')
+            // ->groupBy('tahun')
+            // ->distinct()
+            // ->pluck('tahun')
+            ->max('tahun');
+        return $max;
+    }
+    public function getMaxPeriode()
+    {
+
+        $data = (int) \DB::table('periode')
+            ->groupBy('tahun')
+            ->where('tahun', $this->getMaxPeriodeTahun())
+            // ->distinct()
+            // ->pluck('tahun')
+            ->max('periode');
+        return $data;
+    }
+
     public function getDataProduksiTahun($id)
     {
         $data = \DB::table('produksi')

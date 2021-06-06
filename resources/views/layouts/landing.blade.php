@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-        <title>SIMPAPI</title>
+        <title>SIMPELAN</title>
 
         <!-- General CSS Files -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -28,7 +28,7 @@
             <div class="main-wrapper container">
                 <div class="navbar-bg"></div>
                 <nav class="navbar navbar-expand-lg main-navbar">
-                    <a href="{{ route('landing') }}" class="navbar-brand sidebar-gone-hide">SIMPAPI</a>
+                    <a href="{{ route('landing') }}" class="navbar-brand sidebar-gone-hide">SIMPELAN</a>
                     <div class="navbar-nav">
                         <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i
                                 class="fas fa-bars"></i></a>
@@ -118,14 +118,13 @@
                     <ul class="navbar-nav navbar-right">
                         <ul class="navbar-nav">
                             @auth
-                            @if (auth()->user()->role->nama == 'admin')
-                            <li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link">Beranda</a>
+                            @if (auth()->user()->role->nama == 'mantri')
+                            <li class="nav-item"><a href="{{ route('mantri.dashboard') }}" class="nav-link">Beranda</a>
                             </li>
                             @else
-                            <li class="nav-item"><a href="{{ route('peternak.dashboard') }}"
+                            <li class="nav-item"><a href="{{ route('holtikultura.dashboard') }}"
                                     class="nav-link">Beranda</a></li>
                             @endif
-
                             @else
                             <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                             @if (Route::has('register'))
@@ -144,7 +143,7 @@
                         </div>
                     </section>
                 </div>
-                <x-footer />
+                @include('layouts.footer')
             </div>
         </div>
 

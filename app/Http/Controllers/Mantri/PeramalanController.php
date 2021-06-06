@@ -33,6 +33,8 @@ class PeramalanController extends Controller
         $x1 = $fungsi->getX1($kecamatan->id); // Luas Panen
         $x2 = $fungsi->getX2($kecamatan->id); // Curah hujan
         $y = $fungsi->getY($kecamatan->id); // Produksi
+        $maxTahunPeriode = $fungsi->getMaxPeriodeTahun();
+        $maxPeriode = $fungsi->getMaxPeriode();
 
         if ($x2 == false) {
             return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Curah Hujan tidak lengkap, cek data curah hujan');
@@ -41,7 +43,7 @@ class PeramalanController extends Controller
         }
 
         $val = new ForecastProduksi($x1, $x2, $y, $request->luas_panen, $request->curah_hujan);
-        // dd($val);
+        // dd($val->res);
 
         $periode = \DB::table('periode')
             ->orderBy('tahun', 'asc')
@@ -62,6 +64,7 @@ class PeramalanController extends Controller
                 ->orderBy('periode', 'asc')
                 ->first();
             if ($data) {
+
                 $chart['label'][] = $p->tahun . ' T.' . $p->periode;
                 $chart['data'][] = (int) $data->produksi;
             }
@@ -69,7 +72,13 @@ class PeramalanController extends Controller
 
         for ($i = 0; $i < count($val->res); $i++) {
             $chart['ramal'][] = (int) $val->res[$i];
+            if ($i == count($periode) && $maxPeriode == 4) {
+                $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
+            } else {
+                $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
+            }
         }
+
         // dd($chart, $val->res);
 
         return view('mantri.peramalan.hasilProduksi', [

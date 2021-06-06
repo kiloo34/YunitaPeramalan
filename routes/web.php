@@ -26,7 +26,7 @@ use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksi
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Auth::routes();
@@ -69,4 +69,4 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/landing', 'HomeController@index')->name('landing');

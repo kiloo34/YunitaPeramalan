@@ -129,10 +129,14 @@ class ForecastProduksi
     {
         $n = 0;
         for ($i = 0; $i < count($this->x1); $i++) {
-            if (($i + 1) < count($this->x1)) {
-                $this->res[$i] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
+            if ($i == 0) {
+                $this->res[$i] = 0;
+                $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
+                // break;
+            } elseif (($i + 1) < count($this->x1)) {
+                $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
             } else {
-                $this->res[$i] = $this->forecast($inputX1, $inputX2);
+                $this->res[$i + 1] = $this->forecast($inputX1, $inputX2);
                 // break;
                 // $this->res[$i] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
             }

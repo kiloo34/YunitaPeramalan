@@ -20,99 +20,112 @@ class Fungsi
             ->select('produksi.luas_panen', 'periode.periode', 'tahun')
             ->get()
             ->toArray();
+        // dd($x1);
+        if ($x1) {
+            $bulan = $this->getHujanBulan();
+            $check = \DB::table('curah_hujan')
+                ->get()
+                ->count();
 
-        for ($i = 0; $i < count($x1); $i++) {
-            // dd($x1[$i]);
-            $x2[$i] = 0;
-            switch ($x1[$i]) {
-                case $x1[$i]->periode == 1:
-                    $nilai = \DB::table('curah_hujan')
-                        ->where([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'januari'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'februari'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'maret'],
-                        ])
-                        ->select('nilai')
-                        ->get();
-                    foreach ($nilai as $n) {
-                        $x2[$i] += $n->nilai;
-                    }
-                    $x2[$i] = $x2[$i] / 3;
-                    // dd($x2[$i]);
-                    break;
-                case $x1[$i]->periode == 2:
-                    $nilai = \DB::table('curah_hujan')
-                        ->where([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'april'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'mei'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'juni'],
-                        ])
-                        ->select('nilai')
-                        ->get();
-                    foreach ($nilai as $n) {
-                        $x2[$i] += $n->nilai;
-                    }
-                    $x2[$i] = $x2[$i] / 3;
-                    break;
-                case $x1[$i]->periode == 3;
-                    $nilai = \DB::table('curah_hujan')
-                        ->where([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'juli'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'agustus'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'september'],
-                        ])
-                        ->select('nilai')
-                        ->get();
-                    foreach ($nilai as $n) {
-                        $x2[$i] += $n->nilai;
-                    }
-                    $x2[$i] = $x2[$i] / 3;
-                    break;
-                default:
-                    $nilai = \DB::table('curah_hujan')
-                        ->where([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'oktober'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'november'],
-                        ])
-                        ->orWhere([
-                            ['tahun', $x1[$i]->tahun],
-                            ['bulan', 'desember'],
-                        ])
-                        ->select('nilai')
-                        ->get();
-                    foreach ($nilai as $n) {
-                        $x2[$i] += $n->nilai;
-                    }
-                    $x2[$i] = $x2[$i] / 3;
-                    break;
+            if ($check % $bulan) {
+                return false;
             }
+
+            for ($i = 0; $i < count($x1); $i++) {
+                // dd($x1[$i]);
+                $x2[$i] = 0;
+                switch ($x1[$i]) {
+                    case $x1[$i]->periode == 1:
+                        $nilai = \DB::table('curah_hujan')
+                            ->where([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'januari'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'februari'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'maret'],
+                            ])
+                            ->select('nilai')
+                            ->get();
+                        foreach ($nilai as $n) {
+                            $x2[$i] += $n->nilai;
+                        }
+                        $x2[$i] = $x2[$i] / 3;
+                        // dd($x2[$i]);
+                        break;
+                    case $x1[$i]->periode == 2:
+                        $nilai = \DB::table('curah_hujan')
+                            ->where([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'april'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'mei'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'juni'],
+                            ])
+                            ->select('nilai')
+                            ->get();
+                        foreach ($nilai as $n) {
+                            $x2[$i] += $n->nilai;
+                        }
+                        $x2[$i] = $x2[$i] / 3;
+                        break;
+                    case $x1[$i]->periode == 3;
+                        $nilai = \DB::table('curah_hujan')
+                            ->where([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'juli'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'agustus'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'september'],
+                            ])
+                            ->select('nilai')
+                            ->get();
+                        foreach ($nilai as $n) {
+                            $x2[$i] += $n->nilai;
+                        }
+                        $x2[$i] = $x2[$i] / 3;
+                        break;
+                    default:
+                        $nilai = \DB::table('curah_hujan')
+                            ->where([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'oktober'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'november'],
+                            ])
+                            ->orWhere([
+                                ['tahun', $x1[$i]->tahun],
+                                ['bulan', 'desember'],
+                            ])
+                            ->select('nilai')
+                            ->get();
+                        foreach ($nilai as $n) {
+                            $x2[$i] += $n->nilai;
+                        }
+                        $x2[$i] = $x2[$i] / 3;
+                        break;
+                }
+            }
+            return $x2;
+        } else {
+            return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Produksi Kosong !!!');
         }
-        return $x2;
     }
 
     public function getX1($id)
@@ -126,14 +139,118 @@ class Fungsi
             ->get()
             ->toArray();
 
-        for ($i = 0; $i < count($data); $i++) {
-            $x1[$i] = $data[$i]->luas_panen;
+        if ($data) {
+            for ($i = 0; $i < count($data); $i++) {
+                $x1[$i] = $data[$i]->luas_panen;
+            }
+            return $x1;
+        } else {
+            return false;
         }
-
-        return $x1;
     }
 
     public function getY($id)
+    {
+        $a = $this->getDataProduksiPeriode($id);
+        $data = $this->getDataProduksi($id);
+        $periode = $this->getCountPeriode();
+        $periodeTahun = $this->getCountPeriode();
+
+        // dd('sabar bang', $data, $a, $periode, $periodeTahun);
+        if ($a['countPeriodeTahun']) {
+            // dd($a);
+            if ($periodeTahun == count($a['countPeriodeTahun'])) {
+                for ($i = 0; $i < count($a['countPeriodeTahun']); $i++) {
+                    if ($periode == count($a['countPeriodeTahun'][$i])) {
+                        // dd(count($a['countPeriodeTahun'][$i]));
+                        for ($i = 0; $i < count($data); $i++) {
+                            $y[$i] = $data[$i]->produksi;
+                        }
+                        return $y;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function getHujanTahun()
+    {
+        $tahun = \DB::table('curah_hujan')
+            ->groupBy('tahun')
+            ->distinct()
+            ->pluck('tahun')
+            ->count();
+
+        return $tahun;
+    }
+
+    public function getHujanBulan()
+    {
+        $bulan = \DB::table('curah_hujan')
+            ->groupBy('bulan')
+            ->distinct()
+            ->pluck('bulan')
+            ->count();
+
+        return $bulan;
+    }
+
+    public function getCountPeriodeTahun()
+    {
+        $tahun = \DB::table('periode')
+            ->groupBy('tahun')
+            ->distinct()
+            ->pluck('tahun')
+            ->count();
+
+        return $tahun;
+    }
+
+    public function getCountPeriode()
+    {
+        $bulan = \DB::table('periode')
+            ->groupBy('periode')
+            ->distinct()
+            ->pluck('periode')
+            ->count();
+
+        return $bulan;
+    }
+
+    public function getDataProduksiTahun($id)
+    {
+        $data = \DB::table('produksi')
+            ->join('periode', 'produksi.periode_id', '=', 'periode.id')
+            ->where('kecamatan_id', $id)
+            ->groupBy('periode.tahun')
+            ->distinct()
+            ->pluck('tahun');
+        return $data;
+    }
+
+    public function getDataProduksiPeriode($id)
+    {
+        $tahun = $this->getDataProduksiTahun($id);
+        $data['countPeriodeTahun'] = null;
+        for ($i = 0; $i < count($tahun); $i++) {
+            $data['countPeriodeTahun'][] = \DB::table('produksi')
+                ->join('periode', 'produksi.periode_id', '=', 'periode.id')
+                ->where('kecamatan_id', $id)
+                ->where('periode.tahun', $tahun[$i])
+                ->distinct()
+                ->pluck('periode')
+                ->toArray();
+        }
+        return $data;
+    }
+
+    public function getDataProduksi($id)
     {
         $data = \DB::table('produksi')
             ->join('periode', 'produksi.periode_id', '=', 'periode.id')
@@ -141,13 +258,8 @@ class Fungsi
             ->orderBy('tahun', 'asc')
             ->orderBy('periode.periode', 'asc')
             ->select('produksi')
-            ->get()
-            ->toArray();
-
-        for ($i = 0; $i < count($data); $i++) {
-            $y[$i] = $data[$i]->produksi;
-        }
-
-        return $y;
+            ->get();
+        // dd('masuk data produksi', $data);
+        return $data;
     }
 }

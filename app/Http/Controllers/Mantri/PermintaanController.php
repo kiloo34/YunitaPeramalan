@@ -98,7 +98,7 @@ class PermintaanController extends Controller
             }
         }
 
-        // dd(count($permintaan));
+        // dd($chart);
 
         return view('mantri.permintaan.index', [
             'title' => 'permintaan',

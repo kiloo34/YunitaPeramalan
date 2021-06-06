@@ -37,7 +37,9 @@ class ForecastProduksi
         $inputX1, //Input Param
         $inputX2,
 
-        $res;
+        $res,
+        $mape;
+
 
     public function __construct($x1 = null, $x2 = null, $y = null, $inputX1 = 0, $inputX2 = 0)
     {
@@ -136,5 +138,10 @@ class ForecastProduksi
             }
         }
         // dd($this->res);
+    }
+
+    public function mape()
+    {
+        # code...
     }
 }

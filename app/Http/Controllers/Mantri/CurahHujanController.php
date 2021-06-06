@@ -15,7 +15,11 @@ class CurahHujanController extends Controller
      */
     public function index()
     {
-        $hujan = \DB::table('curah_hujan')->get();
+        $hujan = \DB::table('curah_hujan')
+            ->orderBy('tahun')
+            ->orderBy('bulan')
+            ->get();
+        // ->sortBy('tahun', SORT_NATURAL | SORT_FLAG_CASE)
         // dd($hujan);
         return view('mantri.hujan.index', [
             'title' => 'hujan',
@@ -47,6 +51,15 @@ class CurahHujanController extends Controller
      */
     public function store(Request $request)
     {
+        $target = CurahHujan::where([
+            ['tahun', $request->tahun],
+            ['bulan', $request->bulan]
+        ])->first();
+
+        if ($target) {
+            return redirect()->back()->with('error_msg', 'Data Curah Hujan Bulan ' . $request->bulan . ' Tahun ' . $request->tahun . ' Sudah tersedia');
+        }
+
         $request->validate([
             'bulan' => 'required',
             'tahun' => 'required',
@@ -60,7 +73,7 @@ class CurahHujanController extends Controller
 
         \DB::table('curah_hujan')
             ->insert([
-                'bulan' => $request->bulan,
+                'bulan' => ucfirst($request->bulan),
                 'tahun' => $request->tahun,
                 'nilai' => $request->nilai,
             ]);

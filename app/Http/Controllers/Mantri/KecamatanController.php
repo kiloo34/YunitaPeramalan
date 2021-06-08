@@ -58,7 +58,7 @@ class KecamatanController extends Controller
             'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama'
         ], [
             'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
-            'nama.regex' => 'Nama Kecamatan harus string',
+            'nama.regex' => 'Nama Kecamatan harus huruf',
             'nama.required' => 'Nama Kecamatan harap diisi'
         ]);
 
@@ -109,7 +109,7 @@ class KecamatanController extends Controller
             'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama'
         ], [
             'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
-            'nama.regex' => 'Nama Kecamatan harus string',
+            'nama.regex' => 'Nama Kecamatan harus huruf',
             'nama.required' => 'Nama Kecamatan harap diisi'
         ]);
 

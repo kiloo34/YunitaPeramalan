@@ -72,7 +72,7 @@ class CurahHujanController extends Controller
             'tahun.required' => 'Tahun harap diisi',
             'tahun.numeric' => 'tahun harus angka',
         ]);
-        dd($request->bulan, $request->tahun, $request->nilai);
+        // dd($request->bulan, $request->tahun, $request->nilai);
         \DB::table('curah_hujan')
             ->insert([
                 'bulan' => ucfirst($request->bulan),

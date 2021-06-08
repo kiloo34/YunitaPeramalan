@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mantri;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 
 class PeriodeController extends Controller
@@ -18,7 +19,7 @@ class PeriodeController extends Controller
         return view('mantri.periode.index', [
             'title' => 'periode',
             'subtitle' => '',
-            'active' => 'produksi',
+            'active' => 'dashboard',
             'periode' => $periode
         ]);
     }
@@ -33,7 +34,7 @@ class PeriodeController extends Controller
         return view('mantri.periode.create', [
             'title' => 'periode',
             'subtitle' => 'create',
-            'active' => 'produksi',
+            'active' => 'dashboard',
         ]);
     }
 
@@ -50,6 +51,7 @@ class PeriodeController extends Controller
                 ['periode', $request->periode],
                 ['tahun', $request->tahun]
             ])->first();
+
         if ($request->periode > (12 / 3)) {
             return redirect()->back()->with('error_msg', 'Periode 4 kali dalam setahun');
         } elseif ($exist) {
@@ -93,9 +95,14 @@ class PeriodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Periode $periode)
     {
-        //
+        return view('mantri.periode.edit', [
+            'title' => 'periode',
+            'subtitle' => 'edit',
+            'active' => 'dashboard',
+            'periode' => $periode
+        ]);
     }
 
     /**
@@ -105,9 +112,46 @@ class PeriodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Periode $periode)
     {
-        //
+        $request->validate([
+            'periode' => 'required|numeric',
+            'tahun' => 'required|numeric|'
+        ], [
+            'periode.numeric' => 'Periode harus angka',
+            'periode.required' => 'Periode harap diisi',
+            'periode.unique' => 'Periode Sudah tersedia',
+            'tahun.numeric' => 'Tahun harus angka',
+            'tahun.required' => 'Tahun harap diisi',
+            'tahun.unique' => 'Tahun sudah tersedia di periode ini',
+        ]);
+
+        if ($periode->periode == $request->periode && $periode->tahun == $request->tahun) {
+            \DB::table('periode')
+                ->insert([
+                    'periode' => $request->periode,
+                    'tahun' => $request->tahun,
+                ]);
+            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+        } else {
+            $exist = \DB::table('periode')
+                ->where([
+                    ['periode', $request->periode],
+                    ['tahun', $request->tahun]
+                ])->first();
+            if ($request->periode > (12 / 3)) {
+                return redirect()->back()->with('error_msg', 'Periode 4 kali dalam setahun');
+            } elseif ($exist) {
+                return redirect()->back()->with('error_msg', 'Periode ' . $request->periode . ' sudah tersedia di tahun ' . $request->tahun);
+            } else {
+                \DB::table('periode')
+                    ->insert([
+                        'periode' => $request->periode,
+                        'tahun' => $request->tahun,
+                    ]);
+            }
+            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+        }
     }
 
     /**
@@ -118,6 +162,10 @@ class PeriodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $target = Periode::where('id', $id);
+        $target->delete();
+        return response()->json([
+            'message' => 'Periode berhasil dihapus!'
+        ]);
     }
 }

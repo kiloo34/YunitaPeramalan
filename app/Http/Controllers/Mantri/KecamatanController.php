@@ -91,7 +91,7 @@ class KecamatanController extends Controller
         return view('mantri.kecamatan.edit', [
             'title' => 'kecamatan',
             'subtitle' => 'edit',
-            'active' => 'produksi',
+            'active' => 'dashboard',
             'kecamatan' => $kecamatan
         ]);
     }

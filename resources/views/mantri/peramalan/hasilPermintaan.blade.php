@@ -5,6 +5,9 @@
         <div class="card">
             <div class="card-header">
                 <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('forecast.permintaan.index') }}" class="btn btn-danger">Kembali </a>
+                </div>
             </div>
             <div class="card-body">
                 <canvas id="chartPermintaan"></canvas>

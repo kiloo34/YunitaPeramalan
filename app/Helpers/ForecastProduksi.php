@@ -138,7 +138,7 @@ class ForecastProduksi
                 $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
             } else {
                 $this->res[$i + 1] = $this->forecast($inputX1, $inputX2);
-                $this->display = $this->forecast($inputX1, $inputX2);
+                $this->display = round($this->forecast($inputX1, $inputX2), 4);
             }
         }
     }
@@ -154,6 +154,6 @@ class ForecastProduksi
             }
         }
         // =(SUM(M6:M21)/16)*100%
-        $this->mape = (array_sum($arr) / count($this->y));
+        $this->mape = round((array_sum($arr) / count($this->y)), 4);
     }
 }

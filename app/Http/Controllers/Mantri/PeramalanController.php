@@ -102,7 +102,7 @@ class PeramalanController extends Controller
         return view('mantri.peramalan.permintaan', [
             'title' => 'Peramalan permintaan',
             'subtitle' => '',
-            'active' => 'forePro',
+            'active' => 'forePer',
             'kecamatan' => $kecamatan,
             'permintaan' => $permintaan
         ]);

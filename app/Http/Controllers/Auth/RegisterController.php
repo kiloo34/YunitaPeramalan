@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User as ModelsUser;
 use App\Providers\RouteServiceProvider;
-use App\User;
+// use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo()
+    {
+        $for = [
+            'mantri'        => 'mantri',
+            'holtikultura'  => 'holtikultura'
+        ];
+
+        return $this->redirectTo = route($for[auth()->user()->role->nama] . ".dashboard");
+    }
 
     /**
      * Create a new controller instance.
@@ -50,7 +60,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'nama_depan' => ['required', 'string', 'max:255'],
+            'nama_belakang' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,10 +75,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = ModelsUser::create([
             'email' => $data['email'],
+            'nama_depan' => $data['nama_depan'],
+            'nama_belakang' => $data['nama_belakang'],
             'password' => Hash::make($data['password']),
+            'avatar' => 'https://ui-avatars.com/api/?name=' . $data['nama_depan'],
+            'role_id' => 1
         ]);
+
+        // Peternak::create([
+        //     'nama_depan' => $data['nama_depan'],
+        //     'nama_belakang' => $data['nama_belakang'],
+        //     'user_id' => $user->id
+        // ]);
+
+        return $user;
     }
 }

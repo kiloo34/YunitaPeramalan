@@ -93,7 +93,7 @@ class ForecastPermintaan
                 $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
             } else {
                 $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i], 1);
-                $this->display = $this->forecast($this->x['nilai'][$i], 1);
+                $this->display = round($this->forecast($this->x['nilai'][$i], 1), 4);
             }
         }
     }
@@ -110,6 +110,6 @@ class ForecastPermintaan
             }
         }
         // =(SUM(M6:M21)/16)*100%
-        $this->mape = (array_sum($arr) / count($this->y));
+        $this->mape = round((array_sum($arr) / count($this->y)), 4);
     }
 }

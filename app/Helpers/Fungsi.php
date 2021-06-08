@@ -278,6 +278,7 @@ class Fungsi
             ->max('tahun');
         return $max;
     }
+
     public function getMaxPeriode()
     {
         $data = (int) \DB::table('periode')
@@ -286,6 +287,16 @@ class Fungsi
             // ->distinct()
             // ->pluck('tahun')
             ->max('periode');
+        return $data;
+    }
+
+    public function getAllDataPeriode()
+    {
+        $data = \DB::table('periode')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode', 'asc')
+            ->select('periode.*')
+            ->get();
         return $data;
     }
 
@@ -329,6 +340,17 @@ class Fungsi
         return $data;
     }
 
+    public function getAllDataProduksi()
+    {
+        $data = \DB::table('produksi')
+            ->join('periode', 'produksi.periode_id', '=', 'periode.id')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode.periode', 'asc')
+            ->select('produksi.*')
+            ->get();
+        return $data;
+    }
+
     public function getDataPermintaanTahun($id)
     {
         $data = \DB::table('permintaan')
@@ -367,6 +389,25 @@ class Fungsi
             ->select('permintaan')
             ->get();
         // dd('masuk data permintaan', $data);
+        return $data;
+    }
+
+    public function getAllDataPermintaan()
+    {
+        $data = \DB::table('permintaan')
+            ->join('periode', 'permintaan.periode_id', '=', 'periode.id')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode.periode', 'asc')
+            ->select('permintaan.*')
+            ->get();
+        return $data;
+    }
+
+    public function getAllDataKecamatan()
+    {
+        $data = \DB::table('kecamatan')
+            ->select('kecamatan.*')
+            ->get();
         return $data;
     }
 }

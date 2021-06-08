@@ -61,16 +61,18 @@ class CurahHujanController extends Controller
         }
 
         $request->validate([
-            'bulan' => 'required',
-            'tahun' => 'required',
+            'bulan' => 'required|regex:/^[a-zA-Z ]+$/',
+            'tahun' => 'required|numeric',
             'nilai' => 'required|numeric'
         ], [
             'nilai.numeric' => 'Nilai harus angka',
             'nilai.required' => 'Nilai harap diisi',
             'bulan.required' => 'Bulan harap diisi',
-            'tahun.required' => 'Tahun harap diisi'
+            'bulan.regex' => 'Bulan harus huruf',
+            'tahun.required' => 'Tahun harap diisi',
+            'tahun.numeric' => 'tahun harus angka',
         ]);
-
+        dd($request->bulan, $request->tahun, $request->nilai);
         \DB::table('curah_hujan')
             ->insert([
                 'bulan' => ucfirst($request->bulan),
@@ -121,14 +123,16 @@ class CurahHujanController extends Controller
     public function update(Request $request, CurahHujan $hujan)
     {
         $request->validate([
-            'bulan' => 'required',
-            'tahun' => 'required',
+            'bulan' => 'required|regex:/^[a-zA-Z ]+$/',
+            'tahun' => 'required|numeric',
             'nilai' => 'required|numeric'
         ], [
             'nilai.numeric' => 'Nilai harus angka',
             'nilai.required' => 'Nilai harap diisi',
             'bulan.required' => 'Bulan harap diisi',
-            'tahun.required' => 'Tahun harap diisi'
+            'bulan.regex' => 'Bulan harus huruf',
+            'tahun.required' => 'Tahun harap diisi',
+            'tahun.numeric' => 'tahun harus angka',
         ]);
 
         // dd($hujan)

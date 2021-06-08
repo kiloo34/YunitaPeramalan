@@ -23,7 +23,7 @@
                             @foreach ($hujan as $h)
                             <tr>
                                 <td>{{$no}}</td>
-                                <td>{{ucfirst($h->bulan)}}</td>
+                                <td>{{$h->bulan}}</td>
                                 <td>{{$h->tahun}}</td>
                                 <td>{{$h->nilai}}</td>
                                 <td>

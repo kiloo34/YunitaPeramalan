@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('periode', PeriodeController::class);
         //Profil
         Route::get('mantri', [ProfilController::class, 'index'])->name('mantri.index');
+        Route::post('mantri/{user}', [ProfilController::class, 'update'])->name('mantri.update');
         // Peramalan
         Route::get('forecast/produksi', [PeramalanController::class, 'produksi'])->name('forecast.produksi.index');
         Route::post('forecast/produksi/{kecamatan}', [PeramalanController::class, 'prosesProduksi'])->name('forecast.produksi.proses');

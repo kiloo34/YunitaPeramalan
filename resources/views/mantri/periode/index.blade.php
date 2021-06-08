@@ -10,7 +10,7 @@
             <div class="card-header">
                 <h4>Daftar {{ucfirst($title)}}</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('produksi.index') }}" class="btn btn-danger">Kembali </a>
+                    <a href="{{ route('mantri.dashboard') }}" class="btn btn-danger">Kembali </a>
                     <a href="{{ route('periode.create') }}" class="btn btn-primary">Tambah</a>
                 </div>
             </div>

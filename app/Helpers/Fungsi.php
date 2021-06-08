@@ -179,6 +179,52 @@ class Fungsi
         }
     }
 
+    public function getX()
+    {
+        $data = \DB::table('periode')
+            ->orderBy('tahun')
+            ->orderBy('periode')
+            ->get();
+        // dd($data);
+        for ($i = 0; $i < count($data); $i++) {
+            $periode['tahun'][] = $data[$i]->tahun;
+            $periode['periode'][] = $data[$i]->periode;
+            $periode['nilai'][] = $i + 1;
+        }
+        // dd($periode);
+        return $periode;
+    }
+
+    public function getYPermintaan($id)
+    {
+        // dd($id);
+        $a = $this->getDatapermintaanPeriode($id);
+        $data = $this->getDatapermintaan($id);
+        $periode = $this->getCountPeriode();
+        $periodeTahun = $this->getCountPeriode();
+
+        // dd('sabar bang', $data, $a, $periode, $periodeTahun);
+        if ($a['countPeriodeTahun']) {
+            if ($periodeTahun == count($a['countPeriodeTahun'])) {
+                for ($i = 0; $i < count($a['countPeriodeTahun']); $i++) {
+                    if ($periode == count($a['countPeriodeTahun'][$i])) {
+                        // dd(count($a['countPeriodeTahun'][$i]));
+                        for ($i = 0; $i < count($data); $i++) {
+                            $y[$i] = $data[$i]->permintaan;
+                        }
+                        return $y;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function getHujanTahun()
     {
         $tahun = \DB::table('curah_hujan')
@@ -234,7 +280,6 @@ class Fungsi
     }
     public function getMaxPeriode()
     {
-
         $data = (int) \DB::table('periode')
             ->groupBy('tahun')
             ->where('tahun', $this->getMaxPeriodeTahun())
@@ -281,6 +326,47 @@ class Fungsi
             ->select('produksi')
             ->get();
         // dd('masuk data produksi', $data);
+        return $data;
+    }
+
+    public function getDataPermintaanTahun($id)
+    {
+        $data = \DB::table('permintaan')
+            ->join('periode', 'permintaan.periode_id', '=', 'periode.id')
+            ->where('kecamatan_id', $id)
+            ->groupBy('periode.tahun')
+            ->distinct()
+            ->pluck('tahun');
+        return $data;
+    }
+
+    public function getDataPermintaanPeriode($id)
+    {
+        $tahun = $this->getDataPermintaanTahun($id);
+        $data['countPeriodeTahun'] = null;
+        for ($i = 0; $i < count($tahun); $i++) {
+            $data['countPeriodeTahun'][] = \DB::table('permintaan')
+                ->join('periode', 'permintaan.periode_id', '=', 'periode.id')
+                ->where('kecamatan_id', $id)
+                ->where('periode.tahun', $tahun[$i])
+                ->distinct()
+                ->pluck('periode')
+                ->toArray();
+        }
+        // dd('masuk sini', $data);
+        return $data;
+    }
+
+    public function getDataPermintaan($id)
+    {
+        $data = \DB::table('permintaan')
+            ->join('periode', 'permintaan.periode_id', '=', 'periode.id')
+            ->where('kecamatan_id', $id)
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode.periode', 'asc')
+            ->select('permintaan')
+            ->get();
+        // dd('masuk data permintaan', $data);
         return $data;
     }
 }

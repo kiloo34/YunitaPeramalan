@@ -38,7 +38,9 @@ class ForecastProduksi
         $inputX2,
 
         $res,
-        $mape;
+        $mape,
+        $display; //Highlight
+
 
 
     public function __construct($x1 = null, $x2 = null, $y = null, $inputX1 = 0, $inputX2 = 0)
@@ -68,6 +70,7 @@ class ForecastProduksi
                 $this->ab1b2();
                 // dd('masuk');
                 $this->linear_regression($this->inputX1, $this->inputX2);
+                $this->mape();
             } else {
                 throw new Exception('Jumlah data variabel X dan Y harus sama');
             }
@@ -115,7 +118,6 @@ class ForecastProduksi
         $this->b2 = (($this->sx1ex * $this->sx2y) - ($this->sx1x2 * $this->sx1y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)); //P14
         // =(C22-(P13*D22)-(P14*E22))/P5
         $this->a = (array_sum($this->y) - ($this->b1 * array_sum($this->x1)) - ($this->b2 * array_sum($this->x2))) / count($this->x1); //P15
-        // dd('b1', $this->b1, 'b2', $this->b2, 'a', $this->a);
     }
 
     public function forecast($x1, $x2)
@@ -132,20 +134,26 @@ class ForecastProduksi
             if ($i == 0) {
                 $this->res[$i] = 0;
                 $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
-                // break;
             } elseif (($i + 1) < count($this->x1)) {
                 $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
             } else {
                 $this->res[$i + 1] = $this->forecast($inputX1, $inputX2);
-                // break;
-                // $this->res[$i] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
+                $this->display = $this->forecast($inputX1, $inputX2);
             }
         }
-        // dd($this->res);
     }
 
     public function mape()
     {
-        # code...
+        $arr[] = null;
+        for ($i = 0; $i < count($this->y); $i++) {
+            if ($i == 0) {
+                $arr[$i] = 0;
+            } else {
+                $arr[$i] = abs(($this->y[$i] - $this->res[$i + 1]) / $this->y[$i]);
+            }
+        }
+        // =(SUM(M6:M21)/16)*100%
+        $this->mape = (array_sum($arr) / count($this->y));
     }
 }

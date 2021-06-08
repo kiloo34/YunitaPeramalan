@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mantri;
 
+use App\Helpers\ForecastPermintaan;
 use App\Http\Controllers\Controller;
 use App\Helpers\ForecastProduksi;
 // use App\Helpers\ForcastPermintaan;
@@ -34,7 +35,8 @@ class PeramalanController extends Controller
         $x2 = $fungsi->getX2($kecamatan->id); // Curah hujan
         $y = $fungsi->getY($kecamatan->id); // Produksi
 
-        $maxTahunPeriode = $fungsi->getMaxPeriodeTahun();
+        // dd($x1, $x2, $y);
+
         $maxPeriode = $fungsi->getMaxPeriode();
 
         if ($x2 == false) {
@@ -80,7 +82,7 @@ class PeramalanController extends Controller
             }
         }
 
-        // dd($chart, $val->res);
+        // dd($chart, $val);
 
         return view('mantri.peramalan.hasilProduksi', [
             'title' => 'produksi',
@@ -94,20 +96,77 @@ class PeramalanController extends Controller
 
     public function permintaan()
     {
-
-        // $kecamatan = null;
-
+        $kecamatan = \DB::table('kecamatan')->get();
+        $permintaan = \DB::table('permintaan')->get();
+        // dd($kecamatan);
         return view('mantri.peramalan.permintaan', [
-            'title' => 'Peramalan Permintaan',
+            'title' => 'Peramalan permintaan',
             'subtitle' => '',
-            'active' => 'forePer',
-            // 'data' => $res
+            'active' => 'forePro',
+            'kecamatan' => $kecamatan,
+            'permintaan' => $permintaan
         ]);
     }
 
-    public function prosesPermintaan(Kecamatan $kecamatan)
+    public function prosesPermintaan(Request $request, Kecamatan $kecamatan)
     {
-        dd('masuk');
-        return view();
+        // dd('masuk');
+        $fungsi = new Fungsi;
+        $x = $fungsi->getX(); // Periode
+        $y = $fungsi->getYPermintaan($kecamatan->id); // Produksi
+        $maxPeriode = $fungsi->getMaxPeriode();
+
+        if ($y == false) {
+            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
+        }
+
+        $val = new ForecastPermintaan($x, $y);
+
+        // dd($val);
+
+        $periode = \DB::table('periode')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('periode', 'asc')
+            ->limit(20)
+            ->get();
+
+        foreach ($periode as $p) {
+            $data = \DB::table('permintaan')
+                ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
+                ->where('kecamatan_id', $kecamatan->id)
+                ->where([
+                    ['periode.periode', $p->periode],
+                    ['periode.tahun', $p->tahun]
+                ])
+                ->select('permintaan.*', 'periode.periode', 'periode.tahun')
+                ->orderBy('tahun', 'asc')
+                ->orderBy('periode', 'asc')
+                ->first();
+            if ($data) {
+
+                $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+                $chart['data'][] = (int) $data->permintaan;
+            }
+        }
+
+        for ($i = 0; $i < count($val->res); $i++) {
+            $chart['ramal'][] = (int) $val->res[$i];
+            if ($i == count($periode) && $maxPeriode == 4) {
+                $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
+            } else {
+                $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
+            }
+        }
+
+        // dd($chart, $val);
+
+        return view('mantri.peramalan.hasilPermintaan', [
+            'title' => 'permintaan',
+            'subtitle' => 'hasil',
+            'active' => 'forePer',
+            'kecamatan' => $kecamatan,
+            'chart' => $chart,
+            'hasil' => $val
+        ]);
     }
 }

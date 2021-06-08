@@ -4,10 +4,43 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Chart {{ucfirst($title)}} Permintaan Kecamatan {{$kecamatan->nama}}</h4>
+                <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
             </div>
             <div class="card-body">
                 <canvas id="chartPermintaan"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Prediksi</h3></div>
+                <h5>{{$hasil->display}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <h3>Nilai MAPE</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>{{$hasil->mape}} %</h5>
+                    </div>
+                    <div class="col-md-6">
+                        @if ($hasil->mape < 10)
+                        <div class="card-description float-right"><h5>{{__("Akurat")}}</h5></div>
+                        @elseif($hasil->mape >= 10 || $hasil->mape < 20)
+                        <div class="card-description float-right"><h5>{{__("Baik")}}</h5></div>
+                        @elseif($hasil->mape >= 20 || $hasil->mape < 50)
+                        <div class="card-description float-right"><h5>{{__("Wajar")}}</h5></div>
+                        @else
+                        <div class="card-description float-right"><h5>{{__("Tidak Akurat")}}</h5></div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -67,3 +100,4 @@
 {{-- @endsection --}}
 @include('import.datatable')
 @include('import.chartjs')
+

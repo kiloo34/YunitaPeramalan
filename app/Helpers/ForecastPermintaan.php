@@ -10,18 +10,25 @@ use function PHPUnit\Framework\isEmpty;
 
 class ForecastPermintaan
 {
-    public $x1, $x2, $y, $b1, $b2, $a; //for produksi
-    // public $x1, $x2, $y, $b1, $b2, $a; //for produksi
+    public $x,
+        $y,
 
-    public function __construct($x = null, $y = null, $produksi = 'permintaan')
+        $xex, // exponent
+        $yx, // exponent
+
+        $b,
+        $a,
+
+        $res,
+        $mape,
+        $display; //Highlight
+
+    public function __construct($x = null, $y = null)
     {
+        // dd($x, count($y));
         if (!is_null($x) && !is_null($y)) {
-
-            if ($produksi == 'permintaan') {
-                dd('masuk permintaan');
-                $this->compute();
-            }
-            dd('masuk produksi');
+            $this->x = $x;
+            $this->y = $y;
             $this->compute();
         }
     }
@@ -29,12 +36,13 @@ class ForecastPermintaan
     public function compute()
     {
         if (is_array($this->x) && is_array($this->y)) {
-            if (count($this->x) == count($this->y)) {
-                $this->n  = count($this->x);
+            if (count($this->x['nilai']) == count($this->y)) {
+                $this->n  = count($this->x['nilai']);
 
                 $this->prepare_calculation();
                 $this->ab();
                 $this->linear_regression();
+                $this->mape();
             } else {
                 throw new Exception('Jumlah data variabel X dan Y harus sama');
             }
@@ -45,42 +53,63 @@ class ForecastPermintaan
 
     public function prepare_calculation()
     {
-        //persiapan menghitung x2, y2, dan xy;
-        $this->x2 = array_map(function ($n) {
+        //persiapan menghitung x, y, dan xy;
+        $this->xex = array_map(function ($n) {
             return $n * $n;
-        }, $this->x);
-        $this->y2 = array_map(function ($n) {
-            return $n * $n;
-        }, $this->y);
-
+        }, $this->x['nilai']);
 
         for ($i = 0; $i < $this->n; $i++) {
-            $this->xy[$i] = $this->x[$i] * $this->y[$i];
+            $this->yx[$i] = $this->x['nilai'][$i] * $this->y[$i];
         }
     }
 
     public function ab()
     {
         //mendapat nilai konstanta A dan B
-        $a = ((array_sum($this->y) * array_sum($this->x2)) - (array_sum($this->x) * array_sum($this->xy))) / (($this->n * array_sum($this->x2)) - (array_sum($this->x) * array_sum($this->x)));
+        // =((D20*F20)-(E20*G20))/(16*F20-(E20^2))
+        $a = ((array_sum($this->y) * array_sum($this->xex)) - (array_sum($this->x['nilai']) * array_sum($this->yx))) / ($this->n * array_sum($this->xex) - pow(array_sum($this->x['nilai']), 2));
         $this->a = $a;
 
-        $b = (($this->n * array_sum($this->xy)) - (array_sum($this->x) * array_sum($this->y))) / (($this->n * array_sum($this->x2)) - (array_sum($this->x) * array_sum($this->x)));
+        // =((16*G20)-(E20*D20))/(16*F20*(E20^2))
+        // dd('1', $this->n * array_sum($this->yx), '2', (array_sum($this->y) * array_sum($this->x['nilai'])), '3', $this->n * array_sum($this->xex), '4', pow(array_sum($this->x['nilai']), 2));
+        $b = (($this->n * array_sum($this->yx)) - (array_sum($this->y) * array_sum($this->x['nilai']))) / ($this->n * array_sum($this->xex) * (pow(array_sum($this->x['nilai']), 2)));
         $this->b = $b;
     }
 
-    public function forecast($xfore)
+    public function forecast($x, $periode = 0)
     {
-        $y = $this->a + ($this->b * $xfore);
+        // =L3+L4*E6
+        $y = $this->a + $this->b * ($x + $periode);
         return $y;
     }
 
     public function linear_regression()
     {
-        $n = 0;
-        foreach ($this->x as $xnew) {
-            $this->all[$n] = $this->forecast($xnew);
-            $n++;
+        for ($i = 0; $i < count($this->x['nilai']); $i++) {
+            if ($i == 0) {
+                $this->res[$i] = 0;
+                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
+            } elseif (($i + 1) < count($this->x['nilai'])) {
+                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
+            } else {
+                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i], 1);
+                $this->display = $this->forecast($this->x['nilai'][$i], 1);
+            }
         }
+    }
+
+    public function mape()
+    {
+        $arr[] = null;
+        // =ABS((D5-H5)/D5)
+        for ($i = 0; $i < count($this->y); $i++) {
+            if ($i == 0) {
+                $arr[$i] = 0;
+            } else {
+                $arr[$i] = abs(($this->y[$i] - $this->res[$i]) / $this->y[$i]);
+            }
+        }
+        // =(SUM(M6:M21)/16)*100%
+        $this->mape = (array_sum($arr) / count($this->y));
     }
 }

@@ -5,6 +5,9 @@
         <div class="card">
             <div class="card-header">
                 <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('forecast.produksi.index') }}" class="btn btn-danger">Kembali </a>
+                </div>
             </div>
             <div class="card-body">
                 <canvas id="chartproduksi"></canvas>
@@ -13,49 +16,34 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <div class="card">
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
             <div class="card-header">
-                <h4>Perhitungan {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
+                <div class="card-description"><h3>Prediksi</h3></div>
+                <h5>{{$hasil->display}}</h5>
             </div>
-            <div class="card-body">
-                <table class="table table-bordered table-md">
-                    <tr>
-                      <th>#</th>
-                      <th>Name</th>
-                      <th>Created At</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Irwansyah Saputra</td>
-                      <td>2017-01-09</td>
-                      <td><div class="badge badge-success">Active</div></td>
-                      <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Hasan Basri</td>
-                      <td>2017-01-09</td>
-                      <td><div class="badge badge-success">Active</div></td>
-                      <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Kusnadi</td>
-                      <td>2017-01-11</td>
-                      <td><div class="badge badge-danger">Not Active</div></td>
-                      <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Rizal Fakhri</td>
-                      <td>2017-01-11</td>
-                      <td><div class="badge badge-success">Active</div></td>
-                      <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                    </tr>
-                  </table>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <h3>Nilai MAPE</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>{{$hasil->mape}} %</h5>
+                    </div>
+                    <div class="col-md-6">
+                        @if ($hasil->mape < 10)
+                        <div class="card-description float-right"><h5>{{__("Akurat")}}</h5></div>
+                        @elseif($hasil->mape >= 10 || $hasil->mape < 20)
+                        <div class="card-description float-right"><h5>{{__("Baik")}}</h5></div>
+                        @elseif($hasil->mape >= 20 || $hasil->mape < 50)
+                        <div class="card-description float-right"><h5>{{__("Wajar")}}</h5></div>
+                        @else
+                        <div class="card-description float-right"><h5>{{__("Tidak Akurat")}}</h5></div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

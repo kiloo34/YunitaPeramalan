@@ -86,7 +86,7 @@
                 <i class="far fa-user"></i> {{__('Profil')}}
                 </a>
                 @endif --}}
-                <a href="features-settings.html" class="dropdown-item has-icon">
+                <a href="{{ route('mantri.index') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>

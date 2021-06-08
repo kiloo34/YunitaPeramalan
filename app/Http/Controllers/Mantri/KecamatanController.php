@@ -46,20 +46,27 @@ class KecamatanController extends Controller
      */
     public function store(Request $request)
     {
+        $target = Kecamatan::where([
+            ['nama', $request->nama],
+        ])->first();
+
+        if ($target) {
+            return redirect()->back()->with('error_msg', 'Data Kecamatan ' . $request->nama . ' Sudah tersedia');
+        }
+
         $request->validate([
-            'nama' => 'required|unique:kecamatan,nama'
+            'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama'
         ], [
             'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
+            'nama.regex' => 'Nama Kecamatan harus string',
             'nama.required' => 'Nama Kecamatan harap diisi'
         ]);
-
-        // dd($request->nama);
 
         $data = Kecamatan::create([
             'nama' => ucfirst($request->nama)
         ]);
 
-        return redirect()->route('produksi.index')->with('success_msg', 'Kecamatan ' . $data->nama . ' berhasil ditambah');
+        return redirect()->route('kecamatan.index')->with('success_msg', 'Kecamatan ' . $data->nama . ' berhasil ditambah');
     }
 
     /**
@@ -72,7 +79,6 @@ class KecamatanController extends Controller
     {
         //
     }
-    public function edit(Kecamatan $kecamatan)
 
     /**
      * Show the form for editing the specified resource.
@@ -80,8 +86,8 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function edit(Kecamatan $kecamatan)
     {
-        // dd($kecamatan);
         return view('mantri.kecamatan.edit', [
             'title' => 'kecamatan',
             'subtitle' => 'edit',
@@ -100,9 +106,10 @@ class KecamatanController extends Controller
     public function update(Request $request, Kecamatan $kecamatan)
     {
         $request->validate([
-            'nama' => 'required'
+            'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama'
         ], [
             'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
+            'nama.regex' => 'Nama Kecamatan harus string',
             'nama.required' => 'Nama Kecamatan harap diisi'
         ]);
 

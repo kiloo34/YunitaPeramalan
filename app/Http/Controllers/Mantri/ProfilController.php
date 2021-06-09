@@ -45,7 +45,7 @@ class ProfilController extends Controller
             ->update([
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
             ]);
 
         return redirect()->route('mantri.index', $user->id)->with('success_msg', 'Data ' . $request->nama_depan . ' ' . $request->nama_belakang . ' berhasil diubah');

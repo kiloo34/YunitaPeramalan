@@ -64,6 +64,7 @@ class RegisterController extends Controller
             'nama_belakang' => ['required', 'string', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'agree' => ['required']
         ]);
     }
 

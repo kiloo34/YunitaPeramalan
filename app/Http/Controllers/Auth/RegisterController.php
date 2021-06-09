@@ -59,13 +59,43 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'nama_depan' => ['required', 'string', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
-            'nama_belakang' => ['required', 'string', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'agree' => ['accepted']
-        ]);
+        $rules = [
+            'nama_depan' => ['required', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
+            'nama_belakang' => ['required', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'min:8', 'confirmed'],
+        ];
+
+        $pesan = [
+            'nama_depan.max' => 'Nama Depan terlalu banyak',
+            'nama_depan.regex' => 'Nama Depan harus huruf',
+            'nama_depan.required' => 'Nama Depan harap diisi',
+            'nama_belakang.max' => 'Nama Belakang terlalu banyak',
+            'nama_belakang.regex' => 'Nama Belakang harus huruf',
+            'nama_belakang.required' => 'Nama Belakang harap diisi',
+            'email.max' => 'Email terlalu banyak',
+            'email.email' => 'Email harus format email',
+            'email.required' => 'Email harap diisi',
+            'email.unique' => 'Email sudah tersedia',
+            'password.min' => 'Password minimal 8 karakter',
+            'password.confirmed' => 'Password tidak sama dengan password konfirmasi',
+            'password.required' => 'Password harap diisi',
+        ];
+
+        return Validator::make($data, $rules, $pesan);
+        // return $this->validate($data, $rules, $pesan);
+
+        // return Validator::make($data, [
+        //     'nama_depan' => ['required', 'string', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
+        //     'nama_belakang' => ['required', 'string', 'max:255',  'regex:/^[a-zA-Z ]+$/'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
+        //     // 'agree' => ['accepted']
+        // ]),[
+        //     'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
+        //     'nama.regex' => 'Nama Kecamatan harus huruf',
+        //     'nama.required' => 'Nama Kecamatan harap diisi'
+        // ];
     }
 
     /**
@@ -84,12 +114,6 @@ class RegisterController extends Controller
             'avatar' => 'https://ui-avatars.com/api/?name=' . $data['nama_depan'],
             'role_id' => 1
         ]);
-
-        // Peternak::create([
-        //     'nama_depan' => $data['nama_depan'],
-        //     'nama_belakang' => $data['nama_belakang'],
-        //     'user_id' => $user->id
-        // ]);
 
         return $user;
     }

@@ -21,7 +21,7 @@
                         <input id="nama_depan" type="text"
                             class="form-control @error('nama_depan') is-invalid @enderror" name="nama_depan"
                             value="{{ old('nama_depan') }}" autocomplete="nama_depan" autofocus>
-                        @error('nama_Depan')
+                        @error('nama_depan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -30,7 +30,7 @@
                     <div class="form-group col-6">
                         <label for="nama_belakang">Nama Belakang</label>
                         <input id="nama_belakang" type="text"
-                            class="form-control @error('nama_belakan') is-invalid @enderror" name="nama_belakang"
+                            class="form-control @error('nama_belakang') is-invalid @enderror" name="nama_belakang"
                             value="{{ old('nama_belakang') }}" autocomplete="nama_belakang" autofocus>
                         @error('nama_belakang')
                         <span class="invalid-feedback" role="alert">
@@ -74,12 +74,17 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" name="agree" class="custom-control-input" id="agree">
                         <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                        @error('agree')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">

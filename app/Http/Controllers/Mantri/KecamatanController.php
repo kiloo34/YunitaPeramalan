@@ -106,7 +106,7 @@ class KecamatanController extends Controller
     public function update(Request $request, Kecamatan $kecamatan)
     {
         $request->validate([
-            'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama'
+            'nama' => 'required|regex:/^[a-zA-Z ]+$/|unique:kecamatan,nama,' . $kecamatan->id
         ], [
             'nama.unique' => 'Nama Kecamatan sudah ditambahkan',
             'nama.regex' => 'Nama Kecamatan harus huruf',

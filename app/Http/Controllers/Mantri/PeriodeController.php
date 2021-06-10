@@ -46,9 +46,10 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(ltrim($request->periode, '0'));
         $exist = \DB::table('periode')
             ->where([
-                ['periode', $request->periode],
+                ['periode', ltrim($request->periode, '0')],
                 ['tahun', $request->tahun]
             ])->first();
 
@@ -73,7 +74,7 @@ class PeriodeController extends Controller
                     'tahun' => $request->tahun,
                 ]);
 
-            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil ditambah');
+            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . ltrim($request->periode, '0') . ' Tahun ' . $request->tahun . ' berhasil ditambah');
         }
         // dd($request->periode > 4, $request->tahun);
     }
@@ -126,31 +127,31 @@ class PeriodeController extends Controller
             'tahun.unique' => 'Tahun sudah tersedia di periode ini',
         ]);
 
-        if ($periode->periode == $request->periode && $periode->tahun == $request->tahun) {
+        if ($periode->periode == ltrim($request->periode, '0') && $periode->tahun == $request->tahun) {
             \DB::table('periode')
                 ->insert([
-                    'periode' => $request->periode,
+                    'periode' => ltrim($request->periode, '0'),
                     'tahun' => $request->tahun,
                 ]);
-            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . ltrim($request->periode, '0') . ' Tahun ' . $request->tahun . ' berhasil diubah');
         } else {
             $exist = \DB::table('periode')
                 ->where([
-                    ['periode', $request->periode],
+                    ['periode', ltrim($request->periode, '0')],
                     ['tahun', $request->tahun]
                 ])->first();
-            if ($request->periode > (12 / 3)) {
+            if (ltrim($request->periode, '0') > (12 / 3)) {
                 return redirect()->back()->with('error_msg', 'Periode 4 kali dalam setahun');
             } elseif ($exist) {
-                return redirect()->back()->with('error_msg', 'Periode ' . $request->periode . ' sudah tersedia di tahun ' . $request->tahun);
+                return redirect()->back()->with('error_msg', 'Periode ' . ltrim($request->periode, '0') . ' sudah tersedia di tahun ' . $request->tahun);
             } else {
                 \DB::table('periode')
                     ->insert([
-                        'periode' => $request->periode,
+                        'periode' => ltrim($request->periode, '0'),
                         'tahun' => $request->tahun,
                     ]);
             }
-            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . $request->periode . ' Tahun ' . $request->tahun . ' berhasil diubah');
+            return redirect()->route('periode.index')->with('success_msg', 'Periode ' . ltrim($request->periode, '0') . ' Tahun ' . $request->tahun . ' berhasil diubah');
         }
     }
 

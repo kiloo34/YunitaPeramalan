@@ -26,7 +26,7 @@ use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksi
 */
 
 Route::get('/', function () {
-    return view('landing');
+    return view('wellcome');
 });
 
 Auth::routes();

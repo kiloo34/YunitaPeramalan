@@ -80,8 +80,8 @@
     <div class="mt-5 text-muted text-center">
         Tidak Punya Akun? <a href="{{ route('register') }}">Daftar Akun</a>
     </div>
-    <div class="simple-footer">
+    {{-- <div class="simple-footer">
         Copyright &copy; SIMPAPI
-    </div>
+    </div> --}}
 </div>
 @endsection

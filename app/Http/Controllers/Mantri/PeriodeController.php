@@ -15,7 +15,10 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periode = \DB::table('periode')->get();
+        $periode = \DB::table('periode')
+            ->orderBy('tahun')
+            ->orderBy('periode')
+            ->get();
         return view('mantri.periode.index', [
             'title' => 'periode',
             'subtitle' => '',
@@ -70,7 +73,7 @@ class PeriodeController extends Controller
 
             \DB::table('periode')
                 ->insert([
-                    'periode' => $request->periode,
+                    'periode' => ltrim($request->periode, '0'),
                     'tahun' => $request->tahun,
                 ]);
 
@@ -129,7 +132,8 @@ class PeriodeController extends Controller
 
         if ($periode->periode == ltrim($request->periode, '0') && $periode->tahun == $request->tahun) {
             \DB::table('periode')
-                ->insert([
+                ->where('id', $periode->id)
+                ->update([
                     'periode' => ltrim($request->periode, '0'),
                     'tahun' => $request->tahun,
                 ]);
@@ -140,13 +144,15 @@ class PeriodeController extends Controller
                     ['periode', ltrim($request->periode, '0')],
                     ['tahun', $request->tahun]
                 ])->first();
+
             if (ltrim($request->periode, '0') > (12 / 3)) {
                 return redirect()->back()->with('error_msg', 'Periode 4 kali dalam setahun');
             } elseif ($exist) {
                 return redirect()->back()->with('error_msg', 'Periode ' . ltrim($request->periode, '0') . ' sudah tersedia di tahun ' . $request->tahun);
             } else {
                 \DB::table('periode')
-                    ->insert([
+                    ->where('id', $periode->id)
+                    ->update([
                         'periode' => ltrim($request->periode, '0'),
                         'tahun' => $request->tahun,
                     ]);

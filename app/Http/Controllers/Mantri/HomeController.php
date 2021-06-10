@@ -65,15 +65,15 @@ class HomeController extends Controller
 
                 if (count($permintaan) == 0 || count($produksi) == 0) {
                     $chart[$i]['label'][] = $p->tahun . ' T.' . $p->periode;
-                    $chart[$i]['permintaan'][] = (int) 0;
-                    $chart[$i]['produksi'][] = (int) 0;
+                    // $chart[$i]['permintaan'][] = (int) 0;
+                    $chart[$i]['harga'][] = (int) 0;
                 } else {
                     foreach ($permintaan as $d) {
                         $chart[$i]['label'][] = $p->tahun . ' T.' . $p->periode;
-                        $chart[$i]['permintaan'][] = (int) $d->permintaan;
+                        // $chart[$i]['permintaan'][] = (int) $d->permintaan;
                     }
                     foreach ($produksi as $d) {
-                        $chart[$i]['produksi'][] = (int) $d->produksi;
+                        $chart[$i]['harga'][] = (int) $d->harga;
                     }
                 }
             }

@@ -84,7 +84,8 @@
                             title: "Data Dihapus!",
                             text: response.message,
                             icon: 'success',
-                        })
+                        });
+                        location.reload();
                     },
                     error: function (data) {
                         Swal.fire({

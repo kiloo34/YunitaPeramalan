@@ -46,7 +46,10 @@ class PeramalanController extends Controller
         }
 
         $val = new ForecastProduksi($x1, $x2, $y, $request->luas_panen, $request->curah_hujan);
-        // dd($val->res);
+
+        if ($val->res == false) {
+            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
+        }
 
         $periode = \DB::table('periode')
             ->orderBy('tahun', 'asc')
@@ -108,7 +111,7 @@ class PeramalanController extends Controller
         ]);
     }
 
-    public function prosesPermintaan(Request $request, Kecamatan $kecamatan)
+    public function prosesPermintaan(Kecamatan $kecamatan)
     {
         // dd('masuk');
         $fungsi = new Fungsi;
@@ -117,12 +120,14 @@ class PeramalanController extends Controller
         $maxPeriode = $fungsi->getMaxPeriode();
 
         if ($y == false) {
-            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
+            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
         }
 
         $val = new ForecastPermintaan($x, $y);
 
-        // dd($val);
+        if ($val->res == false) {
+            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
+        }
 
         $periode = \DB::table('periode')
             ->orderBy('tahun', 'asc')
@@ -157,8 +162,6 @@ class PeramalanController extends Controller
                 $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
             }
         }
-
-        // dd($chart, $val);
 
         return view('mantri.peramalan.hasilPermintaan', [
             'title' => 'permintaan',

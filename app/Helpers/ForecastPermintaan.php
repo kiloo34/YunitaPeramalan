@@ -44,10 +44,13 @@ class ForecastPermintaan
                 $this->linear_regression();
                 $this->mape();
             } else {
-                throw new Exception('Jumlah data variabel X dan Y harus sama');
+                return false;
+                // return redirect()->back()->with('error_msg', 'Jumlah Data tidak sama');
+                // throw new Exception('Jumlah data variabel X dan Y harus sama');
             }
         } else {
-            throw new Exception('Variabel X atau Y belum didefinisikan');
+            return false;
+            // throw new Exception('Variabel X atau Y belum didefinisikan');
         }
     }
 
@@ -68,12 +71,12 @@ class ForecastPermintaan
         //mendapat nilai konstanta A dan B
         // =((D20*F20)-(E20*G20))/(16*F20-(E20^2))
         $a = ((array_sum($this->y) * array_sum($this->xex)) - (array_sum($this->x['nilai']) * array_sum($this->yx))) / ($this->n * array_sum($this->xex) - pow(array_sum($this->x['nilai']), 2));
-        $this->a = $a;
+        $this->a = round($a, 4);
 
         // =((16*G20)-(E20*D20))/(16*F20*(E20^2))
         // dd('1', $this->n * array_sum($this->yx), '2', (array_sum($this->y) * array_sum($this->x['nilai'])), '3', $this->n * array_sum($this->xex), '4', pow(array_sum($this->x['nilai']), 2));
         $b = (($this->n * array_sum($this->yx)) - (array_sum($this->y) * array_sum($this->x['nilai']))) / ($this->n * array_sum($this->xex) * (pow(array_sum($this->x['nilai']), 2)));
-        $this->b = $b;
+        $this->b = round($b, 4);
     }
 
     public function forecast($x, $periode = 0)

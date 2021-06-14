@@ -1,7 +1,7 @@
 @extends('layouts.myview')
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    {{-- <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
@@ -11,6 +11,30 @@
             </div>
             <div class="card-body">
                 <canvas id="chartproduksi"></canvas>
+            </div>
+        </div>
+    </div> --}}
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
+                <h5>{{$hasil->a}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Nilai Koefisien Regresi Linier Luas Panen</h3></div>
+                <h5>{{$hasil->b1}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Nilai Koefisien Regresi Linier Curah Hujan</h3></div>
+                <h5>{{$hasil->b2}}</h5>
             </div>
         </div>
     </div>

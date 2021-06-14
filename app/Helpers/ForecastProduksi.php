@@ -72,10 +72,12 @@ class ForecastProduksi
                 $this->linear_regression($this->inputX1, $this->inputX2);
                 $this->mape();
             } else {
-                throw new Exception('Jumlah data variabel X dan Y harus sama');
+                return false;
+                // throw new Exception('Jumlah data variabel X dan Y harus sama');
             }
         } else {
-            throw new Exception('Variabel X atau Y belum didefinisikan');
+            return false;
+            // throw new Exception('Variabel X atau Y belum didefinisikan');
         }
     }
 
@@ -113,11 +115,11 @@ class ForecastProduksi
     {
         //mendapat nilai konstanta A dan B
         // =((P7*P9)-(P11*P10))/((P6*P7)-(P11^2))
-        $this->b1 = (($this->sx2ex * $this->sx1y) - ($this->sx1x2 * $this->sx2y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)); //P13
+        $this->b1 = round((($this->sx2ex * $this->sx1y) - ($this->sx1x2 * $this->sx2y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)), 4); //P13
         // =((P6*P10)-(P11*P9))/((P6*P7)-(P11^2))
-        $this->b2 = (($this->sx1ex * $this->sx2y) - ($this->sx1x2 * $this->sx1y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)); //P14
+        $this->b2 = round((($this->sx1ex * $this->sx2y) - ($this->sx1x2 * $this->sx1y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)), 4); //P14
         // =(C22-(P13*D22)-(P14*E22))/P5
-        $this->a = (array_sum($this->y) - ($this->b1 * array_sum($this->x1)) - ($this->b2 * array_sum($this->x2))) / count($this->x1); //P15
+        $this->a = round((array_sum($this->y) - ($this->b1 * array_sum($this->x1)) - ($this->b2 * array_sum($this->x2))) / count($this->x1), 4); //P15
     }
 
     public function forecast($x1, $x2)

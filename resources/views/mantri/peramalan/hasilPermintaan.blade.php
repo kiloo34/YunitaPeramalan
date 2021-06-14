@@ -1,7 +1,7 @@
 @extends('layouts.myview')
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    {{-- <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
@@ -13,15 +13,31 @@
                 <canvas id="chartPermintaan"></canvas>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
+    </div> --}}
     <div class="col-md-6 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <div class="card-description"><h3>Prediksi</h3></div>
-                <h5>{{$hasil->display}}</h5>
+                <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
+                <h5>{{$hasil->a}}</h5>
             </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Nilai Koefisien Regresi Permintaan (b)</h3></div>
+                <h5>{{$hasil->b}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-sm-12"></div>
+    <div class="card card-hero">
+        <div class="card-header">
+            <div class="card-description"><h3>Prediksi</h3></div>
+            <h5>{{$hasil->display}}</h5>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -46,6 +62,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <a href="{{ route('forecast.permintaan.index') }}" class="btn btn-danger float-right">Kembali </a>
     </div>
 </div>
 @endsection

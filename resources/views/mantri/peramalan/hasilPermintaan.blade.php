@@ -91,7 +91,7 @@
                 <h3>Nilai MAPE</h3>
                 <div class="row">
                     <div class="col-md-6">
-                        <h5>{{$hasil->mape}} %</h5>
+                        <h5>{{round($hasil->mape,2)}} %</h5>
                     </div>
                     <div class="col-md-6">
                         @if ($hasil->mape < 10)

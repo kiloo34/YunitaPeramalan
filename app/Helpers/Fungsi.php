@@ -27,7 +27,13 @@ class Fungsi
                 ->get()
                 ->count();
 
-            if ($check % $bulan) {
+            // dd($bulan, $check % 3, ($check % $bulan));
+
+            if (($check % $bulan) == 0) {
+                // dd('masuk if');
+                return false;
+            } elseif ($check % 3) {
+                // dd('masuk elseif');
                 return false;
             }
 
@@ -154,7 +160,7 @@ class Fungsi
         $a = $this->getDataProduksiPeriode($id);
         $data = $this->getDataProduksi($id);
         $periode = $this->getCountPeriode();
-        $periodeTahun = $this->getCountPeriode();
+        $periodeTahun = $this->getCountPeriodeTahun();
 
         // dd('sabar bang', $data, $a, $periode, $periodeTahun);
         if ($a['countPeriodeTahun']) {
@@ -201,9 +207,9 @@ class Fungsi
         $a = $this->getDatapermintaanPeriode($id);
         $data = $this->getDatapermintaan($id);
         $periode = $this->getCountPeriode();
-        $periodeTahun = $this->getCountPeriode();
+        $periodeTahun = $this->getCountPeriodeTahun();
 
-        // dd('sabar bang', $data, $a, $periode, $periodeTahun);
+        // dd('data permintaan', $data, 'a', $a, 'periode', $periode, 'periode tahun', $periodeTahun);
         if ($a['countPeriodeTahun']) {
             if ($periodeTahun == count($a['countPeriodeTahun'])) {
                 for ($i = 0; $i < count($a['countPeriodeTahun']); $i++) {
@@ -265,7 +271,7 @@ class Fungsi
             ->distinct()
             ->pluck('periode')
             ->count();
-
+        // dd($bulan);
         return $bulan;
     }
 

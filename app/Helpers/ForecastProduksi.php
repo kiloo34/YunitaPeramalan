@@ -120,11 +120,13 @@ class ForecastProduksi
         $this->b2 = round((($this->sx1ex * $this->sx2y) - ($this->sx1x2 * $this->sx1y)) / (($this->sx1ex * $this->sx2ex) - pow($this->sx1x2, 2)), 4); //P14
         // =(C22-(P13*D22)-(P14*E22))/P5
         $this->a = round((array_sum($this->y) - ($this->b1 * array_sum($this->x1)) - ($this->b2 * array_sum($this->x2))) / count($this->x1), 4); //P15
+        // dd($this->b1, $this->b2, $this->a);
     }
 
     public function forecast($x1, $x2)
     {
         // =P15+(P13*Q17)+(P14*Q18)
+        // =P15+(P13*D7)+(P14*E7)
         $y = $this->a + ($this->b1 * $x1) + ($this->b2 * $x2);
         return $y;
     }
@@ -133,14 +135,12 @@ class ForecastProduksi
     {
         $n = 0;
         for ($i = 0; $i < count($this->x1); $i++) {
-            if ($i == 0) {
-                $this->res[$i] = 0;
-                $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
-            } elseif (($i + 1) < count($this->x1)) {
-                $this->res[$i + 1] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
+            if (($i + 1) < count($this->x1)) {
+                $this->res[$i] = $this->forecast($this->x1[$i + 1], $this->x2[$i + 1]);
             } else {
-                $this->res[$i + 1] = $this->forecast($inputX1, $inputX2);
+                $this->res[$i] = round($this->forecast($inputX1, $inputX2), 4);
                 $this->display = round($this->forecast($inputX1, $inputX2), 4);
+                $this->res[$i + 1] = $this->display;
             }
         }
     }
@@ -148,14 +148,14 @@ class ForecastProduksi
     public function mape()
     {
         $arr[] = null;
+        // dd($this->y);
         for ($i = 0; $i < count($this->y); $i++) {
-            if ($i == 0) {
-                $arr[$i] = 0;
-            } else {
-                $arr[$i] = abs(($this->y[$i] - $this->res[$i + 1]) / $this->y[$i]);
-            }
+            // =ABS((C6-L6)/C6)
+            $arr[$i] = abs(($this->y[$i] - $this->res[$i]) / $this->y[$i]);
+            // dd($arr);
         }
         // =(SUM(M6:M21)/16)*100%
         $this->mape = round((array_sum($arr) / count($this->y)), 4);
+        // dd($this->mape);
     }
 }

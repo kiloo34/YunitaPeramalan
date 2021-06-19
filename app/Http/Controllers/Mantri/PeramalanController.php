@@ -35,9 +35,9 @@ class PeramalanController extends Controller
         $x2 = $fungsi->getX2($kecamatan->id); // Curah hujan
         $y = $fungsi->getY($kecamatan->id); // Produksi
 
-        // dd($x1, $x2, $y);
-
         $maxPeriode = $fungsi->getMaxPeriode();
+
+        // dd($x1, $x2, $y, $maxPeriode);
 
         if ($x2 == false) {
             return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Curah Hujan tidak lengkap, cek data curah hujan');
@@ -85,7 +85,7 @@ class PeramalanController extends Controller
             }
         }
 
-        // dd($chart, $val);
+        // dd($chart, $val, $periode);
 
         return view('mantri.peramalan.hasilProduksi', [
             'title' => 'produksi',
@@ -93,7 +93,8 @@ class PeramalanController extends Controller
             'active' => 'forePro',
             'kecamatan' => $kecamatan,
             'chart' => $chart,
-            'hasil' => $val
+            'hasil' => $val,
+            'periode' => $periode
         ]);
     }
 
@@ -118,6 +119,8 @@ class PeramalanController extends Controller
         $x = $fungsi->getX(); // Periode
         $y = $fungsi->getYPermintaan($kecamatan->id); // Produksi
         $maxPeriode = $fungsi->getMaxPeriode();
+
+        // dd($y);
 
         if ($y == false) {
             return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
@@ -163,13 +166,16 @@ class PeramalanController extends Controller
             }
         }
 
+        // dd($chart, $val);
+
         return view('mantri.peramalan.hasilPermintaan', [
             'title' => 'permintaan',
             'subtitle' => 'hasil',
             'active' => 'forePer',
             'kecamatan' => $kecamatan,
             'chart' => $chart,
-            'hasil' => $val
+            'hasil' => $val,
+            'periode' => $periode
         ]);
     }
 }

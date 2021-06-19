@@ -1,6 +1,65 @@
 @extends('layouts.myview')
 @section('content')
 <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Simple Table</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md">
+                        <thead>
+                            <th style="text-align: center" colspan="2">Periode</th>
+                            <th style="text-align: center">Produksi (Y)</th>
+                            <th style="text-align: center">Luas Panen (X1)</th>
+                            <th style="text-align: center">Curah Hujan (X2)</th>
+                            <th style="text-align: center">X1^2</th>
+                            <th style="text-align: center">X2^2</th>
+                            <th style="text-align: center">Y^2</th>
+                            <th style="text-align: center">X1.Y</th>
+                            <th style="text-align: center">X2.Y</th>
+                            <th style="text-align: center">X1.X2</th>
+                            <th style="text-align: center">Prediksi (Y`)</th>
+                        </thead>
+                        <tbody>
+                            @for($i = 0; $i < count($periode); $i++)
+                            <tr>
+                                <td style="text-align: center">{{$periode[$i]->tahun}}</td>
+                                <td style="text-align: center">{{$periode[$i]->periode}}</td>
+                                <td style="text-align: center">{{$hasil->y[$i]}}</td>
+                                <td style="text-align: center">{{$hasil->x1[$i]}}</td>
+                                <td style="text-align: center">{{round($hasil->x2[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->x1ex[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->x2ex[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->yex[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->x1y[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->x2y[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->x1x2[$i],1)}}</td>
+                                <td style="text-align: center">{{round($hasil->res[$i],1)}}</td>
+                            </tr>
+                            @endfor
+                            <tr>
+                                <td style="text-align: center" colspan="2">&#931</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->y),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x1),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x2),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x1ex),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x2ex),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->yex),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x1y),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x2y),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x1x2),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->res),1)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     {{-- <div class="col-md-12">
         <div class="card">
             <div class="card-header">

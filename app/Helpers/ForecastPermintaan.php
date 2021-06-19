@@ -74,7 +74,6 @@ class ForecastPermintaan
         $this->a = round($a, 4);
 
         // =((16*G20)-(E20*D20))/(16*F20*(E20^2))
-        // dd('1', $this->n * array_sum($this->yx), '2', (array_sum($this->y) * array_sum($this->x['nilai'])), '3', $this->n * array_sum($this->xex), '4', pow(array_sum($this->x['nilai']), 2));
         $b = (($this->n * array_sum($this->yx)) - (array_sum($this->y) * array_sum($this->x['nilai']))) / ($this->n * array_sum($this->xex) * (pow(array_sum($this->x['nilai']), 2)));
         $this->b = round($b, 4);
     }
@@ -88,23 +87,33 @@ class ForecastPermintaan
 
     public function linear_regression()
     {
+        // dd($this->x['nilai']);
         for ($i = 0; $i < count($this->x['nilai']); $i++) {
-            if ($i == 0) {
-                $this->res[$i] = 0;
-                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
-            } elseif (($i + 1) < count($this->x['nilai'])) {
-                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
+            if (($i + 1) < count($this->x['nilai'])) {
+                $this->res[$i] = $this->forecast($this->x['nilai'][$i + 1]);
             } else {
-                $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i], 1);
+                $this->res[$i] = $this->forecast($this->x['nilai'][$i], 1);
                 $this->display = round($this->forecast($this->x['nilai'][$i], 1), 4);
+                $this->res[$i + 1] = $this->display;
             }
+            // if ($i == 0) {
+            //     $this->res[$i] = 0;
+            //     $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
+            // } elseif (($i + 1) < count($this->x['nilai'])) {
+            //     $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i + 1]);
+            // } else {
+            //     $this->res[$i + 1] = $this->forecast($this->x['nilai'][$i], 1);
+            //     $this->display = round($this->forecast($this->x['nilai'][$i], 1), 4);
+            // }
         }
+        // dd($this->res);
     }
 
     public function mape()
     {
         $arr[] = null;
         // =ABS((D5-H5)/D5)
+        // dd($this->res);
         for ($i = 0; $i < count($this->y); $i++) {
             if ($i == 0) {
                 $arr[$i] = 0;

@@ -172,7 +172,7 @@ class ProduksiController extends Controller
         $periode = \DB::table('periode')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
-            ->limit(20)
+            // ->limit(20)
             ->get();
         $kecamatan = \DB::table('kecamatan')
             ->where('id', $id)
@@ -183,7 +183,7 @@ class ProduksiController extends Controller
             ->select('produksi.id', 'produksi.produksi', 'produksi.harga', 'produksi.luas_panen', 'periode.periode', 'periode.tahun')
             ->orderBy('tahun', 'desc')
             ->orderBy('periode', 'desc')
-            ->limit(20)
+            // ->limit(20)
             ->get();
         if (count($produksi) == 0) {
             return redirect()->route('produksi.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak ditemukan');

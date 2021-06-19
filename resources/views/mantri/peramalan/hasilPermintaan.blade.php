@@ -1,6 +1,50 @@
 @extends('layouts.myview')
 @section('content')
 <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Simple Table</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md">
+                        <thead>
+                            <th style="text-align: center" colspan="2">Periode</th>
+                            <th style="text-align: center">Permintaan (Y)</th>
+                            <th style="text-align: center">Periode (X)</th>
+                            <th style="text-align: center">X^2</th>
+                            <th style="text-align: center">Y*X</th>
+                            <th style="text-align: center">Prediksi (Y`)</th>
+                        </thead>
+                        <tbody>
+                            @for($i = 0; $i < count($periode); $i++)
+                            <tr>
+                                <td style="text-align: center">{{$hasil->x['tahun'][$i]}}</td>
+                                <td style="text-align: center">{{$hasil->x['periode'][$i]}}</td>
+                                <td style="text-align: center">{{$hasil->y[$i]}}</td>
+                                <td style="text-align: center">{{$hasil->x['nilai'][$i]}}</td>
+                                <td style="text-align: center">{{$hasil->xex[$i]}}</td>
+                                <td style="text-align: center">{{$hasil->yx[$i]}}</td>
+                                <td style="text-align: center">{{round($hasil->res[$i],1)}}</td>
+                            </tr>
+                            @endfor
+                            <tr>
+                                <td style="text-align: center" colspan="2">&#931</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->y),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->xex),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->yx),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->res),1)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     {{-- <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -33,11 +77,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 col-sm-12"></div>
-    <div class="card card-hero">
-        <div class="card-header">
-            <div class="card-description"><h3>Prediksi</h3></div>
-            <h5>{{$hasil->display}}</h5>
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Prediksi</h3></div>
+                <h5>{{$hasil->display}}</h5>
+            </div>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">

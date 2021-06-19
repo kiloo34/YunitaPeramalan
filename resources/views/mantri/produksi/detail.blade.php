@@ -25,6 +25,7 @@
                             <th>{{__('No')}}</th>
                             <th>{{__('Tahun')}}</th>
                             <th>{{__('Periode')}}</th>
+                            <th>{{__('Luas Lahan')}}</th>
                             <th>{{__('Produksi')}}</th>
                             <th>{{__('Aksi')}}</th>
                         </thead>
@@ -35,6 +36,7 @@
                                 <td>{{$no}}</td>
                                 <td>{{$p->tahun}}</td>
                                 <td>{{$p->periode}}</td>
+                                <td>{{$p->luas_panen}}</td>
                                 <td>{{number_format($p->produksi)}}</td>
                                 <td>
                                     <a href="{{ route('produksi.edit', [$kecamatan->id, $p->id]) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>

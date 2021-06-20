@@ -51,11 +51,39 @@
                 </a>
             </li>
             @else
+            <li class="nav-item dropdown {{ $active == 'kecamatan' ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ route('holtikulturia.produksi.index') }}">
+                    <i class="far fa-cogs"></i>
+                    <span>{{__('Kecamatan')}}</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown {{ $active == 'periode' ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ route('holtikulturia.produksi.index') }}">
+                    <i class="far fa-cogs"></i>
+                    <span>{{__('Periode')}}</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown {{ $active == 'rainfall' ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ route('rainfall.index') }}">
+                    <i class="far fa-cogs"></i>
+                    <span>{{__('Curah Hujan')}}</span>
+                </a>
+            </li>
             <li class="nav-item dropdown {{ $active == 'produksi' ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ route('holtikulturia.produksi.index') }}">
                     <i class="far fa-cogs"></i>
                     <span>{{__('Produksi')}}</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown {{ $active == 'permintaan' ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ route('holtikulturia.produksi.index') }}">
+                    <i class="far fa-cogs"></i>
+                    <span>{{__('Permintaan')}}</span>
                 </a>
             </li>
             <li class="menu-header">Pengaturan</li>

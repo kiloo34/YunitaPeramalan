@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mantri;
+namespace App\Http\Controllers\Holtikultura;
 
 use App\Http\Controllers\Controller;
 use App\Models\CurahHujan;
@@ -20,10 +20,10 @@ class CurahHujanController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        return view('mantri.hujan.index', [
-            'title' => 'hujan',
+        return view('holtikultura.hujan.index', [
+            'title' => 'rainfall',
             'subtitle' => '',
-            'active' => 'hujan',
+            'active' => 'rainfall',
             'hujan' => $hujan
         ]);
     }
@@ -35,10 +35,10 @@ class CurahHujanController extends Controller
      */
     public function create()
     {
-        return view('mantri.hujan.create', [
-            'title' => 'hujan',
+        return view('holtikultura.hujan.create', [
+            'title' => 'rainfall',
             'subtitle' => 'create',
-            'active' => 'hujan'
+            'active' => 'rainfall'
         ]);
     }
 
@@ -79,7 +79,7 @@ class CurahHujanController extends Controller
                 'nilai' => $request->nilai,
             ]);
 
-        return redirect()->route('hujan.index')->with('success_msg', 'Data Curah Hujan bulan ' . $request->bulan . ' Tahun ' . $request->tahun . ' berhasil ditambah');
+        return redirect()->route('rainfall.index')->with('success_msg', 'Data Curah Hujan bulan ' . $request->bulan . ' Tahun ' . $request->tahun . ' berhasil ditambah');
     }
 
     /**
@@ -99,16 +99,14 @@ class CurahHujanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(CurahHujan $hujan)
+    public function edit(CurahHujan $rainfall)
     {
-        // $id
-        // $hujan = \DB::table('curah_hujan')->where('id', $id)->get();
-        // dd($hujan);
-        return view('mantri.hujan.edit', [
-            'title' => 'hujan',
+        // dd($rainfall);
+        return view('holtikultura.hujan.edit', [
+            'title' => 'rainfall',
             'subtitle' => 'edit',
-            'active' => 'hujan',
-            'hujan' => $hujan
+            'active' => 'rainfall',
+            'rainfall' => $rainfall
         ]);
     }
 
@@ -119,7 +117,7 @@ class CurahHujanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CurahHujan $hujan)
+    public function update(Request $request, CurahHujan $curahHujan)
     {
         $request->validate([
             'bulan' => 'required|regex:/^[a-zA-Z ]+$/',
@@ -137,14 +135,14 @@ class CurahHujanController extends Controller
         // dd($hujan)
 
         \DB::table('curah_hujan')
-            ->where('id', $hujan->id)
+            ->where('id', $curahHujan->id)
             ->update([
                 'bulan' => $request->bulan,
                 'tahun' => $request->tahun,
                 'nilai' => $request->nilai,
             ]);
 
-        return redirect()->route('hujan.index')->with('success_msg', 'Data Curah Hujan bulan ' . $request->bulan . ' Tahun ' . $request->tahun . ' berhasil perbaruhi');
+        return redirect()->route('rainfall.index')->with('success_msg', 'Data Curah Hujan bulan ' . $request->bulan . ' Tahun ' . $request->tahun . ' berhasil perbaruhi');
     }
 
     /**

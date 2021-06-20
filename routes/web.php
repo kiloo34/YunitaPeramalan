@@ -1,6 +1,7 @@
 <?php
 
 use App\CurahHujan;
+
 use App\Http\Controllers\Mantri\HomeController as MantriDashboard;
 use App\Http\Controllers\Mantri\ProfilController;
 // use App\Http\Controllers\Mantri\ProduksiController;
@@ -13,6 +14,9 @@ use App\Http\Controllers\Mantri\PeramalanController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
+use Holtikultura\CurahHujanController as HoltikulturaCurahHujanController;
+use Holtikultura\PeriodeController as HoltikulturaPeriodeController;
+use App\Http\Controllers\Holtikultura\PermintaanController as HoltikulturaPermintaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +49,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('permintaan/create/{kecamatan}', [App\Http\Controllers\Mantri\PermintaanController::class, 'create'])->name('permintaan.create');
         Route::get('permintaan/{kecamatan}/edit/{permintaan}', [App\Http\Controllers\Mantri\PermintaanController::class, 'edit'])->name('permintaan.edit');
         //Curah Hujan
-        Route::resource('hujan', CurahHujanController::class);
+        Route::resource('hujan', CurahHujanController::class, ['except' => ['create', 'edit', 'destroy', 'update', 'show', 'store']]);
         //Kecamatan
-        Route::resource('kecamatan', KecamatanController::class);
+        Route::resource('kecamatan', KecamatanController::class, ['except' => ['create', 'edit', 'destroy', 'update', 'show', 'store']]);
         //Periode
-        Route::resource('periode', PeriodeController::class);
+        Route::resource('periode', PeriodeController::class, ['except' => ['create', 'edit', 'destroy', 'update', 'show', 'store']]);
         //Profil
         Route::get('mantri', [ProfilController::class, 'index'])->name('mantri.index');
         Route::post('mantri/{user}', [ProfilController::class, 'update'])->name('mantri.update');
@@ -62,9 +66,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['role:holtikultura']], function () {
         // Dashboard
-        Route::get('/dashboard', [HoltikulturaDashboard::class, 'index'])->name('holtikultura.dashboard');
+        Route::get('dashboard', [HoltikulturaDashboard::class, 'index'])->name('holtikultura.dashboard');
         // Produksi
-        Route::get('pembuatan', [HoltikulturaProduksiController::class, 'index'])->name('holtikulturia.produksi.index');
+        Route::get('production', [HoltikulturaProduksiController::class, 'index'])->name('holtikulturia.produksi.index');
+        // Permintaan
+        Route::get('request', [HoltikulturaPermintaanController::class, 'index'])->name('holtikulturia.request.index');
+        // Curah Hujan
+        Route::resource('rainfall', HoltikulturaCurahHujanController::class);
+        // Periode
+        Route::resource('period', HoltikulturaPeriodeController::class);
         // Profil
         Route::get('holtikultura', [ProfilController::class, 'index'])->name('holtikultura.index');
     });

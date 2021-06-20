@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('holtikulturia.dashboard', [
+        return view('holtikultura.dashboard', [
             'title' => 'dashboard',
             'subtitle' => '',
             'active' => 'dashboard'

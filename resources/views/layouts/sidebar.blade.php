@@ -53,7 +53,7 @@
             @else
             <li class="nav-item dropdown {{ $active == 'kecamatan' ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('holtikulturia.produksi.index') }}">
+                    href="{{ route('kec.index') }}">
                     <i class="far fa-cogs"></i>
                     <span>{{__('Kecamatan')}}</span>
                 </a>

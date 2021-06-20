@@ -14,6 +14,7 @@ use App\Http\Controllers\Mantri\PeramalanController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
+use Holtikultura\KecamatanController as HoltikulturaKecamatanController;
 use Holtikultura\CurahHujanController as HoltikulturaCurahHujanController;
 use Holtikultura\PeriodeController as HoltikulturaPeriodeController;
 use App\Http\Controllers\Holtikultura\PermintaanController as HoltikulturaPermintaanController;
@@ -75,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('rainfall', HoltikulturaCurahHujanController::class);
         // Periode
         Route::resource('period', HoltikulturaPeriodeController::class);
+        // Kecamatan
+        Route::resource('kec', HoltikulturaKecamatanController::class);
         // Profil
         Route::get('holtikultura', [ProfilController::class, 'index'])->name('holtikultura.index');
     });

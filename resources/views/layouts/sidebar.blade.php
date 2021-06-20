@@ -60,7 +60,7 @@
             </li>
             <li class="nav-item dropdown {{ $active == 'periode' ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('holtikulturia.produksi.index') }}">
+                    href="{{ route('period.index') }}">
                     <i class="far fa-cogs"></i>
                     <span>{{__('Periode')}}</span>
                 </a>

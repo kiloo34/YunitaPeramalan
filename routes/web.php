@@ -69,9 +69,11 @@ Route::middleware(['auth'])->group(function () {
         // Dashboard
         Route::get('dashboard', [HoltikulturaDashboard::class, 'index'])->name('holtikultura.dashboard');
         // Produksi
-        Route::get('production', [HoltikulturaProduksiController::class, 'index'])->name('holtikulturia.produksi.index');
+        Route::get('production', [HoltikulturaProduksiController::class, 'index'])->name('production.index');
+        Route::get('production/{production}/show', [HoltikulturaProduksiController::class, 'show'])->name('production.show');
         // Permintaan
-        Route::get('request', [HoltikulturaPermintaanController::class, 'index'])->name('holtikulturia.request.index');
+        Route::get('request', [HoltikulturaPermintaanController::class, 'index'])->name('request.index');
+        Route::get('request/{req}/show', [HoltikulturaPermintaanController::class, 'index'])->name('request.index');
         // Curah Hujan
         Route::resource('rainfall', HoltikulturaCurahHujanController::class);
         // Periode

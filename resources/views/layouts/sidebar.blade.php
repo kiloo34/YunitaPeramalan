@@ -13,7 +13,7 @@
                     <span>{{__('Dashboard')}}</span>
                 </a>
             </li>
-            <li class="menu-header">Menu</li>
+            <li class="menu-header">{{__("Menu")}}</li>
             @if (auth()->user()->role_id == 1)
             <li class="nav-item dropdown {{ $active == 'produksi' || $active == 'permintaan' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-seedling"></i><span>Buah Naga</span></a>
@@ -43,7 +43,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu-header">Pengaturan</li>
+            <li class="menu-header">{{__("Pengaturan")}}</li>
             <li class="nav-item dropdown {{ $active == 'profil' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('mantri.index') }}">
                     <i class="far fa-cogs"></i>
@@ -72,21 +72,54 @@
                     <span>{{__('Curah Hujan')}}</span>
                 </a>
             </li>
-            <li class="nav-item dropdown {{ $active == 'produksi' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $active == 'produksi' || $active == 'permintaan' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-seedling"></i><span>{{__("Buah Naga")}}</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ $active == 'produksi' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__('Produksi')}}</a>
+                    </li>
+                    <li class="{{ $active == 'permintaan' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__('Permintaan')}}</a>
+                    </li>
+                </ul>
+            </li>
+            {{-- <li class="nav-item dropdown {{ $active == 'produksi' ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('holtikulturia.produksi.index') }}">
+                    href="{{ route('holtikultura.produksi.index') }}">
                     <i class="far fa-cogs"></i>
                     <span>{{__('Produksi')}}</span>
                 </a>
-            </li>
-            <li class="nav-item dropdown {{ $active == 'permintaan' ? 'active' : '' }}">
+            </li> --}}
+            {{-- <li class="nav-item dropdown {{ $active == 'permintaan' ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('holtikulturia.produksi.index') }}">
+                    href="{{ route('holtikultura.produksi.index') }}">
                     <i class="far fa-cogs"></i>
                     <span>{{__('Permintaan')}}</span>
                 </a>
+            </li> --}}
+            <li class="nav-item dropdown {{ $active == 'forePro' || $active == 'forePer' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>{{__("Peramalan")}}</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ $active == 'forePro' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__("Produksi")}}</a>
+                    </li>
+                    <li class="{{ $active == 'forePer' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__("Permintaan")}}</a>
+                    </li>
+                </ul>
             </li>
-            <li class="menu-header">Pengaturan</li>
+            {{-- <li class="nav-item dropdown {{ $active == 'produksi' || $active == 'permintaan' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-seedling"></i><span>{{__("Rekap Data")}}</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ $active == 'produksi' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('holtikultura.produksi.index') }}">{{__('Produksi')}}</a>
+                    </li>
+                    <li class="{{ $active == 'permintaan' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('holtikultura.produksi.index') }}">{{__('Permintaan')}}</a>
+                    </li>
+                </ul>
+            </li> --}}
+            <li class="menu-header">{{__("Pengaturan")}}</li>
             <li class="nav-item dropdown {{ $active == 'profil' ? 'active' : '' }}">
                 <a class="{{ $active == 'profil' ? 'active' : '' }}" nav-link" href="{{ route('holtikultura.index') }}">
                     <i class="far fa-cogs"></i>

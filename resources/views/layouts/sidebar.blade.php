@@ -76,10 +76,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-seedling"></i><span>{{__("Buah Naga")}}</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $active == 'produksi' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__('Produksi')}}</a>
+                        <a class="nav-link" href="{{ route('production.index') }}">{{__('Produksi')}}</a>
                     </li>
                     <li class="{{ $active == 'permintaan' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__('Permintaan')}}</a>
+                        <a class="nav-link" href="{{ route('request.index') }}">{{__('Permintaan')}}</a>
                     </li>
                 </ul>
             </li>

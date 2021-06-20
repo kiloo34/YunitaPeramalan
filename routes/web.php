@@ -73,7 +73,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('production/{production}/show', [HoltikulturaProduksiController::class, 'show'])->name('production.show');
         // Permintaan
         Route::get('request', [HoltikulturaPermintaanController::class, 'index'])->name('request.index');
-        Route::get('request/{req}/show', [HoltikulturaPermintaanController::class, 'index'])->name('request.index');
+        Route::get('request/{req}/show', [HoltikulturaPermintaanController::class, 'show'])->name('request.show');
         // Curah Hujan
         Route::resource('rainfall', HoltikulturaCurahHujanController::class);
         // Periode

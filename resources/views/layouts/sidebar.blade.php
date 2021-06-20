@@ -101,10 +101,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>{{__("Peramalan")}}</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $active == 'forePro' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__("Produksi")}}</a>
+                        <a class="nav-link" href="{{ route('forecast.production.index') }}">{{__("Produksi")}}</a>
                     </li>
                     <li class="{{ $active == 'forePer' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('produksi.index') }}">{{__("Permintaan")}}</a>
+                        <a class="nav-link" href="{{ route('forecast.req.index') }}">{{__("Permintaan")}}</a>
                     </li>
                 </ul>
             </li>

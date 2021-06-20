@@ -17,7 +17,7 @@ class KecamatanController extends Controller
     {
         $kecamatan = \DB::table('kecamatan')->get();
         return view('holtikultura.kecamatan.index', [
-            'title' => 'kec',
+            'title' => 'kecamatan',
             'subtitle' => '',
             'active' => 'kecamatan',
             'kecamatan' => $kecamatan
@@ -89,7 +89,7 @@ class KecamatanController extends Controller
     public function edit(Kecamatan $kec)
     {
         return view('holtikultura.kecamatan.edit', [
-            'title' => 'kec',
+            'title' => 'kecamatan',
             'subtitle' => 'edit',
             'active' => 'kecamatan',
             'kecamatan' => $kec

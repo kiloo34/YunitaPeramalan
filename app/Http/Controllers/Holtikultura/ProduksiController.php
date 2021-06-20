@@ -74,7 +74,7 @@ class ProduksiController extends Controller
         }
 
         return view('holtikultura.produksi.index', [
-            'title' => 'production',
+            'title' => 'produksi',
             'subtitle' => '',
             'active' => 'produksi',
             'kecamatan' => $kecamatan,
@@ -131,7 +131,7 @@ class ProduksiController extends Controller
         }
 
         return view('holtikultura.produksi.detail', [
-            'title' => 'production',
+            'title' => 'produksi',
             'subtitle' => 'detail',
             'active' => 'produksi',
             'produksi' => $produksi,

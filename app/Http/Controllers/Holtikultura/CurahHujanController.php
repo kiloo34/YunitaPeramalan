@@ -21,7 +21,7 @@ class CurahHujanController extends Controller
             ->get();
 
         return view('holtikultura.hujan.index', [
-            'title' => 'rainfall',
+            'title' => 'hujan',
             'subtitle' => '',
             'active' => 'rainfall',
             'hujan' => $hujan
@@ -36,7 +36,7 @@ class CurahHujanController extends Controller
     public function create()
     {
         return view('holtikultura.hujan.create', [
-            'title' => 'rainfall',
+            'title' => 'hujan',
             'subtitle' => 'create',
             'active' => 'rainfall'
         ]);
@@ -103,7 +103,7 @@ class CurahHujanController extends Controller
     {
         // dd($rainfall);
         return view('holtikultura.hujan.edit', [
-            'title' => 'rainfall',
+            'title' => 'hujan',
             'subtitle' => 'edit',
             'active' => 'rainfall',
             'rainfall' => $rainfall

@@ -18,6 +18,7 @@ use Holtikultura\KecamatanController as HoltikulturaKecamatanController;
 use Holtikultura\CurahHujanController as HoltikulturaCurahHujanController;
 use Holtikultura\PeriodeController as HoltikulturaPeriodeController;
 use App\Http\Controllers\Holtikultura\PermintaanController as HoltikulturaPermintaanController;
+use App\Http\Controllers\Holtikultura\PeramalanController as HoltikulturaPeramalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('kec', HoltikulturaKecamatanController::class);
         // Profil
         Route::get('holtikultura', [ProfilController::class, 'index'])->name('holtikultura.index');
+        // Peramalan
+        Route::get('forecast/production', [HoltikulturaPeramalanController::class, 'produksi'])->name('forecast.production.index');
+        Route::post('forecast/production/{kecamatan}', [HoltikulturaPeramalanController::class, 'prosesProduksi'])->name('forecast.production.proses');
+        Route::get('forecast/req', [HoltikulturaPeramalanController::class, 'permintaan'])->name('forecast.req.index');
+        Route::get('forecast/req/{kecamatan}', [HoltikulturaPeramalanController::class, 'prosesPermintaan'])->name('forecast.req.proses');
     });
 });
 

@@ -20,7 +20,7 @@ class PeriodeController extends Controller
             ->orderBy('periode')
             ->get();
         return view('holtikultura.periode.index', [
-            'title' => 'period',
+            'title' => 'periode',
             'subtitle' => '',
             'active' => 'periode',
             'periode' => $periode
@@ -35,7 +35,7 @@ class PeriodeController extends Controller
     public function create()
     {
         return view('holtikultura.periode.create', [
-            'title' => 'period',
+            'title' => 'periode',
             'subtitle' => 'create',
             'active' => 'periode',
         ]);
@@ -102,7 +102,7 @@ class PeriodeController extends Controller
     public function edit(Periode $period)
     {
         return view('holtikultura.periode.edit', [
-            'title' => 'period',
+            'title' => 'periode',
             'subtitle' => 'edit',
             'active' => 'periode',
             'periode' => $period

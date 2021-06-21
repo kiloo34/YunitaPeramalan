@@ -108,6 +108,14 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item dropdown {{ $active == 'kecamatan' ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="#">
+                    <i class="far fa-user"></i>
+                    <span>{{__('Mantri')}}</span>
+                </a>
+            </li>
             {{-- <li class="nav-item dropdown {{ $active == 'produksi' || $active == 'permintaan' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-seedling"></i><span>{{__("Rekap Data")}}</span></a>
                 <ul class="dropdown-menu">

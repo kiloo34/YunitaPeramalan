@@ -6,7 +6,7 @@
             <div class="card-header">
                 <h4>Data {{ucfirst($title)}}</h4>
                 <div class="card-header-action">
-                    <a href="#" class="btn btn-primary">{{__("Rekap Data Permintaan")}}</a>
+                    <a href="{{ route('request.rekap') }}" class="btn btn-primary">{{__("Rekap Data Permintaan")}}</a>
                 </div>
             </div>
             <div class="card-body">

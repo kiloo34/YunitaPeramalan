@@ -19,6 +19,7 @@ use Holtikultura\CurahHujanController as HoltikulturaCurahHujanController;
 use Holtikultura\PeriodeController as HoltikulturaPeriodeController;
 use App\Http\Controllers\Holtikultura\PermintaanController as HoltikulturaPermintaanController;
 use App\Http\Controllers\Holtikultura\PeramalanController as HoltikulturaPeramalanController;
+use App\Http\Controllers\Holtikultura\ProfilController as HoltikulturaProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,9 +73,11 @@ Route::middleware(['auth'])->group(function () {
         // Produksi
         Route::get('production', [HoltikulturaProduksiController::class, 'index'])->name('production.index');
         Route::get('production/{production}/show', [HoltikulturaProduksiController::class, 'show'])->name('production.show');
+        Route::get('production/rekap', [HoltikulturaProduksiController::class, 'rekap'])->name('production.rekap');
         // Permintaan
         Route::get('request', [HoltikulturaPermintaanController::class, 'index'])->name('request.index');
         Route::get('request/{req}/show', [HoltikulturaPermintaanController::class, 'show'])->name('request.show');
+        Route::get('request/rekap', [HoltikulturaPermintaanController::class, 'rekap'])->name('request.rekap');
         // Curah Hujan
         Route::resource('rainfall', HoltikulturaCurahHujanController::class);
         // Periode
@@ -82,7 +85,8 @@ Route::middleware(['auth'])->group(function () {
         // Kecamatan
         Route::resource('kec', HoltikulturaKecamatanController::class);
         // Profil
-        Route::get('holtikultura', [ProfilController::class, 'index'])->name('holtikultura.index');
+        Route::get('holtikultura', [HoltikulturaProfilController::class, 'index'])->name('holtikultura.index');
+        Route::post('holtikultura/{user}', [HoltikulturaProfilController::class, 'update'])->name('holtikultura.update');
         // Peramalan
         Route::get('forecast/production', [HoltikulturaPeramalanController::class, 'produksi'])->name('forecast.production.index');
         Route::post('forecast/production/{kecamatan}', [HoltikulturaPeramalanController::class, 'prosesProduksi'])->name('forecast.production.proses');

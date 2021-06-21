@@ -32,7 +32,7 @@
                             <tr>
                                 <td style="text-align: center" colspan="2">&#931</td>
                                 <td style="text-align: center">{{round(array_sum($hasil->y),1)}}</td>
-                                <td style="text-align: center">{{round(array_sum($hasil->x),1)}}</td>
+                                <td style="text-align: center">{{round(array_sum($hasil->x['nilai']),1)}}</td>
                                 <td style="text-align: center">{{round(array_sum($hasil->xex),1)}}</td>
                                 <td style="text-align: center">{{round(array_sum($hasil->yx),1)}}</td>
                                 <td style="text-align: center">{{round(array_sum($hasil->res),1)}}</td>
@@ -62,7 +62,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
-                <h5>{{$hasil->a}}</h5>
+                <h5>{{round($hasil->a,2)}}</h5>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Koefisien Regresi Permintaan (b)</h3></div>
-                <h5>{{$hasil->b}}</h5>
+                <h5>{{round($hasil->b,2)}}</h5>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Prediksi</h3></div>
-                <h5>{{$hasil->display}}</h5>
+                <h5>{{round($hasil->display,2)}}</h5>
             </div>
         </div>
     </div>

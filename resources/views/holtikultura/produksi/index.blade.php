@@ -7,7 +7,7 @@
                 <h4>Data {{ucfirst($title)}}</h4>
                 <div class="card-header-action">
                     {{-- <a href="{{ route('mantri.dashboard') }}" class="btn btn-danger">Kembali </a> --}}
-                    <a href="#" class="btn btn-primary">{{__("Rekap Data Produksi")}}</a>
+                    <a href="{{ route('production.rekap') }}" class="btn btn-primary">{{__("Rekap Data Produksi")}}</a>
                     {{-- masuk --}}
                 </div>
             </div>

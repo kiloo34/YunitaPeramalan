@@ -77,7 +77,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
-                <h5>{{$hasil->a}}</h5>
+                <h5>{{round($hasil->a,2)}}</h5>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Koefisien Regresi Linier Luas Panen</h3></div>
-                <h5>{{$hasil->b1}}</h5>
+                <h5>{{round($hasil->b1,2)}}</h5>
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Koefisien Regresi Linier Curah Hujan</h3></div>
-                <h5>{{$hasil->b2}}</h5>
+                <h5>{{round($hasil->b2,2)}}</h5>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Prediksi</h3></div>
-                <h5>{{$hasil->display}}</h5>
+                <h5>{{round($hasil->display,2)}}</h5>
             </div>
         </div>
     </div>

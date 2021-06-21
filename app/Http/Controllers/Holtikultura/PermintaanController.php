@@ -162,4 +162,50 @@ class PermintaanController extends Controller
             'chart' => $chart,
         ]);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rekap()
+    {
+        $kecamatan = \DB::table('kecamatan')
+            ->orderBy('nama', 'asc')
+            ->get();
+
+        $periode = \DB::table('periode')
+            ->orderBy('tahun', 'desc')
+            ->orderBy('periode', 'desc')
+            // ->limit(20)
+            ->get();
+
+        for ($i = 0; $i < count($periode); $i++) {
+            $rekap[$i]['periode'] = $periode[$i]->tahun . ' T.' . $periode[$i]->periode;
+            $permintaan = \DB::table('permintaan')
+                ->join('kecamatan', 'kecamatan.id', '=', 'permintaan.kecamatan_id')
+                ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
+                ->where('permintaan.periode_id', $periode[$i]->id)
+                ->select('permintaan.*', 'periode.periode', 'periode.tahun')
+                ->orderBy('tahun', 'desc')
+                ->orderBy('periode', 'desc')
+                // ->limit(20)
+                ->get();
+            $rekap[$i]['permintaan'] = 0;
+            foreach ($permintaan as $p) {
+                // $nilai = (int) $p->permintaan;
+                $rekap[$i]['permintaan'] += $p->permintaan;
+            }
+        }
+        // luas lahan produksi
+        // dd($rekap);
+
+        return view('holtikultura.permintaan.rekap', [
+            'title' => 'permintaan',
+            'subtitle' => 'rekapitulasi',
+            'active' => 'permintaan',
+            'data' => $rekap
+        ]);
+    }
 }

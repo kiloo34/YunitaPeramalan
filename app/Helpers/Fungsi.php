@@ -27,111 +27,124 @@ class Fungsi
                 ->get()
                 ->count();
 
-            // dd($bulan, $check % 3, ($check % $bulan));
+            // dd($bulan, ($check % 3) == 0, ($check % $bulan) == 0);
 
-            if (($check % $bulan) == 0) {
+            if (($check % $bulan) != 0) {
                 // dd('masuk if');
-                return false;
-            } elseif ($check % 3) {
-                // dd('masuk elseif');
-                return false;
-            }
-
-            for ($i = 0; $i < count($x1); $i++) {
-                // dd($x1[$i]);
-                $x2[$i] = 0;
-                switch ($x1[$i]) {
-                    case $x1[$i]->periode == 1:
-                        $nilai = \DB::table('curah_hujan')
-                            ->where([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'januari'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'februari'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'maret'],
-                            ])
-                            ->select('nilai')
-                            ->get();
-                        foreach ($nilai as $n) {
-                            $x2[$i] += $n->nilai;
-                        }
-                        $x2[$i] = $x2[$i] / 3;
-                        // dd($x2[$i]);
-                        break;
-                    case $x1[$i]->periode == 2:
-                        $nilai = \DB::table('curah_hujan')
-                            ->where([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'april'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'mei'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'juni'],
-                            ])
-                            ->select('nilai')
-                            ->get();
-                        foreach ($nilai as $n) {
-                            $x2[$i] += $n->nilai;
-                        }
-                        $x2[$i] = $x2[$i] / 3;
-                        break;
-                    case $x1[$i]->periode == 3;
-                        $nilai = \DB::table('curah_hujan')
-                            ->where([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'juli'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'agustus'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'september'],
-                            ])
-                            ->select('nilai')
-                            ->get();
-                        foreach ($nilai as $n) {
-                            $x2[$i] += $n->nilai;
-                        }
-                        $x2[$i] = $x2[$i] / 3;
-                        break;
-                    default:
-                        $nilai = \DB::table('curah_hujan')
-                            ->where([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'oktober'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'november'],
-                            ])
-                            ->orWhere([
-                                ['tahun', $x1[$i]->tahun],
-                                ['bulan', 'desember'],
-                            ])
-                            ->select('nilai')
-                            ->get();
-                        foreach ($nilai as $n) {
-                            $x2[$i] += $n->nilai;
-                        }
-                        $x2[$i] = $x2[$i] / 3;
-                        break;
+                if (($check % 3) == 0) {
+                    // dd('masuk if if');
+                    $x2 = $this->nilaiX2($x1);
+                    // dd($x2, $x1);
+                    return $x2;
+                } else {
+                    dd('masuk if else');
+                    return false;
                 }
+                return false;
+            } else {
+                $x2 = $this->nilaiX2($x1);
+                return $x2;
             }
-            return $x2;
         } else {
             return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Produksi Kosong !!!');
         }
+    }
+
+    public function nilaiX2($x1)
+    {
+        for ($i = 0; $i < count($x1); $i++) {
+            // dd($x1[$i]);
+            $x2[$i] = 0;
+            switch ($x1[$i]) {
+                case $x1[$i]->periode == 1:
+                    $nilai = \DB::table('curah_hujan')
+                        ->where([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'januari'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'februari'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'maret'],
+                        ])
+                        ->select('nilai')
+                        ->get();
+                    foreach ($nilai as $n) {
+                        $x2[$i] += $n->nilai;
+                    }
+                    $x2[$i] = $x2[$i] / 3;
+                    // dd($x2[$i]);
+                    break;
+                case $x1[$i]->periode == 2:
+                    $nilai = \DB::table('curah_hujan')
+                        ->where([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'april'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'mei'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'juni'],
+                        ])
+                        ->select('nilai')
+                        ->get();
+                    foreach ($nilai as $n) {
+                        $x2[$i] += $n->nilai;
+                    }
+                    $x2[$i] = $x2[$i] / 3;
+                    break;
+                case $x1[$i]->periode == 3;
+                    $nilai = \DB::table('curah_hujan')
+                        ->where([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'juli'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'agustus'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'september'],
+                        ])
+                        ->select('nilai')
+                        ->get();
+                    foreach ($nilai as $n) {
+                        $x2[$i] += $n->nilai;
+                    }
+                    $x2[$i] = $x2[$i] / 3;
+                    break;
+                default:
+                    $nilai = \DB::table('curah_hujan')
+                        ->where([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'oktober'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'november'],
+                        ])
+                        ->orWhere([
+                            ['tahun', $x1[$i]->tahun],
+                            ['bulan', 'desember'],
+                        ])
+                        ->select('nilai')
+                        ->get();
+                    foreach ($nilai as $n) {
+                        $x2[$i] += $n->nilai;
+                    }
+                    $x2[$i] = $x2[$i] / 3;
+                    break;
+            }
+        }
+        // dd($x2);
+        return $x2;
     }
 
     public function getX1($id)

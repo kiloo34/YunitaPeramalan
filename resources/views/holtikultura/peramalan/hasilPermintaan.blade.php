@@ -73,7 +73,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <div class="card-description"><h3>Nilai Koefisien Regresi Permintaan (b)</h3></div>
+                <div class="card-description"><h3>Koefisien Regresi Permintaan (b)</h3></div>
                 <h5>{{$hasil->b}}</h5>
             </div>
         </div>

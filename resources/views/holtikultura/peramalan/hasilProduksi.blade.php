@@ -87,7 +87,7 @@
     <div class="col-md-4 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <div class="card-description"><h3>Nilai Koefisien Regresi Linier Luas Panen</h3></div>
+                <div class="card-description"><h3>Koefisien Regresi Linier Luas Panen</h3></div>
                 <h5>{{$hasil->b1}}</h5>
             </div>
         </div>
@@ -95,7 +95,7 @@
     <div class="col-md-4 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <div class="card-description"><h3>Nilai Koefisien Regresi Linier Curah Hujan</h3></div>
+                <div class="card-description"><h3>Koefisien Regresi Linier Curah Hujan</h3></div>
                 <h5>{{$hasil->b2}}</h5>
             </div>
         </div>

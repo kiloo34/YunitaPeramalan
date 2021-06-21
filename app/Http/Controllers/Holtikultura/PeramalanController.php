@@ -39,15 +39,15 @@ class PeramalanController extends Controller
         // dd($x1, $x2, $y, $maxPeriode);
 
         if ($x2 == false) {
-            return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Curah Hujan tidak lengkap, cek data curah hujan');
+            return redirect()->route('forecast.production.index')->with('error_msg', 'Data Curah Hujan tidak lengkap, cek data curah hujan');
         } elseif ($x1 == false || $y == false) {
-            return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
+            return redirect()->route('forecast.production.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
         }
 
         $val = new ForecastProduksi($x1, $x2, $y, $request->luas_panen, $request->curah_hujan);
 
         if ($val->res == false) {
-            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
+            return redirect()->route('forecast.production.index')->with('error_msg', 'Data Produksi ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Produksi ' . $kecamatan->nama);
         }
 
         $periode = \DB::table('periode')
@@ -122,13 +122,13 @@ class PeramalanController extends Controller
         // dd($y);
 
         if ($y == false) {
-            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
+            return redirect()->route('forecast.req.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
         }
 
         $val = new ForecastPermintaan($x, $y);
 
         if ($val->res == false) {
-            return redirect()->route('forecast.permintaan.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
+            return redirect()->route('forecast.req.index')->with('error_msg', 'Data Permintaan ' . $kecamatan->nama . ' tidak lengkap atau kosong, cek data Permintaan ' . $kecamatan->nama);
         }
 
         $periode = \DB::table('periode')

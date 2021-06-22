@@ -36,12 +36,11 @@
                                 <td>{{count($produksi->where('kecamatan_id', $k->id))}}</td>
                                 <td>
                                     @if (count($produksi->where('kecamatan_id', $k->id)) > 0)
+                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
+                                    @else
                                     @if (auth()->user()->mantri->kecamatan_id == $k->id)
                                     <a href="{{ route('produksi.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> {{__("Tambah Data")}}</a>
                                     @endif
-                                    {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info" id="produksiModal" data-produksi="{{$k->id}}"><i class="far fa-chart-bar"></i> Produksi</a> --}}
-                                    {{-- <a href="{{ route('produksi.chart', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-chart-bar"></i> produksi</a> --}}
-                                    <a href="{{ route('produksi.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
                                     @endif
 
                                 </td>

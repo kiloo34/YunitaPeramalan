@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             HoltikulturaSeeder::class,
             MantriSeeder::class,
             ProduksiSeeder::class,
-            PermintaanSeeder::class
+            PermintaanSeeder::class,
+            CurahHujanSeeder::class
         ]);
     }
 }

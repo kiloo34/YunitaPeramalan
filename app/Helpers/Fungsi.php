@@ -27,26 +27,28 @@ class Fungsi
                 ->get()
                 ->count();
 
-            // dd($bulan, ($check % 3) == 0, ($check % $bulan) == 0);
-
-            if (($check % $bulan) != 0) {
-                // dd('masuk if');
-                if (($check % 3) == 0) {
-                    // dd('masuk if if');
-                    $x2 = $this->nilaiX2($x1);
-                    // dd($x2, $x1);
-                    return $x2;
+            // dd($bulan, ($check % 3) == 0, ($check % $bulan) != 0);
+            // dd('prepare');
+            if ($bulan != 0) {
+                // dd('if 1');
+                if (($check % $bulan) != 0) {
+                    if (($check % 3) == 0) {
+                        $x2 = $this->nilaiX2($x1);
+                        // dd($x2, $x1);
+                        return $x2;
+                    } else {
+                        // dd('masuk if else');
+                        return false;
+                    }
                 } else {
-                    dd('masuk if else');
-                    return false;
+                    $x2 = $this->nilaiX2($x1);
+                    return $x2;
                 }
-                return false;
-            } else {
-                $x2 = $this->nilaiX2($x1);
-                return $x2;
+                // dd('masuk sini');
             }
         } else {
-            return redirect()->route('forecast.produksi.index')->with('error_msg', 'Data Produksi Kosong !!!');
+            // dd('masuk mising');
+            return 'dataTidakDitemukan';
         }
     }
 
@@ -262,7 +264,7 @@ class Fungsi
             ->distinct()
             ->pluck('bulan')
             ->count();
-
+        // dd($bulan);
         return $bulan;
     }
 

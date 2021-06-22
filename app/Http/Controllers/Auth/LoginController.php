@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -45,5 +47,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    protected function credentials(Request $request)
+    {
+        if (is_numeric($request->get('username'))) {
+            // dd('masuk if');
+            return ['nip' => $request->get('username'), 'password' => $request->get('password')];
+        } else {
+            // dd('masuk else');
+            return ['username' => $request->get('username'), 'password' => $request->get('password')];
+        }
     }
 }

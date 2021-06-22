@@ -31,4 +31,14 @@ class Kecamatan extends Model
     {
         return $this->hasMany('App\Models\Permintaan');
     }
+
+    /**
+     * Get the mantri that owns the Kecamatan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function mantri()
+    {
+        return $this->belongsTo('App\Models\Mantri');
+    }
 }

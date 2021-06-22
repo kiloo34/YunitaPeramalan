@@ -254,36 +254,36 @@ class CurahHujanSeeder extends Seeder
                 'bulan' => 'desember',
                 'nilai' => '148.9'
             ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'januari',
-                'nilai' => '0'
-            ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'februari',
-                'nilai' => '0'
-            ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'maret',
-                'nilai' => '0'
-            ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'april',
-                'nilai' => '0'
-            ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'mei',
-                'nilai' => '0'
-            ],
-            [
-                'tahun' => '2021',
-                'bulan' => 'juni',
-                'nilai' => '0'
-            ]
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'januari',
+            //     'nilai' => '0'
+            // ],
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'februari',
+            //     'nilai' => '0'
+            // ],
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'maret',
+            //     'nilai' => '0'
+            // ],
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'april',
+            //     'nilai' => '0'
+            // ],
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'mei',
+            //     'nilai' => '0'
+            // ],
+            // [
+            //     'tahun' => '2021',
+            //     'bulan' => 'juni',
+            //     'nilai' => '0'
+            // ]
         ]);
     }
 }

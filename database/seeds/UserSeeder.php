@@ -15,19 +15,15 @@ class UserSeeder extends Seeder
         \DB::table('users')->truncate();
         \DB::table('users')->insert([
             [
-                'email' => 'mantri@email.com',
-                'nama_depan' => 'mantri',
-                'nama_belakang' => 'tani',
+                'username' => 'mantri',
+                'nip' => '',
                 'password' => bcrypt('12345678'),
-                'avatar' => 'https://ui-avatars.com/api/?name=MantriTani',
                 'role_id' => 1
             ],
             [
-                'email' => 'holtikultura@email.com',
-                'nama_depan' => 'seksi',
-                'nama_belakang' => 'holtikultura',
+                'username' => 'holtikultura',
+                'nip' => '199801012021011001',
                 'password' => bcrypt('12345678'),
-                'avatar' => 'https://ui-avatars.com/api/?name=holtikultura',
                 'role_id' => 2
             ]
         ]);

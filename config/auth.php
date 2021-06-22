@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'holtikultura' => [
+            'driver' => 'session',
+            'provider' => 'holtikultura',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -71,10 +76,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'holtikultura' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Holtikultura::class,
+        ],
     ],
 
     /*

@@ -39,12 +39,16 @@
                                 <td>{{$p->luas_panen}}</td>
                                 <td>{{number_format($p->produksi)}}</td>
                                 <td>
+                                    @if (auth()->user()->mantri->kecamatan_id == $kecamatan->id)
                                     <a href="{{ route('produksi.edit', [$kecamatan->id, $p->id]) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Edit Data")}}</a>
                                     <a href="{{ route('produksi.destroy', $p->id) }}"
                                         class="btn btn-sm btn-danger hapus" data-toggle="tooltip" data-placement="top"
                                         title="Hapus Data" data-id="{{ $p->id }}">
                                         <i class="fa fa-trash"></i> Hapus
                                     </a>
+                                    @else
+                                    <label for="">-----</label>
+                                    @endif
                                 </td>
                                 <?php $no++; ?>
                             </tr>

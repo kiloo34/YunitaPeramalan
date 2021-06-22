@@ -16,11 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama_depan',
-        'nama_belakang',
-        'email',
-        'password',
-        'avatar',
+        'username',
+        'nip',
         'role_id'
     ];
 
@@ -38,12 +35,22 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     public function role()
     {
         return $this->belongsTo('App\Models\Role');
+    }
+
+    public function holtikultura()
+    {
+        return $this->hasOne('App\Models\Holtikultura');
+    }
+
+    public function mantri()
+    {
+        return $this->hasOne('App\Models\Mantri');
     }
 }

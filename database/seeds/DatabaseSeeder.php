@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KecamatanSeeder::class,
             PeriodeSeeder::class,
+            HoltikulturaSeeder::class,
+            MantriSeeder::class,
+            ProduksiSeeder::class,
+            PermintaanSeeder::class
         ]);
     }
 }

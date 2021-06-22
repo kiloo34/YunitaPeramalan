@@ -37,7 +37,55 @@ class PeriodeSeeder extends Seeder
             [
                 'periode' => '2',
                 'tahun' => '2018'
-            ]
+            ],
+            [
+                'periode' => '3',
+                'tahun' => '2018'
+            ],
+            [
+                'periode' => '4',
+                'tahun' => '2018'
+            ],
+            [
+                'periode' => '1',
+                'tahun' => '2019'
+            ],
+            [
+                'periode' => '2',
+                'tahun' => '2019'
+            ],
+            [
+                'periode' => '3',
+                'tahun' => '2019'
+            ],
+            [
+                'periode' => '4',
+                'tahun' => '2019'
+            ],
+            [
+                'periode' => '1',
+                'tahun' => '2020'
+            ],
+            [
+                'periode' => '2',
+                'tahun' => '2020'
+            ],
+            [
+                'periode' => '3',
+                'tahun' => '2020'
+            ],
+            [
+                'periode' => '4',
+                'tahun' => '2020'
+            ],
+            // [
+            //     'periode' => '1',
+            //     'tahun' => '2021'
+            // ],
+            // [
+            //     'periode' => '2',
+            //     'tahun' => '2021'
+            // ],
         ]);
     }
 }

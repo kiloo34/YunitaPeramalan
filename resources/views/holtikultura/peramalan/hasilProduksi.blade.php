@@ -1,6 +1,92 @@
 @extends('layouts.myview')
 @section('content')
 <div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-primary">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Nilai Konstanta (a)</h4>
+                </div>
+                <div class="card-body">
+                    {{round($hasil->a,2)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-danger">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Koefisien Regresi Linier Luas Panen</h4>
+                </div>
+                <div class="card-body">
+                    {{round($hasil->b1,2)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-danger">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Koefisien Regresi Linier Curah Hujan</h4>
+                </div>
+                <div class="card-body">
+                    {{round($hasil->b2,2)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-warning">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Prediksi</h4>
+                </div>
+                <div class="card-body">
+                    {{round($hasil->display,2)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-success">
+                <i class="fas fa-circle"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Nilai MAPE</h4>
+                </div>
+                <div class="card-body">
+                    {{round($hasil->mape,2)}} %
+                    @if ($hasil->mape < 10)
+                    <div class="card-description float-right"><h5>{{__("Akurat")}}</h5></div>
+                    @elseif($hasil->mape >= 10 || $hasil->mape < 20)
+                    <div class="card-description float-right"><h5>{{__("Baik")}}</h5></div>
+                    @elseif($hasil->mape >= 20 || $hasil->mape < 50)
+                    <div class="card-description float-right"><h5>{{__("Wajar")}}</h5></div>
+                    @else
+                    <div class="card-description float-right"><h5>{{__("Tidak Akurat")}}</h5></div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -62,8 +148,8 @@
         </div>
     </div>
 </div>
-<div class="row">
-    {{-- <div class="col-md-12">
+{{-- <div class="row">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
@@ -75,7 +161,7 @@
                 <canvas id="chartproduksi"></canvas>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
@@ -135,7 +221,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 

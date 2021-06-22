@@ -117,8 +117,9 @@ class CurahHujanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CurahHujan $curahHujan)
+    public function update(Request $request, CurahHujan $rainfall)
     {
+        // dd($rainfall);
         $request->validate([
             'bulan' => 'required|regex:/^[a-zA-Z ]+$/',
             'tahun' => 'required|numeric',
@@ -135,7 +136,7 @@ class CurahHujanController extends Controller
         // dd($hujan)
 
         \DB::table('curah_hujan')
-            ->where('id', $curahHujan->id)
+            ->where('id', $rainfall->id)
             ->update([
                 'bulan' => $request->bulan,
                 'tahun' => $request->tahun,

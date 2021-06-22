@@ -46,7 +46,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary float-right" value="Ubah">
                 </form>
-                <a href="{{ route('hujan.index') }}" class="btn icon-left btn-danger "> {{__("Kembali")}}</a>
+                <a href="{{ route('rainfall.index') }}" class="btn icon-left btn-danger "> {{__("Kembali")}}</a>
             </div>
         </div>
     </div>

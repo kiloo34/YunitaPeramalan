@@ -25,7 +25,7 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$p->nama_depan}}</td>
-                                <td>{{$p->nama_depan}}</td>
+                                <td>{{$p->nama_belakang}}</td>
                                 <td>{{$p->namaKecamatan}}</td>
                                 <td>
                                     <a href="{{ route('period.destroy', $p->id) }}"

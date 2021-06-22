@@ -53,7 +53,7 @@ class MantriController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->nama_belakang);
+        // dd($request->nama_belakang);
         $request->validate([
             'nama_depan' => 'required|regex:/^[a-zA-Z ]+$/',
             'nama_belakang' => 'required|regex:/^[a-zA-Z ]+$/',

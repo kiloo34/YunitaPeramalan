@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Mantri;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
@@ -24,6 +23,7 @@ class ProfilController extends Controller
             'nama_depan' => 'required|max:255',
             'nama_belakang' => 'required|max:255',
             'password' => 'required|min:8|confirmed',
+            'username' => 'required|unique:users,username,' . $user->username
         ], [
             'nama_depan.required' => 'Bulan harap diisi',
             'nama_depan.max' => 'Nama Depan maksimal 255 karakter',
@@ -32,7 +32,8 @@ class ProfilController extends Controller
             'password.required' => 'password harap diisi',
             'password.min' => 'Password minimal 8 karakter',
             'password.confirmed' => 'Password tidak sama dengan Konfirmasi password',
-
+            'username.required' => 'Username harap diisi',
+            'username.unique' => 'Username sudah tersedia gunakan username lain',
         ]);
 
         \DB::table('users')
@@ -41,7 +42,7 @@ class ProfilController extends Controller
             ])
             ->update([
                 'username' => $request->username,
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
             ]);
 
         \DB::table('mantri')

@@ -16,6 +16,7 @@
                             <th>{{__('No')}}</th>
                             <th>{{__('Nama Depan')}}</th>
                             <th>{{__('Nama Belakang')}}</th>
+                            <th>{{__('Username')}}</th>
                             <th>{{__('Kecamatan')}}</th>
                             <th>{{__('Aksi')}}</th>
                         </thead>
@@ -26,6 +27,7 @@
                                 <td>{{$no}}</td>
                                 <td>{{$p->nama_depan}}</td>
                                 <td>{{$p->nama_belakang}}</td>
+                                <td>{{$p->usernameMantri}}</td>
                                 <td>{{$p->namaKecamatan}}</td>
                                 <td>
                                     <a href="{{ route('mantriTani.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Ubah")}}</a>

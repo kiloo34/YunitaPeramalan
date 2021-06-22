@@ -18,7 +18,8 @@ class MantriController extends Controller
     {
         $data = \DB::table('mantri')
             ->join('kecamatan', 'kecamatan.id', '=', 'mantri.kecamatan_id')
-            ->select('mantri.*', 'kecamatan.nama as namaKecamatan')
+            ->join('users', 'users.id', '=', 'mantri.user_id')
+            ->select('mantri.*', 'kecamatan.nama as namaKecamatan', 'users.username as usernameMantri')
             ->get();
         // dd($data);
         return view('holtikultura.mantri.index', [
@@ -54,7 +55,7 @@ class MantriController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->nama_belakang);
+        // dd($request->nama_depan . rand());
         $request->validate([
             'nama_depan' => 'required|regex:/^[a-zA-Z ]+$/',
             'nama_belakang' => 'required|regex:/^[a-zA-Z ]+$/',
@@ -67,17 +68,18 @@ class MantriController extends Controller
             'kecamatan.required' => 'Kecamatan harus diisi'
         ]);
 
+        $username = $request->nama_depan . rand();
+        // dd($username);
         \DB::table('users')
             ->insert([
-                'username' => $request->nama_depan,
+                'username' => $username,
                 'role_id' => 1,
                 'password' => bcrypt('12345678')
             ]);
 
         $user = \DB::table('users')
-            ->where('username', $request->nama_depan)
+            ->where('username', $username)
             ->first();
-        // dd($user);
 
         \DB::table('mantri')
             ->insert([
@@ -167,8 +169,12 @@ class MantriController extends Controller
      */
     public function destroy($id)
     {
-        $target = Mantri::where('id', $id);
-        $target->delete();
+        $data = \DB::table('users')
+            ->join('mantri', 'users.id', '=', 'mantri.user_id')
+            ->where('mantri.id', $id)
+            ->delete();
+        \DB::table('mantri')->where('id', $id)->delete();
+        // $data->delete();
         return response()->json([
             'message' => 'Mantri berhasil dihapus!'
         ]);

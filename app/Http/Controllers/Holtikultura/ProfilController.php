@@ -24,6 +24,7 @@ class ProfilController extends Controller
             'nama_belakang' => 'required|max:255',
             'nip' => 'required|numeric',
             'password' => 'required|min:8|confirmed',
+            'username' => 'required|unique:users,username,' . $user->username
         ], [
             'nama_depan.required' => 'Bulan harap diisi',
             'nama_depan.max' => 'Nama Depan maksimal 255 karakter',
@@ -35,7 +36,8 @@ class ProfilController extends Controller
             'password.required' => 'password harap diisi',
             'password.min' => 'Password minimal 8 karakter',
             'password.confirmed' => 'Password tidak sama dengan Konfirmasi password',
-
+            'username.required' => 'Username harap diisi',
+            'username.unique' => 'Username sudah tersedia gunakan username lain',
         ]);
 
         // dd('masuk');

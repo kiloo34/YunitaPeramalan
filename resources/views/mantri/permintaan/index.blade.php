@@ -35,12 +35,11 @@
                                 <td>{{ucfirst($k->nama)}}</td>
                                 <td>{{count($permintaan->where('kecamatan_id', $k->id))}}</td>
                                 <td>
-                                    @if (count($permintaan->where('kecamatan_id', $k->id)) > 0)
-                                    <a href="{{ route('permintaan.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
-                                    @else
                                     @if (auth()->user()->mantri->kecamatan_id == $k->id)
                                     <a href="{{ route('permintaan.create', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-plus"></i> {{__("Tambah Data")}}</a>
                                     @endif
+                                    @if (count($permintaan->where('kecamatan_id', $k->id)) > 0)
+                                    <a href="{{ route('permintaan.show', $k->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info-circle"></i> {{__("Detail")}}</a>
                                     @endif
                                 </td>
                                 <?php $no++ ?>

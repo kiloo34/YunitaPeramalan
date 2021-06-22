@@ -99,32 +99,73 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+    {{-- <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Chart {{ucfirst($title)}} Kecamatan {{$kecamatan->nama}}</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('forecast.produksi.index') }}" class="btn btn-danger">Kembali </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="chartproduksi"></canvas>
+            </div>
+        </div>
+    </div> --}}
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <div class="card-description"><h3>Prediksi</h3></div>
-                <h5>{{round($hasil->display,2)}}</h5>
+                <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
+                <h5>{{round($hasil->a,2)}}</h5>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
-                <h3>Nilai MAPE</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>{{round($hasil->mape,2)}} %</h5>
+                <div class="card-description"><h3>Koefisien Regresi Linier Luas Panen</h3></div>
+                <h5>{{round($hasil->b1,2)}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-description"><h3>Koefisien Regresi Linier Curah Hujan</h3></div>
+                <h5>{{round($hasil->b2,2)}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-hero">
+                    <div class="card-header">
+                        <div class="card-description"><h3>Prediksi</h3></div>
+                        <h5>{{round($hasil->display,2)}}</h5>
                     </div>
-                    <div class="col-md-6">
-                        @if ($hasil->mape < 10)
-                        <div class="card-description float-right"><h5>{{__("Akurat")}}</h5></div>
-                        @elseif($hasil->mape >= 10 || $hasil->mape < 20)
-                        <div class="card-description float-right"><h5>{{__("Baik")}}</h5></div>
-                        @elseif($hasil->mape >= 20 || $hasil->mape < 50)
-                        <div class="card-description float-right"><h5>{{__("Wajar")}}</h5></div>
-                        @else
-                        <div class="card-description float-right"><h5>{{__("Tidak Akurat")}}</h5></div>
-                        @endif
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card card-hero">
+                    <div class="card-header">
+                        <h3>Nilai MAPE</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>{{round($hasil->mape,2)}} %</h5>
+                            </div>
+                            <div class="col-md-6">
+                                @if ($hasil->mape < 10)
+                                <div class="card-description float-right"><h5>{{__("Akurat")}}</h5></div>
+                                @elseif($hasil->mape >= 10 || $hasil->mape < 20)
+                                <div class="card-description float-right"><h5>{{__("Baik")}}</h5></div>
+                                @elseif($hasil->mape >= 20 || $hasil->mape < 50)
+                                <div class="card-description float-right"><h5>{{__("Wajar")}}</h5></div>
+                                @else
+                                <div class="card-description float-right"><h5>{{__("Tidak Akurat")}}</h5></div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

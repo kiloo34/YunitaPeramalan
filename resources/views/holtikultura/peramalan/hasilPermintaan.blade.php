@@ -61,7 +61,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Nilai Konstanta (a)</h3></div>
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Koefisien Regresi Permintaan (b)</h3></div>
@@ -78,9 +78,9 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6 col-sm-12">
+{{-- </div> --}}
+{{-- <div class="row"> --}}
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
                 <div class="card-description"><h3>Prediksi</h3></div>
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="card card-hero">
             <div class="card-header">
                 <h3>Nilai MAPE</h3>

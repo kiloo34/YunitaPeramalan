@@ -77,9 +77,9 @@
 
         </div>
     </div>
-    <div class="mt-5 text-muted text-center">
+    {{-- <div class="mt-5 text-muted text-center">
         Tidak Punya Akun? <a href="{{ route('register') }}">Daftar Akun</a>
-    </div>
+    </div> --}}
     {{-- <div class="simple-footer">
         Copyright &copy; SIMPAPI
     </div> --}}

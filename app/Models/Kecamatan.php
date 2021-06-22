@@ -39,6 +39,6 @@ class Kecamatan extends Model
      */
     public function mantri()
     {
-        return $this->belongsTo('App\Models\Mantri');
+        return $this->hasOne('App\Models\Mantri');
     }
 }

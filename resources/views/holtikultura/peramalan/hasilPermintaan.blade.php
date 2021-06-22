@@ -6,7 +6,7 @@
             <div class="card-header">
                 <h4>{{__("Perhitungan")}}</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('forecast.production.index') }}" class="btn btn-danger">{{__("Kembali")}}</a>
+                    <a href="{{ route('forecast.req.index') }}" class="btn btn-danger">{{__("Kembali")}}</a>
                 </div>
             </div>
             <div class="card-body">

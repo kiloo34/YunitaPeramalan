@@ -33,6 +33,6 @@ class Mantri extends Model
      */
     public function kecamatan()
     {
-        return $this->hasOne('App\Models\Kecamatan');
+        return $this->belongsTo('App\Models\Kecamatan');
     }
 }

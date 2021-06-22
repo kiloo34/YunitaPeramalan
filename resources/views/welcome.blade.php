@@ -79,10 +79,6 @@
                     @endif
                     @else
                     <a href="{{ route('login') }}"> {{__("Login")}}</a>
-                    {{-- <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li> --}}
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}"> {{__("Register")}}</a>
-                    @endif
                     @endauth
                 </div>
             </div>

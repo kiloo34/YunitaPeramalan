@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Holtikultura;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mantri;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -96,9 +97,14 @@ class MantriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Mantri $mantriTani)
     {
-        //
+        return view('holtikultura.mantri.detail', [
+            'title' => 'mantri',
+            'subtitle' => 'detail',
+            'active' => 'mantri',
+            'mantri' => $mantriTani
+        ]);
     }
 
     /**
@@ -107,9 +113,17 @@ class MantriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Mantri $mantriTani)
     {
-        //
+        // dd($mantriTani->kecamatan->nama);
+        $kecamatan = \DB::table('kecamatan')->get();
+        return view('holtikultura.mantri.edit', [
+            'title' => 'mantri',
+            'subtitle' => 'edit',
+            'active' => 'mantri',
+            'mantri' => $mantriTani,
+            'kecamatan' => $kecamatan
+        ]);
     }
 
     /**
@@ -119,9 +133,30 @@ class MantriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Mantri $mantriTani)
     {
-        //
+        $request->validate([
+            'nama_depan' => 'required|regex:/^[a-zA-Z ]+$/',
+            'nama_belakang' => 'required|regex:/^[a-zA-Z ]+$/',
+            'kecamatan' => 'required'
+        ], [
+            'nama_depan.regex' => 'Nama Depan harus huruf',
+            'nama_depan.required' => 'Nama Depan harap diisi',
+            'nama_belakang.regex' => 'Nama Belakang harus huruf',
+            'nama_belakang.required' => 'Nama Belakang harap diisi',
+            'kecamatan.required' => 'Kecamatan harus diisi'
+        ]);
+        // dd($mantriTani->id, $request->kecamatan);
+        \DB::table('mantri')
+            ->where('id', $mantriTani->id)
+            ->update([
+                'nama_depan' => $request->nama_depan,
+                'nama_belakang' => $request->nama_belakang,
+                'kecamatan_id' => $request->kecamatan,
+                'avatar' => 'https://ui-avatars.com/api/?name=' . $request->nama_depan
+            ]);
+
+        return redirect()->route('mantriTani.index')->with('success_msg', 'Mantri ' . $request->nama_depan . ' berhasil ubah');
     }
 
     /**
@@ -132,6 +167,10 @@ class MantriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $target = Mantri::where('id', $id);
+        $target->delete();
+        return response()->json([
+            'message' => 'Mantri berhasil dihapus!'
+        ]);
     }
 }

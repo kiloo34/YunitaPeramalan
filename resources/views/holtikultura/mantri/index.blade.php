@@ -28,11 +28,9 @@
                                 <td>{{$p->nama_belakang}}</td>
                                 <td>{{$p->namaKecamatan}}</td>
                                 <td>
-                                    <a href="{{ route('period.destroy', $p->id) }}"
-                                        class="btn btn-sm btn-info hapus" data-toggle="tooltip" data-placement="top"
-                                        title="Hapus Data" data-id="{{ $p->id }}">
-                                        <i class="fa fa-info"></i>  {{__("Detail")}}
-                                    </a>
+                                    <a href="{{ route('mantriTani.edit', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> {{__("Ubah")}}</a>
+                                    <a href="{{ route('mantriTani.show', $p->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-info"></i> {{__("Detail")}}</a>
+                                    <a href="{{ route('mantriTani.destroy', $p->id) }}"class="btn btn-sm btn-danger hapus" title="Hapus Data" data-id="{{ $p->id }}"><i class="fa fa-trash"></i>  {{__("Hapus")}}</a>
                                 </td>
                                 <?php $no++ ?>
                             </tr>
@@ -60,7 +58,7 @@
 
         var id = $(this).data("id");
         // var url = $('.hapus').attr('href');
-        var url = "{{ route('period.destroy', ":id") }}";
+        var url = "{{ route('mantriTani.destroy', ":id") }}";
         url = url.replace(':id', id);
         $object=$(this);
 

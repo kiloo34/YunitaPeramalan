@@ -13,6 +13,7 @@ use Mantri\PermintaanController;
 use App\Http\Controllers\Mantri\PeramalanController;
 
 use App\Http\Controllers\Holtikultura\HomeController as HoltikulturaDashboard;
+use Holtikultura\MantriController;
 use App\Http\Controllers\Holtikultura\ProduksiController as HoltikulturaProduksiController;
 use Holtikultura\KecamatanController as HoltikulturaKecamatanController;
 use Holtikultura\CurahHujanController as HoltikulturaCurahHujanController;
@@ -92,6 +93,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('forecast/production/{kecamatan}', [HoltikulturaPeramalanController::class, 'prosesProduksi'])->name('forecast.production.proses');
         Route::get('forecast/req', [HoltikulturaPeramalanController::class, 'permintaan'])->name('forecast.req.index');
         Route::get('forecast/req/{kecamatan}', [HoltikulturaPeramalanController::class, 'prosesPermintaan'])->name('forecast.req.proses');
+        // Mantri
+        Route::resource('mantriTani', MantriController::class);
     });
 });
 

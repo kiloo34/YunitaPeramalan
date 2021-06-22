@@ -109,9 +109,9 @@
                 </ul>
             </li>
 
-            <li class="nav-item dropdown {{ $active == 'kecamatan' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $active == 'mantri' ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="#">
+                    href="{{ route('mantriTani.index') }}">
                     <i class="far fa-user"></i>
                     <span>{{__('Mantri')}}</span>
                 </a>

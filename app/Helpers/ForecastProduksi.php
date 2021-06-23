@@ -39,6 +39,7 @@ class ForecastProduksi
 
         $res,
         $mape,
+        $sigmaY,
         $display; //Highlight
 
 
@@ -68,8 +69,12 @@ class ForecastProduksi
                 // dd('x1 exponent', $this->x1ex, 'x2 exponent', $this->x2ex, 'y exponent', $this->yex, 'x1y exponent', $this->x1y, 'x2y exponent', $this->x2y, 'x1x2 exponent', $this->x1x2);
                 $this->aritmetika();
                 $this->ab1b2();
-                // dd('masuk');
                 $this->linear_regression($this->inputX1, $this->inputX2);
+                for ($i = 0; $i < count($this->res); $i++) {
+                    if ($i != (count($this->res) - 1)) {
+                        $this->sigmaY += $this->res[$i];
+                    }
+                }
                 $this->mape();
             } else {
                 return false;
@@ -127,7 +132,7 @@ class ForecastProduksi
     {
         // =P15+(P13*Q17)+(P14*Q18)
         // =P15+(P13*D7)+(P14*E7)
-        $y = $this->a + ($this->b1 * $x1) + ($this->b2 * $x2);
+        $y = round($this->a + ($this->b1 * $x1) + ($this->b2 * $x2), 0);
         return $y;
     }
 
@@ -140,7 +145,7 @@ class ForecastProduksi
             } else {
                 $this->res[$i] = round($this->forecast($inputX1, $inputX2), 4);
                 $this->display = round($this->forecast($inputX1, $inputX2), 4);
-                $this->res[$i + 1] = $this->display;
+                // $this->res[$i + 1] = $this->display;
             }
         }
     }

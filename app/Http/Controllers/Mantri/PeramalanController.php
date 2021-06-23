@@ -57,33 +57,33 @@ class PeramalanController extends Controller
             ->limit(20)
             ->get();
 
-        foreach ($periode as $p) {
-            $data = \DB::table('produksi')
-                ->join('periode', 'periode.id', '=', 'produksi.periode_id')
-                ->where('kecamatan_id', $kecamatan->id)
-                ->where([
-                    ['periode.periode', $p->periode],
-                    ['periode.tahun', $p->tahun]
-                ])
-                ->select('produksi.*', 'periode.periode', 'periode.tahun')
-                ->orderBy('tahun', 'asc')
-                ->orderBy('periode', 'asc')
-                ->first();
-            if ($data) {
+        // foreach ($periode as $p) {
+        //     $data = \DB::table('produksi')
+        //         ->join('periode', 'periode.id', '=', 'produksi.periode_id')
+        //         ->where('kecamatan_id', $kecamatan->id)
+        //         ->where([
+        //             ['periode.periode', $p->periode],
+        //             ['periode.tahun', $p->tahun]
+        //         ])
+        //         ->select('produksi.*', 'periode.periode', 'periode.tahun')
+        //         ->orderBy('tahun', 'asc')
+        //         ->orderBy('periode', 'asc')
+        //         ->first();
+        //     if ($data) {
 
-                $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-                $chart['data'][] = (int) $data->produksi;
-            }
-        }
+        //         $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+        //         $chart['data'][] = (int) $data->produksi;
+        //     }
+        // }
 
-        for ($i = 0; $i < count($val->res); $i++) {
-            $chart['ramal'][] = (int) $val->res[$i];
-            if ($i == count($periode) && $maxPeriode == 4) {
-                $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
-            } else {
-                $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
-            }
-        }
+        // for ($i = 0; $i < count($val->res); $i++) {
+        //     $chart['ramal'][] = (int) $val->res[$i];
+        //     if ($i == count($periode) && $maxPeriode == 4) {
+        //         $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
+        //     } else {
+        //         $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
+        //     }
+        // }
 
         // dd($chart, $val, $periode);
 
@@ -92,7 +92,7 @@ class PeramalanController extends Controller
             'subtitle' => 'hasil',
             'active' => 'forePro',
             'kecamatan' => $kecamatan,
-            'chart' => $chart,
+            // 'chart' => $chart,
             'hasil' => $val,
             'periode' => $periode
         ]);
@@ -138,33 +138,33 @@ class PeramalanController extends Controller
             ->limit(20)
             ->get();
 
-        foreach ($periode as $p) {
-            $data = \DB::table('permintaan')
-                ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
-                ->where('kecamatan_id', $kecamatan->id)
-                ->where([
-                    ['periode.periode', $p->periode],
-                    ['periode.tahun', $p->tahun]
-                ])
-                ->select('permintaan.*', 'periode.periode', 'periode.tahun')
-                ->orderBy('tahun', 'asc')
-                ->orderBy('periode', 'asc')
-                ->first();
-            if ($data) {
+        // foreach ($periode as $p) {
+        //     $data = \DB::table('permintaan')
+        //         ->join('periode', 'periode.id', '=', 'permintaan.periode_id')
+        //         ->where('kecamatan_id', $kecamatan->id)
+        //         ->where([
+        //             ['periode.periode', $p->periode],
+        //             ['periode.tahun', $p->tahun]
+        //         ])
+        //         ->select('permintaan.*', 'periode.periode', 'periode.tahun')
+        //         ->orderBy('tahun', 'asc')
+        //         ->orderBy('periode', 'asc')
+        //         ->first();
+        //     if ($data) {
 
-                $chart['label'][] = $p->tahun . ' T.' . $p->periode;
-                $chart['data'][] = (int) $data->permintaan;
-            }
-        }
+        //         $chart['label'][] = $p->tahun . ' T.' . $p->periode;
+        //         $chart['data'][] = (int) $data->permintaan;
+        //     }
+        // }
 
-        for ($i = 0; $i < count($val->res); $i++) {
-            $chart['ramal'][] = (int) $val->res[$i];
-            if ($i == count($periode) && $maxPeriode == 4) {
-                $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
-            } else {
-                $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
-            }
-        }
+        // for ($i = 0; $i < count($val->res); $i++) {
+        //     $chart['ramal'][] = (int) $val->res[$i];
+        //     if ($i == count($periode) && $maxPeriode == 4) {
+        //         $chart['label'][$i] = $p->tahun + 1 . ' T.' . 1;
+        //     } else {
+        //         $chart['label'][$i] = $p->tahun + 1 . ' T.' . $maxPeriode;
+        //     }
+        // }
 
         // dd($chart, $val);
 
@@ -173,7 +173,7 @@ class PeramalanController extends Controller
             'subtitle' => 'hasil',
             'active' => 'forePer',
             'kecamatan' => $kecamatan,
-            'chart' => $chart,
+            // 'chart' => $chart,
             'hasil' => $val,
             'periode' => $periode
         ]);

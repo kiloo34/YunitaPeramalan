@@ -21,33 +21,33 @@ class Fungsi
             ->get()
             ->toArray();
         // dd($x1);
-        if ($x1) {
-            $bulan = $this->getHujanBulan();
-            $check = \DB::table('curah_hujan')
-                ->get()
-                ->count();
 
-            // dd($bulan, ($check % 3) == 0, ($check % $bulan) != 0);
-            // dd('prepare');
+        $bulan = $this->getHujanBulan();
+        $check = \DB::table('curah_hujan')
+            ->get()
+            ->count();
+
+        // dd($bulan, ($check % 3) == 0, ($check % $bulan) != 0, count($x1), ($check / 3) == count($x1));
+
+        if ($x1) {
             if ($bulan != 0) {
-                // dd('if 1');
-                if (($check % $bulan) != 0) {
-                    if (($check % 3) == 0) {
-                        $x2 = $this->nilaiX2($x1);
-                        // dd($x2, $x1);
-                        return $x2;
+                if (($check / 3) == count($x1)) {
+                    if (($check % $bulan) != 0) {
+                        if (($check % 3) == 0) {
+                            $x2 = $this->nilaiX2($x1);
+                            return $x2;
+                        } else {
+                            return 'datacurahhujankurang';
+                        }
                     } else {
-                        // dd('masuk if else');
-                        return false;
+                        $x2 = $this->nilaiX2($x1);
+                        return $x2;
                     }
                 } else {
-                    $x2 = $this->nilaiX2($x1);
-                    return $x2;
+                    return 'dataproduksikurang';
                 }
-                // dd('masuk sini');
             }
         } else {
-            // dd('masuk mising');
             return 'dataTidakDitemukan';
         }
     }
@@ -229,7 +229,6 @@ class Fungsi
             if ($periodeTahun == count($a['countPeriodeTahun'])) {
                 for ($i = 0; $i < count($a['countPeriodeTahun']); $i++) {
                     if ($periode == count($a['countPeriodeTahun'][$i])) {
-                        // dd(count($a['countPeriodeTahun'][$i]));
                         for ($i = 0; $i < count($data); $i++) {
                             $y[$i] = $data[$i]->permintaan;
                         }
@@ -275,7 +274,7 @@ class Fungsi
             ->distinct()
             ->pluck('tahun')
             ->count();
-
+        // dd($tahun);
         return $tahun;
     }
 

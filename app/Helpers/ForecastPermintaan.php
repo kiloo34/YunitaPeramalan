@@ -21,6 +21,7 @@ class ForecastPermintaan
 
         $res,
         $mape,
+        $sigmaY = 0,
         $display; //Highlight
 
     public function __construct($x = null, $y = null)
@@ -42,6 +43,11 @@ class ForecastPermintaan
                 $this->prepare_calculation();
                 $this->ab();
                 $this->linear_regression();
+                for ($i = 0; $i < count($this->res); $i++) {
+                    if ($i != (count($this->res) - 1)) {
+                        $this->sigmaY += $this->res[$i];
+                    }
+                }
                 $this->mape();
             } else {
                 return false;
@@ -81,7 +87,7 @@ class ForecastPermintaan
     public function forecast($x, $periode = 0)
     {
         // =L3+L4*E6
-        $y = $this->a + $this->b * ($x + $periode);
+        $y = round($this->a + $this->b * ($x + $periode), 0);
         return $y;
     }
 
@@ -94,7 +100,7 @@ class ForecastPermintaan
             } else {
                 $this->res[$i] = $this->forecast($this->x['nilai'][$i], 1);
                 $this->display = round($this->forecast($this->x['nilai'][$i], 1), 4);
-                $this->res[$i + 1] = $this->display;
+                // $this->res[$i + 1] = $this->display;
             }
             // if ($i == 0) {
             //     $this->res[$i] = 0;
@@ -106,7 +112,6 @@ class ForecastPermintaan
             //     $this->display = round($this->forecast($this->x['nilai'][$i], 1), 4);
             // }
         }
-        // dd($this->res);
     }
 
     public function mape()

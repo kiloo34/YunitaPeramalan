@@ -225,7 +225,7 @@
 
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
     $(document).ready(function() {
         // $('#produksi').DataTable();
@@ -275,6 +275,5 @@
     });
 </script>
 @endpush
-{{-- @endsection --}}
 @include('import.datatable')
-@include('import.chartjs')
+@include('import.chartjs') --}}

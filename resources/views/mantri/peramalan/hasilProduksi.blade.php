@@ -221,10 +221,9 @@
 </div> --}}
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
     $(document).ready(function() {
-        // $('#produksi').DataTable();
 
         var ctx = document.getElementById("chartproduksi").getContext('2d');
         var myChart = new Chart(ctx, {
@@ -271,6 +270,5 @@
     });
 </script>
 @endpush
-{{-- @endsection --}}
 @include('import.datatable')
-@include('import.chartjs')
+@include('import.chartjs') --}}

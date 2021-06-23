@@ -82,6 +82,7 @@ class ForecastPermintaan
         // =((16*G20)-(E20*D20))/(16*F20*(E20^2))
         $b = (($this->n * array_sum($this->yx)) - (array_sum($this->y) * array_sum($this->x['nilai']))) / ($this->n * array_sum($this->xex) * (pow(array_sum($this->x['nilai']), 2)));
         $this->b = round($b, 4);
+        // dd($this->a, $this->b);
     }
 
     public function forecast($x, $periode = 0)
@@ -120,12 +121,14 @@ class ForecastPermintaan
         // =ABS((D5-H5)/D5)
         // dd($this->res);
         for ($i = 0; $i < count($this->y); $i++) {
-            if ($i == 0) {
-                $arr[$i] = 0;
-            } else {
-                $arr[$i] = abs(($this->y[$i] - $this->res[$i]) / $this->y[$i]);
-            }
+            $arr[$i] = abs(($this->y[$i] - $this->res[$i]) / $this->y[$i]);
+            // if ($i == 0) {
+            //     $arr[$i] = 0;
+            // } else {
+            //     $arr[$i] = abs(($this->y[$i] - $this->res[$i]) / $this->y[$i]);
+            // }
         }
+        // dd($arr);
         // =(SUM(M6:M21)/16)*100%
         $this->mape = round((array_sum($arr) / count($this->y)), 4);
     }
